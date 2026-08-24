@@ -1,0 +1,442 @@
+# -<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أهلاً بعودتك يا كل الدنيا | مياسم ❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,700&family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(180deg, #070a12 0%, #0b0f19 50%, #111625 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px 90px 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* اسم مياسم بالخلفية بخط عريض وسميك */
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20vw;
+            font-weight: 900;
+            color: rgba(226, 172, 178, 0.02);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+        }
+
+        /* القلوب الخافتة في الخلفية */
+        .floating-heart {
+            position: fixed;
+            top: -30px;
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* الهيدر الرئيسي */
+        .main-header {
+            text-align: center;
+            padding: 30px 10px 10px 10px;
+        }
+
+        .main-header .subtitle {
+            color: #e2acb2;
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .main-header h1 {
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: #ffffff;
+            line-height: 1.3;
+            margin-bottom: 18px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .main-header p {
+            color: #94a3b8;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.8;
+        }
+
+        /* كرت استقبال المطار السينمائي الفخم */
+        .airport-hero-card {
+            background: rgba(17, 22, 37, 0.65);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 172, 178, 0.25);
+            border-radius: 28px;
+            padding: 40px 25px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(226, 172, 178, 0.08);
+            text-align: center;
+        }
+
+        .glowing-icon {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 25px auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffffff 0%, #e2acb2 40%, #b86b77 100%);
+            box-shadow: 0 0 40px #e2acb2, 0 0 80px rgba(226, 172, 178, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.2rem;
+        }
+
+        .airport-hero-card h2 {
+            font-size: 1.9rem;
+            font-weight: 900;
+            color: #e2acb2;
+            margin-bottom: 15px;
+        }
+
+        .airport-hero-card p {
+            color: #cbd5e1;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.9;
+        }
+
+        /* تسلسل الأحداث الممتد */
+        .timeline-section {
+            border-right: 3px solid rgba(226, 172, 178, 0.3);
+            margin-right: 15px;
+            padding-right: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: -32px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #e2acb2;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #e2acb2;
+        }
+
+        .timeline-item h3 {
+            color: #e2acb2;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item p {
+            color: #cbd5e1;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        /* بطاقة الصعود الراقية (Rose Gold & Dark) */
+        .boarding-pass {
+            background: linear-gradient(145deg, #161c2d 0%, #0d121f 100%);
+            border: 1px solid rgba(226, 172, 178, 0.3);
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .pass-header {
+            background: linear-gradient(90deg, #b86b77 0%, #e2acb2 100%);
+            color: #0b0f19;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pass-header h3 {
+            font-size: 1.3rem;
+            font-weight: 900;
+        }
+
+        .pass-grid {
+            padding: 30px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .pass-field label {
+            display: block;
+            font-size: 0.8rem;
+            color: #8395a7;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .pass-field span {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .pass-footer {
+            background: rgba(226, 172, 178, 0.05);
+            border-top: 1px dashed rgba(226, 172, 178, 0.2);
+            padding: 18px 20px;
+            text-align: center;
+            font-weight: 800;
+            color: #e2acb2;
+            font-size: 1rem;
+        }
+
+        /* الرسالة الفخمة */
+        .letter-card {
+            background: rgba(17, 22, 37, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 40px 30px;
+            line-height: 2.2;
+            font-size: 1.2rem;
+            color: #f1f5f9;
+        }
+
+        .letter-card p {
+            margin-bottom: 25px;
+            text-align: justify;
+            font-weight: 700;
+        }
+
+        .letter-card .highlight {
+            color: #e2acb2;
+            font-weight: 900;
+        }
+
+        /* أزرار التفاعل الراقية */
+        .actions-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .action-btn {
+            background: linear-gradient(90deg, #b86b77 0%, #e2acb2 100%);
+            color: #0b0f19;
+            border: none;
+            padding: 20px 25px;
+            border-radius: 20px;
+            font-size: 1.25rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 12px 35px rgba(226, 172, 178, 0.25);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            border: 1px solid rgba(226, 172, 178, 0.3);
+            box-shadow: none;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- اسم مياسم بالخلفية -->
+    <div class="bg-watermark">Miasem</div>
+
+    <div class="container">
+
+        <!-- الهيدر الرئيسي -->
+        <div class="main-header">
+            <span class="subtitle">حمداً لله على سلامتكِ يا ضي العين ✨</span>
+            <h1>أنارت الدنيا بعودتكِ يا مياسم ❤️</h1>
+            <p>16 يوماً من السفر والغياب.. واليوم تعود الروح بسلامة وصولكِ يا سوسو</p>
+        </div>
+
+        <!-- كرت استقبال المطار السينمائي -->
+        <div class="airport-hero-card">
+            <div class="glowing-icon">✈️</div>
+            <h2>التي تضيء كل مكان تطأه قدمها ✨</h2>
+            <p>مهما باعدت بيننا المسافات والمدن.. تبقين القريبة دائماً لقلبي، وينتشر الدفء والورد مع كل لحظة تعود فيها إشراقتكِ المعهودة.</p>
+        </div>
+
+        <!-- تسلسل الأحداث والمشاعر -->
+        <div class="timeline-section">
+            <div class="timeline-item">
+                <h3>لحظة المغادرة (قبل 16 يوماً)</h3>
+                <p>انطلقت رحلتكِ، وظلت الأيام تعبر بطيئة جداً.. كان السفر حاضراً والمسافة بعيدة، لكن الطيف والبال لم يغبا لحظة واحدة.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>أيام الشوق والانتظار (سوسو الغالية)</h3>
+                <p>في كل يوم، كان دعائي يحرسكِ في كل خطوة ومحطة، منتظراً هذه اللحظة الدافئة التي تعودين فيها بالسلامة والعافية يا مسومي.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>عَوْدة التواصل والدفء (اليوم)</h3>
+                <p>وصلتِ بسلامة الله، وعاد التواصل بيننا ليضيء المسافات من جديد.. <span style="color: #e2acb2; font-weight: 900;">وكأن الحياة عادت لتبتسم!</span></p>
+            </div>
+        </div>
+
+        <!-- بطاقة صعود طائرة ملكية -->
+        <div class="boarding-pass">
+            <div class="pass-header">
+                <h3>تذكرة وصول واستقرار 🎫</h3>
+                <span>CONNECTING HEARTS AIRWAYS</span>
+            </div>
+            <div class="pass-grid">
+                <div class="pass-field">
+                    <label>اسم المسافرة</label>
+                    <span>مياسم (سوسو) ❤️</span>
+                </div>
+                <div class="pass-field">
+                    <label>اللقب المميز</label>
+                    <span>أغلى من سكن البال ✨</span>
+                </div>
+                <div class="pass-field">
+                    <label>جهة المغادرة</label>
+                    <span>أرض السفر والغياب</span>
+                </div>
+                <div class="pass-field">
+                    <label>حالة التواصل</label>
+                    <span>عادت الروح والاتصال 📱💖</span>
+                </div>
+                <div class="pass-field">
+                    <label>درجة المكانة</label>
+                    <span>VIP الأولى دائماً</span>
+                </div>
+                <div class="pass-field">
+                    <label>حالة الرحلة</label>
+                    <span style="color: #10b981;">وصلت بحفظ الله</span>
+                </div>
+            </div>
+            <div class="pass-footer">
+                🌷 أهلاً بـ مسومي.. نورتِ دنيتك ومدينتك 🌷
+            </div>
+        </div>
+
+        <!-- الرسالة الفخمة -->
+        <div class="letter-card">
+            <p><strong>يا بعد هالدنيا يا مياسم.. يا ضي العيون ونور الأيام ❤️</strong></p>
+            <p>الحمد لله على سلامتكِ يا <span class="highlight">سوسو</span>.. الحمد لله الذي أقرّ عيني برجعتكِ سالمة غانمة من سفركِ. الـ 16 يوماً الماضية كانت ثقيلة في انتظار عودتكِ، واليوم يسعدني جداً أن تبدأ صفحة جديدة يعود فيها تواصلنا ودفء حديثنا المعهود.</p>
+            <p>رغم أن كل منا في مدينته، إلا أن المسافات تسقط دائماً أمام مكانتكِ الغالية بقلبي. أنتِ الضي الذي يمتلئ به المكان، والحديث الذي يرد الروح. أينما تكونين يا <span class="highlight">مسومي</span> ينبت الورد وتضيء الأيام.</p>
+            <p>كنتُ أنتظر لحظة انتهاء سفركِ بشغف، واليوم يسعدني جداً أن أراكِ بخير وسعادة. حفظكِ الله وأدام عليكِ الصحة والبهجة، ولا حرمتُ من هذا الوجود الذي يضيء عمري كله.</p>
+        </div>
+
+        <!-- أزرار التفاعل والمفاجآت -->
+        <div class="actions-group">
+            <button class="action-btn" onclick="triggerCelebration()">
+                <span>اضغطي لإطلاق احتفال الوصول! 🌹✨</span>
+            </button>
+            <button class="action-btn secondary" onclick="playChime()">
+                <span>أصوات نداء المطار والترحيب 🔔</span>
+            </button>
+        </div>
+
+        <div class="footer-text">
+            صُنع بحب وشوق لا ينتهي لأجمل مياسم في الدنيا ❤️
+        </div>
+
+    </div>
+
+    <script>
+        window.onload = () => {
+            triggerCelebration();
+            createHearts();
+        };
+
+        function createHearts() {
+            for (let i = 0; i < 20; i++) {
+                const el = document.createElement('div');
+                el.classList.add('floating-heart');
+                el.innerHTML = '❤️';
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = Math.random() * 4 + 3 + 's';
+                document.body.appendChild(el);
+            }
+        }
+
+        function triggerCelebration() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#e2acb2', '#ffffff', '#b86b77']
+            });
+        }
+
+        function playChime() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, index) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(ctx.currentTime + index * 0.12);
+                osc.stop(ctx.currentTime + index * 0.12 + 0.4);
+            });
+        }
+    </script>
+</body>
+</html>
