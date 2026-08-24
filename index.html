@@ -3,159 +3,556 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطار مياسم ✈️🤍</title>
+    <title>أهلاً بعودتك يا قلب بابا | مياسم ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #0b0f19; color: #ffffff; text-align: center; overflow-x: hidden; }
-        
-        /* Boarding Pass Modal */
-        #boarding-pass {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(11, 15, 25, 0.95); z-index: 100;
-            display: flex; justify-content: center; align-items: center; padding: 20px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
         }
-        .pass-card {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 2px solid #f59e0b; border-radius: 20px; padding: 30px;
-            max-width: 400px; width: 100%; box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
-        }
-        .pass-title { color: #f59e0b; font-size: 1.5rem; margin-bottom: 10px; }
-        .btn-start {
-            background: #f59e0b; color: #000; border: none; padding: 12px 30px;
-            font-size: 1.1rem; border-radius: 25px; cursor: pointer; font-weight: bold;
-            margin-top: 20px; transition: 0.3s;
-        }
-        .btn-start:hover { background: #fbbf24; transform: scale(1.05); }
 
-        /* Main Container */
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; display: none; }
-        
-        /* Flight Board */
-        .flight-board {
-            background: #111827; border: 2px solid #374151; border-radius: 15px;
-            padding: 20px; margin: 20px 0; box-shadow: inset 0 0 15px #000;
+        body {
+            background: #090a10;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px 80px 15px;
+            overflow-x: hidden;
+            position: relative;
         }
-        .status-arrived { color: #10b981; font-weight: bold; font-size: 1.2rem; }
 
-        /* Glowing Girl Image Header */
-        .hero-img-container {
-            position: relative; margin: 30px 0; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.4);
+        /* اسم مياسم يلمع بالخلفية */
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            font-family: 'Amiri', serif;
+            letter-spacing: 10px;
+            text-transform: uppercase;
         }
-        .hero-img { width: 100%; height: auto; display: block; }
 
-        /* Gates Section */
-        .gate-card {
-            background: rgba(30, 41, 59, 0.7); border: 1px solid #334155;
-            border-radius: 15px; padding: 20px; margin: 15px 0; cursor: pointer;
-            transition: 0.3s; text-align: right;
+        /* المطر والتساقط في الخلفية */
+        .floating-element {
+            position: fixed;
+            top: -30px;
+            font-size: 22px;
+            animation: fall linear infinite;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.7;
         }
-        .gate-card:hover { border-color: #f59e0b; background: rgba(30, 41, 59, 0.9); }
-        .gate-number { color: #f59e0b; font-weight: bold; font-size: 1.3rem; }
-        .gate-content { display: none; margin-top: 15px; color: #cbd5e1; line-height: 1.6; border-top: 1px dashed #475569; padding-top: 10px; }
 
-        /* Final Arrival Hall */
-        .arrival-hall {
-            background: linear-gradient(180deg, rgba(245, 158, 11, 0.1), transparent);
-            border-radius: 20px; padding: 30px 20px; margin-top: 40px; border: 1px solid rgba(245, 158, 11, 0.3);
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+            }
+        }
+
+        .container {
+            max-width: 680px;
+            width: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            margin-top: 10px;
+        }
+
+        /* الهيدر الرئيسي */
+        .main-header {
+            text-align: center;
+            padding: 40px 20px 20px 20px;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .main-header .subtitle {
+            color: #fb7185;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .main-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 0%, #fda4af 50%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.3;
+            margin-bottom: 15px;
+        }
+
+        .main-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* كرت استقبال المطار السينمائي (مستوحى من الصورة) */
+        .airport-hero-card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 27, 75, 0.9) 100%);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 28px;
+            padding: 35px 25px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(244, 63, 94, 0.15);
+            text-align: center;
+        }
+
+        .glowing-silhouette {
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff 0%, #fecdd3 30%, #f43f5e 70%, transparent 100%);
+            box-shadow: 0 0 50px #f43f5e, 0 0 100px #fda4af, inset 0 0 20px #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            animation: glowPulse 2.5s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 30px #f43f5e, 0 0 60px #fda4af; transform: scale(0.98); }
+            100% { box-shadow: 0 0 60px #f43f5e, 0 0 110px #fb7185, 0 0 150px #fff; transform: scale(1.03); }
+        }
+
+        .airport-hero-card h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .airport-hero-card p {
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* شريط تسلسل الأحداث الممتد */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid rgba(244, 63, 94, 0.4);
+            margin-right: 10px;
+            padding: 10px 25px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '✨';
+            position: absolute;
+            right: -37px;
+            top: 0;
+            background: #090a10;
+            border-radius: 50%;
+            padding: 2px;
+            font-size: 14px;
+        }
+
+        .timeline-item h3 {
+            color: #fb7185;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .timeline-item p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* بطاقة الصعود الفخمة */
+        .boarding-pass {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            color: #0f172a;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            position: relative;
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+        }
+
+        .boarding-pass:hover {
+            transform: rotate(0deg) scale(1.01);
+        }
+
+        .pass-header {
+            background: linear-gradient(90deg, #e11d48, #f43f5e);
+            color: white;
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pass-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        .pass-grid {
+            padding: 25px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .pass-field label {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .pass-field span {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .pass-footer {
+            background: #e2e8f0;
+            border-top: 2px dashed #94a3b8;
+            padding: 15px 20px;
+            text-align: center;
+            font-weight: 700;
+            color: #334155;
+            font-size: 0.95rem;
+        }
+
+        /* الرسالة العاطفية الطويلة */
+        .letter-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 35px 25px;
+            line-height: 2.1;
+            font-size: 1.15rem;
+            color: #e2e8f0;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.01);
+        }
+
+        .letter-card p {
+            margin-bottom: 22px;
+            text-align: justify;
+        }
+
+        .letter-card .highlight {
+            color: #fb7185;
+            font-weight: bold;
+        }
+
+        /* كروت الألقاب الرومانسية المخفية */
+        .interactive-cards-title {
+            text-align: center;
+            color: #fda4af;
+            font-size: 1.3rem;
+            margin-bottom: -10px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .secret-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .secret-card:active {
+            transform: scale(0.95);
+        }
+
+        .secret-card .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .secret-card .title {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .secret-card .hidden-text {
+            display: none;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #fb7185;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* أزرار الاحتفال والتفاعل */
+        .actions-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #e11d48, #f43f5e);
+            color: white;
+            border: none;
+            padding: 18px 25px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(244, 63, 94, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-btn:active {
+            transform: scale(0.97);
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <!-- Boarding Pass Screen -->
-    <div id="boarding-pass">
-        <div class="pass-card">
-            <div class="pass-title">✈️ بطاقة صعود الطائرة</div>
-            <p style="margin: 15px 0; color: #94a3b8;">الراكبة: <strong>مياسم (Mi'asem)</strong></p>
-            <p style="color: #94a3b8;">الوجهة: <strong>صالة الاستقبال 🤍</strong></p>
-            <button class="btn-start" onclick="startExperience()">تأكيد الوصول والدخول</button>
-        </div>
-    </div>
+    <!-- اسم مياسم يلمع بالخلفية -->
+    <div class="bg-watermark">Miasem</div>
 
-    <!-- Main Content -->
-    <div class="container" id="main-content">
-        
-        <!-- Flight Status Display -->
-        <div class="flight-board">
-            <h2>لوحة الرحلات — ARRIVAL</h2>
-            <hr style="border-color: #374151; margin: 10px 0;">
-            <p>الرحلة: <strong>MI-2026</strong></p>
-            <p>المسافرة: <strong>مياسم</strong></p>
-            <p>الحالة: <span class="status-arrived">FINALLY HOME 🤍</span></p>
+    <div class="container">
+
+        <!-- الهيدر الرئيسي -->
+        <div class="main-header">
+            <span class="subtitle">حمدًا لله على سلامتك يا روح بابا ✨</span>
+            <h1>نورتِ الدنيا ورجعتِ لقلبك يا مياسم ❤️</h1>
+            <p>16 يوماً غبتِ فيها، واليوم عادت الروح بسلامة وصولك يا سوسو</p>
         </div>
 
-        <!-- Glowing Image -->
-        <div class="hero-img-container">
-            <img src="watermarked_img_13022763353846871050.jpg" alt="مياسم" class="hero-img">
+        <!-- كرت استقبال المطار السينمائي (مستوحى من الصورة) -->
+        <div class="airport-hero-card">
+            <div class="glowing-silhouette">✈️</div>
+            <h2>التي تضيء كل مكان تطأه قدمها ✨</h2>
+            <p>مثل الطيف المضيء في ممر المطار.. تنورين عتمة الأيام، وينتشر الورد والبالونات مع كل خطوة تخطينها نحو قلبي.</p>
         </div>
 
-        <h3 style="margin-bottom: 20px; color: #f59e0b;">اضغطي على البوابات لاستكشاف الرحلة 👇</h3>
-
-        <!-- Gates -->
-        <div class="gate-card" onclick="toggleGate('gate1')">
-            <div class="gate-number">🚪 بوابة 01 — أول يوم بدونك</div>
-            <div class="gate-content" id="gate1">
-                كان اليوم الأول طويلاً جداً.. الهدوء في كل مكان، وكل شيء كان ينتظر لحظة رجوعك.
+        <!-- تسلسل الأحداث والمشاعر -->
+        <div class="timeline-section">
+            <div class="timeline-item">
+                <h3>لحظة المغادرة (قبل 16 يوماً)</h3>
+                <p>انطلقت رحلتك، وأظلمت الدنيا قليلاً.. غابت ابتسامتك العذبة وظل صدى صوتك يتردد في كل زاوية، وكانت الأيام تعبر بطيئة وثقيلة جداً.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>أيام الشوق والانتظار (سوسو قلب بابا)</h3>
+                <p>في كل يوم وكل ليلة، كنتُ أعدّ الساعات ودعائي لا يفارقكِ بأن يحفظك الله في سفرك ويحرسكِ بعينه التي لا تنام يا مسومي يا أغلى بنتك بقلب بابا.</p>
+            </div>
+            <div class="timeline-item">
+                <h3>لحظة الوصول المضيئة (اليوم)</h3>
+                <p>أشرقت الشمس من جديد! مو مجرد رجعتِ لبلدك.. أنتِ رجعتِ لموطنك المفضل والأول: <span style="color: #fb7185; font-weight: bold;">قلبي!</span></p>
             </div>
         </div>
 
-        <div class="gate-card" onclick="toggleGate('gate2')">
-            <div class="gate-number">🚪 بوابة 07 — أشياء كنت أتمنى أقولها لك</div>
-            <div class="gate-content" id="gate2">
-                مرّت الأيام وأنا أعدّ الساعات، وكنت كل يوم أتذكر موقف أو كلمة وأقول لازم تسمعينها أول ما توصلين.
+        <!-- بطاقة صعود طائرة ملكية -->
+        <div class="boarding-pass">
+            <div class="pass-header">
+                <h3>تذكرة وصول استثنائية 🎫</h3>
+                <span>BABAS LOVE AIRWAYS</span>
+            </div>
+            <div class="pass-grid">
+                <div class="pass-field">
+                    <label>اسم المسافرة</label>
+                    <span>مياسم (سوسو) ❤️</span>
+                </div>
+                <div class="pass-field">
+                    <label>اللقب المميز</label>
+                    <span>قلب بابا وبنته ✨</span>
+                </div>
+                <div class="pass-field">
+                    <label>جهة المغادرة</label>
+                    <span>أرض السفر والغياب</span>
+                </div>
+                <div class="pass-field">
+                    <label>وجهة الوصول</label>
+                    <span>أعماق قلب بابا 💖</span>
+                </div>
+                <div class="pass-field">
+                    <label>درجة السفر</label>
+                    <span>VIP الأولى دائماً</span>
+                </div>
+                <div class="pass-field">
+                    <label>حالة الرحلة</label>
+                    <span style="color: #10b981;">وصلت بحفظ الله</span>
+                </div>
+            </div>
+            <div class="pass-footer">
+                🌷 أهلاً بـ مسومي.. نورتِ دنيتك ومكانك 🌷
             </div>
         </div>
 
-        <div class="gate-card" onclick="toggleGate('gate3')">
-            <div class="gate-number">🚪 بوابة 15 — اليوم اللي رجعتي فيه</div>
-            <div class="gate-content" id="gate3">
-                بعد 15 يوماً من الانتظار… وصلت الرحلة أخيرًا وأضاء المكان بوجودك!
+        <!-- الرسالة العاطفية الطويلة -->
+        <div class="letter-card">
+            <p><strong>يا بعد هالدنيا يا مياسم.. يا قلب بابا وروح دنيته ❤️</strong></p>
+            <p>الحمد لله على سلامتك يا <span class="highlight">سوسو</span>.. الحمد لله الذي أقرّ عيني برجعتك سالمة غانمة لقلبي قبل أي مكان. الـ 16 يوماً الماضية لم تكن مجرد أرقام في التقويم، بل كانت ليالي شاقة أعد فيها الدقائق والثواني، وأنتظر اللحظة التي أسمع فيها صوتك وأرى فيها إشراقة وجهك.</p>
+            <p>أنتِ لستِ مجرد مسافرة عادت من رحلتها، أنتِ الضي الذي يمتلئ به المكان، والضحكة التي ترد الروح. أينما تكونين يا <span class="highlight">مسومي</span> ينبت الورد وتضيء الأيام.. وفي كل خطوة قدمتِ بها إلينا اليوم، ينهمر الشوق والمحبة.</p>
+            <p>كنتُ أنتظر هذه اللحظة بشغف لا يوصف، واليوم بعد أن عدتِ، عادت الحياة لتنثُر فرحها في كل مكان. حفظكِ الله لي يا بنتي الغالية، ولا حرمتُ من وجودكِ الذي يضيء عمري كله.</p>
+        </div>
+
+        <!-- كروت تفاعلية مخفية -->
+        <div class="interactive-cards-title">اضغطي على الكروت لاكتشاف رسائل بابا 🎁</div>
+        <div class="cards-grid">
+            <div class="secret-card" onclick="toggleCard(this)">
+                <span class="icon">🌹</span>
+                <span class="title">إلى سوسو</span>
+                <div class="hidden-text">أنتِ أجمل وردة في بستان عمري!</div>
+            </div>
+            <div class="secret-card" onclick="toggleCard(this)">
+                <span class="icon">✨</span>
+                <span class="title">إلى مسومي</span>
+                <div class="hidden-text">مكانك في الثريا وفي أعلى درجات قلبي.</div>
+            </div>
+            <div class="secret-card" onclick="toggleCard(this)">
+                <span class="icon">👑</span>
+                <span class="title">بنتي الغالية</span>
+                <div class="hidden-text">أميرة بابا ونور عينه للأبد.</div>
+            </div>
+            <div class="secret-card" onclick="toggleCard(this)">
+                <span class="icon">❤️</span>
+                <span class="title">قلب بابا</span>
+                <div class="hidden-text">الحمد لله على سلامتك يا دنيتي كلها!</div>
             </div>
         </div>
 
-        <!-- Arrival Celebration -->
-        <div class="arrival-hall">
-            <h1 style="color: #f59e0b; margin-bottom: 10px;">مياسم وصلت 🤍✨</h1>
-            <p style="font-size: 1.1rem; color: #e2e8f0;">"كنت أعد الأيام والثواني عشان أوصل لهاللحظة."</p>
-            <button class="btn-start" onclick="launchConfetti()" style="margin-top: 20px;">احتفل بالوصول 🎉</button>
+        <!-- أزرار التفاعل والمفاجآت -->
+        <div class="actions-group">
+            <button class="action-btn" onclick="triggerHugeCelebration()">
+                <span>اضغطي لإطلاق احتفال الوصول! 🌹🎉</span>
+            </button>
+            <button class="action-btn secondary" onclick="playChime()">
+                <span>أصوات نداء المطار والترحيب 🔔</span>
+            </button>
+        </div>
+
+        <div class="footer-text">
+            صُنع بحب وشوق لا ينتهي لأجمل مياسم في الدنيا ❤️
         </div>
 
     </div>
 
     <script>
-        function startExperience() {
-            document.getElementById('boarding-pass').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            launchConfetti();
-            
-            // Audio Chime Effect
-            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.8);
-        }
+        // إطلاق الاحتفال التلقائي فور فتح الصفحة
+        window.onload = () => {
+            triggerHugeCelebration();
+            createRainElements();
+        };
 
-        function toggleGate(id) {
-            let element = document.getElementById(id);
-            if (element.style.display === "block") {
-                element.style.display = "none";
-            } else {
-                element.style.display = "block";
+        // تساقط القلوب والورد في الخلفية
+        function createRainElements() {
+            const symbols = ['❤️', '🌹', '✨', '🎈', '💖'];
+            for (let i = 0; i < 30; i++) {
+                const el = document.createElement('div');
+                el.classList.add('floating-element');
+                el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = Math.random() * 4 + 3 + 's';
+                el.style.fontSize = Math.random() * 15 + 18 + 'px';
+                document.body.appendChild(el);
             }
         }
 
-        function launchConfetti() {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
+        // احتفال ضخم بالألعاب النارية والورد
+        function triggerHugeCelebration() {
+            var count = 200;
+            var defaults = { origin: { y: 0.7 } };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, { spread: 26, startVelocity: 55, colors: ['#f43f5e', '#ffffff'] });
+            fire(0.2, { spread: 60, colors: ['#fb7185', '#fda4af'] });
+            fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+            fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, colors: ['#e11d48', '#ffffff'] });
+            fire(0.1, { spread: 120, startVelocity: 45 });
+        }
+
+        // كشف الكروت المخفية
+        function toggleCard(card) {
+            const text = card.querySelector('.hidden-text');
+            if (text.style.display === 'block') {
+                text.style.display = 'none';
+            } else {
+                text.style.display = 'block';
+                confetti({ particleCount: 25, spread: 40, origin: { y: 0.8 } });
+            }
+        }
+
+        // نغمة استقبال لطيفة
+        function playChime() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((freq, index) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(ctx.currentTime + index * 0.12);
+                osc.stop(ctx.currentTime + index * 0.12 + 0.4);
             });
         }
     </script>
