@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطار مياسم ✈️🤍</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #0b0f19; color: #ffffff; text-align: center; overflow-x: hidden; }
+        
+        /* Boarding Pass Modal */
+        #boarding-pass {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 15, 25, 0.95); z-index: 100;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        .pass-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 2px solid #f59e0b; border-radius: 20px; padding: 30px;
+            max-width: 400px; width: 100%; box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+        }
+        .pass-title { color: #f59e0b; font-size: 1.5rem; margin-bottom: 10px; }
+        .btn-start {
+            background: #f59e0b; color: #000; border: none; padding: 12px 30px;
+            font-size: 1.1rem; border-radius: 25px; cursor: pointer; font-weight: bold;
+            margin-top: 20px; transition: 0.3s;
+        }
+        .btn-start:hover { background: #fbbf24; transform: scale(1.05); }
+
+        /* Main Container */
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; display: none; }
+        
+        /* Flight Board */
+        .flight-board {
+            background: #111827; border: 2px solid #374151; border-radius: 15px;
+            padding: 20px; margin: 20px 0; box-shadow: inset 0 0 15px #000;
+        }
+        .status-arrived { color: #10b981; font-weight: bold; font-size: 1.2rem; }
+
+        /* Glowing Girl Image Header */
+        .hero-img-container {
+            position: relative; margin: 30px 0; border-radius: 20px; overflow: hidden;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.4);
+        }
+        .hero-img { width: 100%; height: auto; display: block; }
+
+        /* Gates Section */
+        .gate-card {
+            background: rgba(30, 41, 59, 0.7); border: 1px solid #334155;
+            border-radius: 15px; padding: 20px; margin: 15px 0; cursor: pointer;
+            transition: 0.3s; text-align: right;
+        }
+        .gate-card:hover { border-color: #f59e0b; background: rgba(30, 41, 59, 0.9); }
+        .gate-number { color: #f59e0b; font-weight: bold; font-size: 1.3rem; }
+        .gate-content { display: none; margin-top: 15px; color: #cbd5e1; line-height: 1.6; border-top: 1px dashed #475569; padding-top: 10px; }
+
+        /* Final Arrival Hall */
+        .arrival-hall {
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.1), transparent);
+            border-radius: 20px; padding: 30px 20px; margin-top: 40px; border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Boarding Pass Screen -->
+    <div id="boarding-pass">
+        <div class="pass-card">
+            <div class="pass-title">✈️ بطاقة صعود الطائرة</div>
+            <p style="margin: 15px 0; color: #94a3b8;">الراكبة: <strong>مياسم (Mi'asem)</strong></p>
+            <p style="color: #94a3b8;">الوجهة: <strong>صالة الاستقبال 🤍</strong></p>
+            <button class="btn-start" onclick="startExperience()">تأكيد الوصول والدخول</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="main-content">
+        
+        <!-- Flight Status Display -->
+        <div class="flight-board">
+            <h2>لوحة الرحلات — ARRIVAL</h2>
+            <hr style="border-color: #374151; margin: 10px 0;">
+            <p>الرحلة: <strong>MI-2026</strong></p>
+            <p>المسافرة: <strong>مياسم</strong></p>
+            <p>الحالة: <span class="status-arrived">FINALLY HOME 🤍</span></p>
+        </div>
+
+        <!-- Glowing Image -->
+        <div class="hero-img-container">
+            <img src="watermarked_img_13022763353846871050.jpg" alt="مياسم" class="hero-img">
+        </div>
+
+        <h3 style="margin-bottom: 20px; color: #f59e0b;">اضغطي على البوابات لاستكشاف الرحلة 👇</h3>
+
+        <!-- Gates -->
+        <div class="gate-card" onclick="toggleGate('gate1')">
+            <div class="gate-number">🚪 بوابة 01 — أول يوم بدونك</div>
+            <div class="gate-content" id="gate1">
+                كان اليوم الأول طويلاً جداً.. الهدوء في كل مكان، وكل شيء كان ينتظر لحظة رجوعك.
+            </div>
+        </div>
+
+        <div class="gate-card" onclick="toggleGate('gate2')">
+            <div class="gate-number">🚪 بوابة 07 — أشياء كنت أتمنى أقولها لك</div>
+            <div class="gate-content" id="gate2">
+                مرّت الأيام وأنا أعدّ الساعات، وكنت كل يوم أتذكر موقف أو كلمة وأقول لازم تسمعينها أول ما توصلين.
+            </div>
+        </div>
+
+        <div class="gate-card" onclick="toggleGate('gate3')">
+            <div class="gate-number">🚪 بوابة 15 — اليوم اللي رجعتي فيه</div>
+            <div class="gate-content" id="gate3">
+                بعد 15 يوماً من الانتظار… وصلت الرحلة أخيرًا وأضاء المكان بوجودك!
+            </div>
+        </div>
+
+        <!-- Arrival Celebration -->
+        <div class="arrival-hall">
+            <h1 style="color: #f59e0b; margin-bottom: 10px;">مياسم وصلت 🤍✨</h1>
+            <p style="font-size: 1.1rem; color: #e2e8f0;">"كنت أعد الأيام والثواني عشان أوصل لهاللحظة."</p>
+            <button class="btn-start" onclick="launchConfetti()" style="margin-top: 20px;">احتفل بالوصول 🎉</button>
+        </div>
+
+    </div>
+
+    <script>
+        function startExperience() {
+            document.getElementById('boarding-pass').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            launchConfetti();
+            
+            // Audio Chime Effect
+            let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.8);
+        }
+
+        function toggleGate(id) {
+            let element = document.getElementById(id);
+            if (element.style.display === "block") {
+                element.style.display = "none";
+            } else {
+                element.style.display = "block";
+            }
+        }
+
+        function launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>
