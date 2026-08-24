@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أهلاً بعودتك يا كل الدنيا | مياسم ❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,700&family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -64,7 +64,7 @@
             z-index: 2;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 35px;
         }
 
         .main-header {
@@ -90,13 +90,6 @@
             text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
         }
 
-        .main-header p {
-            color: #94a3b8;
-            font-size: 1.15rem;
-            font-weight: 700;
-            line-height: 1.8;
-        }
-
         .airport-hero-card {
             background: rgba(17, 22, 37, 0.65);
             backdrop-filter: blur(20px);
@@ -118,6 +111,12 @@
             align-items: center;
             justify-content: center;
             font-size: 3.2rem;
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { transform: scale(1); box-shadow: 0 0 30px #e2acb2; }
+            to { transform: scale(1.05); box-shadow: 0 0 55px #e2acb2; }
         }
 
         .airport-hero-card h2 {
@@ -247,6 +246,38 @@
             font-weight: 900;
         }
 
+        .gift-box-card {
+            background: linear-gradient(145deg, rgba(184, 107, 119, 0.15), rgba(17, 22, 37, 0.8));
+            border: 1px dashed #e2acb2;
+            border-radius: 26px;
+            padding: 30px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .gift-box-card h3 {
+            color: #e2acb2;
+            font-size: 1.4rem;
+            font-weight: 900;
+        }
+
+        .gift-message {
+            background: rgba(11, 15, 25, 0.7);
+            border-radius: 16px;
+            padding: 18px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 800;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(226, 172, 178, 0.2);
+            transition: all 0.3s ease;
+        }
+
         .actions-group {
             display: flex;
             flex-direction: column;
@@ -299,7 +330,7 @@
         <div class="main-header">
             <span class="subtitle">حمداً لله على سلامتكِ يا ضي العين ✨</span>
             <h1>أنارت الدنيا بعودتكِ يا مياسم ❤️</h1>
-            <p>16 يوماً من السفر والغياب.. واليوم تعود الروح بسلامة وصولكِ يا سوسو</p>
+            <p>اليوم تعود الروح والبهجة بسلامة وصولكِ يا سوسو الغالية</p>
         </div>
 
         <div class="airport-hero-card">
@@ -310,17 +341,25 @@
 
         <div class="timeline-section">
             <div class="timeline-item">
-                <h3>لحظة المغادرة (قبل 16 يوماً)</h3>
-                <p>انطلقت رحلتكِ، وظلت الأيام تعبر بطيئة جداً.. كان السفر حاضراً والمسافة بعيدة، لكن الطيف والبال لم يغبا لحظة واحدة.</p>
+                <h3>ساعة الانطلاق والغياب</h3>
+                <p>بدأت رحلتكِ، وظلت الأيام تتبدل.. كان السفر حاضراً والمسافة بعيدة، لكن الطيف والبال لم يغبا لحظة واحدة.</p>
             </div>
             <div class="timeline-item">
                 <h3>أيام الشوق والانتظار (سوسو الغالية)</h3>
-                <p>في كل يوم، كان دعائي يحرسكِ في كل خطوة ومحطة، منتظراً هذه اللحظة الدافئة التي تعودين فيها بالسلامة والعافية يا مسومي.</p>
+                <p>في كل وقت، كان دعائي يحرسكِ في كل خطوة ومحطة، منتظراً هذه اللحظة الدافئة التي تعودين فيها بالسلامة والعافية يا مسومي.</p>
             </div>
             <div class="timeline-item">
                 <h3>عَوْدة التواصل والدفء (اليوم)</h3>
                 <p>وصلتِ بسلامة الله، وعاد التواصل بيننا ليضيء المسافات من جديد.. <span style="color: #e2acb2; font-weight: 900;">وكأن الحياة عادت لتبتسم!</span></p>
             </div>
+        </div>
+
+        <div class="gift-box-card">
+            <h3>🎁 صندوق هدايا ومشاعر سوسو</h3>
+            <div class="gift-message" id="giftText">اضغطي على الزر بالأسفل لاكتشاف رسائل الشوق الخاصة بكِ!</div>
+            <button class="action-btn secondary" style="padding: 12px; font-size: 1rem;" onclick="openNextGift()">
+                <span>افتحي هدية جديدة 💌</span>
+            </button>
         </div>
 
         <div class="boarding-pass">
@@ -361,7 +400,7 @@
 
         <div class="letter-card">
             <p><strong>يا بعد هالدنيا يا مياسم.. يا ضي العيون ونور الأيام ❤️</strong></p>
-            <p>الحمد لله على سلامتكِ يا <span class="highlight">سوسو</span>.. الحمد لله الذي أقرّ عيني برجعتكِ سالمة غانمة من سفركِ. الـ 16 يوماً الماضية كانت ثقيلة في انتظار عودتكِ، واليوم يسعدني جداً أن تبدأ صفحة جديدة يعود فيها تواصلنا ودفء حديثنا المعهود.</p>
+            <p>الحمد لله على سلامتكِ يا <span class="highlight">سوسو</span>.. الحمد لله الذي أقرّ عيني برجعتكِ سالمة غانمة من سفركِ. فترة غيابكِ كانت ثقيلة في انتظار عودتكِ، واليوم يسعدني جداً أن تبدأ صفحة جديدة يعود فيها تواصلنا ودفء حديثنا المعهود.</p>
             <p>رغم أن كل منا في مدينته، إلا أن المسافات تسقط دائماً أمام مكانتكِ الغالية بقلبي. أنتِ الضي الذي يمتلئ به المكان، والحديث الذي يرد الروح. أينما تكونين يا <span class="highlight">مسومي</span> ينبت الورد وتضيء الأيام.</p>
             <p>كنتُ أنتظر لحظة انتهاء سفركِ بشغف، واليوم يسعدني جداً أن أراكِ بخير وسعادة. حفظكِ الله وأدام عليكِ الصحة والبهجة، ولا حرمتُ من هذا الوجود الذي يضيء عمري كله.</p>
         </div>
@@ -398,24 +437,42 @@
             }
         }
 
+        const messages = [
+            "✨ الحمد لله على سلامتك يا أغلى الناس وأطهر قلب.",
+            "🌹 نورتِ مدينتك ورجعت الضحكة لأيامنا.",
+            "💖 رجعتي وصار الوصل أحلى وأجمل.",
+            "✈️ أحلى وصول لأجمل مسومي في الدنيا كلها."
+        ];
+        let msgIndex = 0;
+        function openNextGift() {
+            const box = document.getElementById('giftText');
+            box.style.opacity = 0;
+            setTimeout(() => {
+                box.innerText = messages[msgIndex];
+                box.style.opacity = 1;
+                msgIndex = (msgIndex + 1) % messages.length;
+            }, 200);
+            triggerCelebration();
+        }
+
         function triggerCelebration() {
             confetti({
-                particleCount: 100,
-                spread: 70,
+                particleCount: 110,
+                spread: 80,
                 origin: { y: 0.6 },
-                colors: ['#e2acb2', '#ffffff', '#b86b77']
+                colors: ['#e2acb2', '#ffffff', '#b86b77', '#ffb7b2']
             });
         }
 
         function playChime() {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
-            const notes = [523.25, 659.25, 783.99, 1046.50];
+            const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
             notes.forEach((freq, index) => {
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = 'sine';
                 osc.frequency.value = freq;
-                gain.gain.setValueAtTime(0.08, ctx.currentTime);
+                gain.gain.setValueAtTime(0.06, ctx.currentTime);
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 osc.start(ctx.currentTime + index * 0.12);
