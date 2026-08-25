@@ -15,6 +15,7 @@
             overflow-x: hidden;
         }
 
+        /* أنيميشن البالونات والقلوب المتحركة */
         .balloon {
             position: fixed;
             bottom: -100px;
@@ -42,7 +43,7 @@
             margin-bottom: 10px;
         }
 
-        /* مشغل الصوت */
+        /* تصميم مشغل الصوت */
         .playlist-card {
             background: linear-gradient(135deg, #ff4b72, #8b5cf6);
             border-radius: 20px;
@@ -62,7 +63,7 @@
         .track-btn {
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
+            color: #ffffff;
             padding: 12px 15px;
             border-radius: 12px;
             cursor: pointer;
@@ -71,7 +72,7 @@
             transition: all 0.3s ease;
         }
 
-        .track-btn.active {
+        .track-btn:hover, .track-btn.active {
             background: rgba(255, 255, 255, 0.35);
             border-color: #ffffff;
         }
@@ -82,7 +83,7 @@
             border-radius: 30px;
         }
 
-        /* تصميم الكروت المخفية التفاعلية */
+        /* تصميم الكروت التفاعلية المخفية */
         .card-container {
             display: flex;
             flex-wrap: wrap;
@@ -123,6 +124,7 @@
 </head>
 <body>
 
+    <!-- البالونات المتحركة -->
     <div class="balloon" style="left: 10%; width: 40px; height: 50px; background: #ff4b72; animation-delay: 0s;"></div>
     <div class="balloon" style="left: 30%; width: 35px; height: 45px; background: #38bdf8; animation-delay: 2s;"></div>
     <div class="balloon" style="left: 55%; width: 50px; height: 60px; background: #facc15; animation-delay: 4s;"></div>
@@ -135,7 +137,7 @@
         <h1 class="header-title">نورتِ الدنيا ورجعتِ لقلبك يا مياسم ❤️</h1>
         <p>16 يوماً غبتِ فيها، واليوم عادت الروح بسلامة وصولك يا سوسو ✨</p>
 
-        <!-- الصوتيات الثلاثة -->
+        <!-- قسم الصوتيات -->
         <div class="playlist-card">
             <h3 style="margin-top: 0;">🎙️ رسائل بابا الصوتية لمياسم</h3>
             <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 15px;">اضغطي على أي مقطع للاستماع إليه:</p>
@@ -154,10 +156,11 @@
 
             <audio id="mainAudio" controls>
                 <source id="audioSource" src="voice1.m4a" type="audio/mp4">
+                متصفحك لا يدعم تشغيل الصوت.
             </audio>
         </div>
 
-        <!-- الكروت التفاعلية المفاجأة -->
+        <!-- الكروت التفاعلية -->
         <h2 style="margin-top: 40px;">افتحي الكروت لتكتشفي المفاجآت 🎁</h2>
         <div class="card-container">
             <div class="card" onclick="this.classList.toggle('open')">
@@ -213,7 +216,9 @@
             audio.play();
 
             var buttons = document.querySelectorAll('.track-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
             element.classList.add('active');
         }
     </script>
