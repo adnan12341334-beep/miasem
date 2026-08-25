@@ -4,184 +4,219 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miasem</title>
-    <link rel="stylesheet" href="style.css">
     <style>
-        /* التنسيقات الإضافية للأقسام الجديدة لضمان توافقها مع التصميم الأصلي */
-        .timeline-stations {
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .balloon {
+            position: fixed;
+            bottom: -100px;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: floatUp 8s infinite linear;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-title {
+            color: #ff4b72;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* مشغل الصوت */
+        .playlist-card {
+            background: linear-gradient(135deg, #ff4b72, #8b5cf6);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 30px auto;
+            box-shadow: 0 10px 25px rgba(255, 75, 114, 0.4);
+            max-width: 500px;
+        }
+
+        .track-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin: 20px 0;
+            gap: 10px;
+            margin-bottom: 15px;
         }
-        .station-card {
-            background: rgba(255, 255, 255, 0.08);
+
+        .track-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 15px;
             border-radius: 12px;
-            padding: 15px;
-            border-right: 4px solid #ff4b72;
-            text-align: right;
-        }
-        .station-card h4 {
-            margin: 0 0 5px 0;
-            color: #ff4b72;
-        }
-        .card {
             cursor: pointer;
-            transition: transform 0.3s ease;
+            text-align: right;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
         }
-        .card:hover {
-            transform: translateY(-5px);
+
+        .track-btn.active {
+            background: rgba(255, 255, 255, 0.35);
+            border-color: #ffffff;
+        }
+
+        audio {
+            width: 100%;
+            outline: none;
+            border-radius: 30px;
+        }
+
+        /* تصميم الكروت المخفية التفاعلية */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px dashed rgba(255, 75, 114, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            width: 220px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .card-content {
+            display: none;
+        }
+
+        .card.open {
+            background: rgba(255, 255, 255, 0.15);
+            border-style: solid;
+            border-color: #ff4b72;
+            box-shadow: 0 5px 20px rgba(255, 75, 114, 0.4);
+        }
+
+        .card.open .card-hint {
+            display: none;
+        }
+
+        .card.open .card-content {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <div>Miasem</div>
+    <div class="balloon" style="left: 10%; width: 40px; height: 50px; background: #ff4b72; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 30%; width: 35px; height: 45px; background: #38bdf8; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 55%; width: 50px; height: 60px; background: #facc15; animation-delay: 4s;"></div>
+    <div class="balloon" style="left: 80%; width: 40px; height: 50px; background: #a855f7; animation-delay: 1s;"></div>
 
-    <div>
+    <div class="container">
+        
+        <div style="font-size: 1.2rem; color: #ff4b72;">Miasem</div>
+        
+        <h1 class="header-title">نورتِ الدنيا ورجعتِ لقلبك يا مياسم ❤️</h1>
+        <p>16 يوماً غبتِ فيها، واليوم عادت الروح بسلامة وصولك يا سوسو ✨</p>
 
-        <!-- الهيدر والترويسة -->
-        <div>
-            <span>حمدًا لله على سلامتك يا روح بابا ✨</span>
-            <h1>نورتِ الدنيا ورجعتِ لقلبك يا مياسم ❤️</h1>
-            <p>16 يوماً غبتِ فيها، واليوم عادت الروح بسلامة وصولك يا سوسو</p>
-        </div>
-
-        <!-- مقدمة المطار -->
-        <div>
-            <div>✈️</div>
-            <h2>التي تضيء كل مكان تطأه قدمها ✨</h2>
-            <p>مثل الطيف المضيء في ممر المطار.. تنورين عتمة الأيام، وينتشر الورد والبالونات مع كل خطوة تخطينها نحو قلبي.</p>
-        </div>
-
-        <!-- خط زمني للرحلة -->
-        <div>
-            <div>
-                <h3>لحظة المغادرة (قبل 16 يوماً)</h3>
-                <p>انطلقت رحلتك، وأظلمت الدنيا قليلاً.. غابت ابتسامتك العذبة وظل صدى صوتك يتردد في كل زاوية، وكانت الأيام تعبر بطيئة وثقيلة جداً.</p>
-            </div>
-            <div>
-                <h3>أيام الشوق والانتظار (سوسو قلب بابا)</h3>
-                <p>في كل يوم وكل ليلة، كنتُ أعدّ الساعات ودعائي لا يفارقكِ بأن يحفظك الله في سفرك ويحرسكِ بعينه التي لا تنام يا مسومي يا أغلى بنتك بقلب بابا.</p>
-            </div>
-            <div>
-                <h3>لحظة الوصول المضيئة (اليوم)</h3>
-                <p>أشرقت الشمس من جديد! مو مجرد رجعتِ لبلدك.. أنتِ رجعتِ لموطنك المفضل والأول: <span>قلبي!</span></p>
-            </div>
-        </div>
-
-        <!-- تذكرة الطيران -->
-        <div>
-            <div>
-                <h3>تذكرة وصول استثنائية 🎫</h3>
-                <span>BABAS LOVE AIRWAYS</span>
-            </div>
-            <div>
-                <div>
-                    <span>مياسم (سوسو) ❤️</span>
-                </div>
-                <div>
-                    <span>قلب بابا وبنته ✨</span>
-                </div>
-                <div>
-                    <span>أرض السفر والغياب</span>
-                </div>
-                <div>
-                    <span>أعماق قلب بابا 💖</span>
-                </div>
-                <div>
-                    <span>VIP الأولى دائماً</span>
-                </div>
-                <div>
-                    <span>وصلت بحفظ الله</span>
-                </div>
-            </div>
-            <div>
-                🌷 أهلاً بـ مسومي.. نورتِ دنيتك ومكانك 🌷
-            </div>
-        </div>
-
-        <!-- الرسالة الرئيسية الكاملة مع الإضافات الشاعرية -->
-        <div>
-            <p><strong>يا بعد هالدنيا يا مياسم.. يا قلب بابا وروح دنيته ❤️</strong></p>
-            <p>الحمد لله على سلامتك يا <span>سوسو</span>.. الحمد لله الذي أقرّ عيني برجعتك سالمة غانمة لقلبي قبل أي مكان. الـ 16 يوماً الماضية لم تكن مجرد أرقام في التقويم، بل كانت ليالي شاقة أعد فيها الدقائق والثواني، وأنتظر اللحظة التي أسمع فيها صوتك وأرى فيها إشراقة وجهك.</p>
+        <!-- الصوتيات الثلاثة -->
+        <div class="playlist-card">
+            <h3 style="margin-top: 0;">🎙️ رسائل بابا الصوتية لمياسم</h3>
+            <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 15px;">اضغطي على أي مقطع للاستماع إليه:</p>
             
-            <p>16 يوماً لم تكن مجرد ساعاتٍ مبرمجة على التقويم، بل كانت درساً في كيف يمكن لغياب شخص واحد أن يجعل العالم كله يبدو فارغاً وصامتاً. الحمد لله الذي أعادكِ لتملئي دنيتي صوتاً وحياة.</p>
+            <div class="track-list">
+                <button class="track-btn active" onclick="playTrack('voice1.m4a', this)">
+                    ▶️ المقطع الأول: أهلاً وسهلاً يا روح بابا
+                </button>
+                <button class="track-btn" onclick="playTrack('voice2.m4a', this)">
+                    ▶️ المقطع الثاني: أنتِ قطعة من روحي
+                </button>
+                <button class="track-btn" onclick="playTrack('voice3.m4a', this)">
+                    ▶️ المقطع الثالث: في غيابك كنت أحس بنقص...
+                </button>
+            </div>
 
-            <p>أنتِ لستِ مجرد مسافرة عادت من رحلتها، أنتِ الضي الذي يمتلئ به المكان، والضحكة التي ترد الروح. أينما تكونين يا <span>مسومي</span> ينبت الورد وتضيء الأيام.. وفي كل خطوة قدمتِ بها إلينا اليوم، ينهمر الشوق والمحبة.</p>
-            
-            <p>يقولون أن السفر يغير العناوين، لكنكِ أثبتِ أن عنوانكِ الوحيد والسيادي هو قلبي.. كل خطوة خطوتِها نحو العودة كانت تزرع في صدري زهرة، حتى أصبحت عودتكِ بستاناً كاملاً من الفرح.</p>
-
-            <p>كنتُ أنتظر هذه اللحظة بشغف لا يوصف، واليوم بعد أن عدتِ، عادت الحياة لتنثُر فرحها في كل مكان. حفظكِ الله لي يا بنتي الغالية، ولا حرمتُ من وجودكِ الذي يضيء عمري كله.</p>
+            <audio id="mainAudio" controls>
+                <source id="audioSource" src="voice1.m4a" type="audio/mp4">
+            </audio>
         </div>
 
-        <!-- قسم جديد: محطات في قلب بابا -->
-        <div>
-            <h2>محطات في قلب بابا ✨</h2>
-            <div class="timeline-stations">
-                <div class="station-card">
-                    <h4>المحطة الأولى: قبل اللقاء</h4>
-                    <p>كان التفكير فيكِ هو رفيقي الوحيد في كل لحظة وفي كل ثانية غياب.</p>
+        <!-- الكروت التفاعلية المفاجأة -->
+        <h2 style="margin-top: 40px;">افتحي الكروت لتكتشفي المفاجآت 🎁</h2>
+        <div class="card-container">
+            <div class="card" onclick="this.classList.toggle('open')">
+                <div class="card-hint">🎁 اضغطي لفتح الكرت الأول</div>
+                <div class="card-content">
+                    <div style="font-size: 2rem;">🌹</div>
+                    <h4>إلى سوسو</h4>
+                    <p>أنتِ أجمل وردة في بستان عمري!</p>
                 </div>
-                <div class="station-card">
-                    <h4>المحطة الثانية: لحظة التلاقي</h4>
-                    <p>عندما رأيتكِ، أدركت أن الشوق انتهى، وأن الفرح قد بدأ للتو.</p>
-                </div>
-                <div class="station-card">
-                    <h4>المحطة الثالثة: الأمل والمستقبل</h4>
-                    <p>دمتِ لي شيئاً جميلاً لا ينتهي، ونوراً لا يطفئه غياب.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- قسم الكروت التفاعلية (الأصلية + الإضافات الجديدة) -->
-        <div>اضغطي على الكروت لاكتشاف رسائل بابا 🎁</div>
-        <div>
-            <!-- الكروت الأصلية -->
-            <div class="card">
-                <span>🌹</span>
-                <span>إلى سوسو</span>
-                <div>أنتِ أجمل وردة في بستان عمري!</div>
-            </div>
-            <div class="card">
-                <span>✨</span>
-                <span>إلى مسومي</span>
-                <div>مكانك في الثريا وفي أعلى درجات قلبي.</div>
-            </div>
-            <div class="card">
-                <span>👑</span>
-                <span>بنتي الغالية</span>
-                <div>أميرة بابا ونور عينه للأبد.</div>
-            </div>
-            <div class="card">
-                <span>❤️</span>
-                <span>قلب بابا</span>
-                <div>الحمد لله على سلامتك يا دنيتي كلها!</div>
             </div>
 
-            <!-- الكروت الجديدة الإضافية -->
-            <div class="card">
-                <span>🕊️</span>
-                <span>إلى توأم الروح</span>
-                <div>عودتكِ لم تكن مجرد وصول، بل كانت عودة الحياة لقلبٍ كان ينتظركِ بكل نبضة.</div>
+            <div class="card" onclick="this.classList.toggle('open')">
+                <div class="card-hint">🎁 اضغطي لفتح الكرت الثاني</div>
+                <div class="card-content">
+                    <div style="font-size: 2rem;">✨</div>
+                    <h4>إلى مسومي</h4>
+                    <p>مكانك في الثريا وفي أعلى درجات قلبي.</p>
+                </div>
             </div>
-            <div class="card">
-                <span>⭐</span>
-                <span>نجمتي المضيئة</span>
-                <div>في غيابكِ كانت الأيام ظلاماً، وبحضوركِ أشرقت دنيتي من جديد.</div>
+
+            <div class="card" onclick="this.classList.toggle('open')">
+                <div class="card-hint">🎁 اضغطي لفتح الكرت الثالث</div>
+                <div class="card-content">
+                    <div style="font-size: 2rem;">🕊️</div>
+                    <h4>توأم الروح</h4>
+                    <p>عودتكِ كانت عودة الحياة لقلبٍ ينتظركِ.</p>
+                </div>
             </div>
-            <div class="card">
-                <span>💍</span>
-                <span>وعد العمر</span>
-                <div>تبقين أنتِ البداية والختام، وأجمل ما أهدتني إياه الحياة.</div>
+
+            <div class="card" onclick="this.classList.toggle('open')">
+                <div class="card-hint">🎁 اضغطي لفتح الكرت الرابع</div>
+                <div class="card-content">
+                    <div style="font-size: 2rem;">❤️</div>
+                    <h4>قلب بابا</h4>
+                    <p>الحمد لله على سلامتك يا دنيتي كلها!</p>
+                </div>
             </div>
         </div>
 
-        <!-- الفوتر -->
-        <div>
+        <footer style="margin-top: 50px; opacity: 0.6; font-size: 0.85rem;">
             صُنع بحب وشوق لا ينتهي لأجمل مياسم في الدنيا ❤️
-        </div>
+        </footer>
 
     </div>
+
+    <script>
+        function playTrack(filePath, element) {
+            var audio = document.getElementById('mainAudio');
+            var source = document.getElementById('audioSource');
+            
+            source.src = filePath;
+            audio.load();
+            audio.play();
+
+            var buttons = document.querySelectorAll('.track-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
 
 </body>
 </html>
