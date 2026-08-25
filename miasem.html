@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>خزنة أماني مياسم السحرية 🪄❤️</title>
+    <title>خزنة أماني وعالم مياسم السحري 🪄❤️</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800;900&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -16,7 +16,7 @@
         }
 
         body {
-            background: radial-gradient(circle at center, #140d16 0%, #080509 100%);
+            background: radial-gradient(circle at center, #180f1a 0%, #0a060d 100%);
             color: #f8fafc;
             min-height: 100vh;
             display: flex;
@@ -33,82 +33,82 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 18vw;
+            font-size: 15vw;
             font-weight: 900;
-            color: rgba(236, 190, 198, 0.02);
+            color: rgba(236, 190, 198, 0.015);
             white-space: nowrap;
             pointer-events: none;
             z-index: 0;
-            letter-spacing: 10px;
+            letter-spacing: 15px;
             text-transform: uppercase;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             z-index: 2;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             text-align: center;
         }
 
         /* شاشة القفل السحري */
         #lock-screen {
-            background: rgba(25, 17, 27, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(236, 190, 198, 0.3);
-            border-radius: 30px;
-            padding: 40px 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            background: rgba(28, 18, 31, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(236, 190, 198, 0.25);
+            border-radius: 35px;
+            padding: 45px 25px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            transition: all 0.5s ease;
         }
 
         .lock-icon {
-            font-size: 4rem;
-            animation: float-lock 2s infinite alternate ease-in-out;
+            font-size: 4.5rem;
+            animation: float-lock 2.5s infinite alternate ease-in-out;
             cursor: pointer;
         }
 
         @keyframes float-lock {
             from { transform: translateY(0); text-shadow: 0 0 15px rgba(236, 190, 198, 0.3); }
-            to { transform: translateY(-10px); text-shadow: 0 0 30px rgba(236, 190, 198, 0.8); }
+            to { transform: translateY(-12px); text-shadow: 0 0 35px rgba(236, 190, 198, 0.8); }
         }
 
         .lock-screen h1 {
             color: #f3d1d7;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 900;
         }
 
         .lock-screen p {
             color: #b5a4a7;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
+            line-height: 1.6;
         }
 
         .unlock-btn {
             background: linear-gradient(90deg, #c77d8a 0%, #ecbec6 100%);
             color: #140d16;
             border: none;
-            padding: 15px 35px;
-            border-radius: 20px;
-            font-size: 1.1rem;
+            padding: 16px 40px;
+            border-radius: 22px;
+            font-size: 1.15rem;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(236, 190, 198, 0.3);
-            transition: transform 0.2s ease;
+            box-shadow: 0 10px 30px rgba(236, 190, 198, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .unlock-btn:active {
             transform: scale(0.95);
         }
 
-        /* محتوى الخزنة (مخفي بالبداية) */
+        /* محتوى الخزنة الموسع */
         #vault-content {
             display: none;
             flex-direction: column;
@@ -123,14 +123,14 @@
 
         .vault-header h2 {
             color: #ecbec6;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
         }
 
         .vault-header p {
             color: #b5a4a7;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
         }
 
@@ -143,9 +143,9 @@
         .vault-card {
             background: rgba(25, 17, 27, 0.8);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(236, 190, 198, 0.25);
+            border: 1px solid rgba(236, 190, 198, 0.2);
             border-radius: 22px;
-            padding: 22px 15px;
+            padding: 20px 15px;
             cursor: pointer;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: all 0.3s ease;
@@ -153,19 +153,19 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 130px;
+            min-height: 125px;
             gap: 10px;
         }
 
         .vault-card:hover {
             transform: translateY(-5px);
             border-color: #ecbec6;
-            background: rgba(35, 23, 39, 0.9);
-            box-shadow: 0 15px 35px rgba(236, 190, 198, 0.2);
+            background: rgba(35, 23, 39, 0.95);
+            box-shadow: 0 15px 35px rgba(236, 190, 198, 0.25);
         }
 
         .vault-card .icon {
-            font-size: 2rem;
+            font-size: 2.2rem;
         }
 
         .vault-card .title {
@@ -174,15 +174,14 @@
             font-weight: 900;
         }
 
-        /* صندوق عرض النتيجة */
+        /* صندوق عرض النتائج والرسائل الممتدة */
         .result-box {
-            background: rgba(25, 17, 27, 0.95);
-            border: 1px solid #ecbec6;
-            border-radius: 24px;
+            background: rgba(25, 17, 27, 0.96);
+            border: 1px solid rgba(236, 190, 198, 0.4);
+            border-radius: 26px;
             padding: 25px;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(236, 190, 198, 0.2);
-            margin-top: 10px;
+            box-shadow: 0 15px 45px rgba(236, 190, 198, 0.2);
             display: none;
             animation: popUp 0.4s ease;
         }
@@ -194,23 +193,23 @@
 
         .result-box h3 {
             color: #ecbec6;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             font-weight: 900;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .result-box p {
             color: #f8fafc;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
         .footer-note {
-            color: #6b585c;
-            font-size: 0.85rem;
+            color: #7a6368;
+            font-size: 0.9rem;
             font-weight: 700;
-            margin-top: 15px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -222,98 +221,113 @@
 
         <!-- شاشة القفل السحري -->
         <div id="lock-screen">
-            <div class="lock-icon">🔒</div>
-            <h1>خزنة أماني مياسم الخاصة</h1>
-            <p>اضغطي على الزر أدناه لفتح الخزنة واكتشاف الأسرار السحرية ❤️</p>
-            <button class="unlock-btn" onclick="openVault()">افتحي الخزنة الآن 🪄</button>
+            <div class="lock-icon" onclick="openVault()">🔐</div>
+            <h1>مملكة مياسم الخاصة وحنين القلب</h1>
+            <p>هذا المكان صُنع خصيصاً لكِ ليعزل العالم ويبقى حافلاً بالحب والكلمات الطيبة والنقاء الذي يشبهك ❤️</p>
+            <button class="unlock-btn" onclick="openVault()">دخول عالم مياسم السحري 🪄</button>
         </div>
 
-        <!-- محتوى الخزنة التفاعلي -->
+        <!-- محتوى الخزنة الموسع -->
         <div id="vault-content">
             <div class="vault-header">
-                <h2>مرحباً بقلب مياسم ✨</h2>
-                <p>اخترِ أحد المفاتيح السحرية أدناه واكتشفي ما يخفيه لكِ القلب</p>
+                <h2>أهلاً بنبض الروح، مياسم ✨</h2>
+                <p>اضغطي على أي مفتاح واكتشفي رسالة خفية صُممت لأجلك وحدك</p>
             </div>
 
             <div class="vault-grid">
-                <div class="vault-card" onclick="showSecret(1)">
+                <div class="vault-card" onclick="showSecret('love')">
                     <div class="icon">💌</div>
-                    <div class="title">رسالة من القلب</div>
+                    <div class="title">رسالة غزل دافئة</div>
                 </div>
 
-                <div class="vault-card" onclick="showSecret(2)">
+                <div class="vault-card" onclick="showSecret('why')">
                     <div class="icon">💖</div>
-                    <div class="title">لماذا أحبك؟</div>
+                    <div class="title">لماذا أنتِ الأغلى؟</div>
                 </div>
 
-                <div class="vault-card" onclick="showSecret(3)">
+                <div class="vault-card" onclick="showSecret('comfort')">
+                    <div class="icon">🌿</div>
+                    <div class="title">حين يضيق بكِ العالم</div>
+                </div>
+
+                <div class="vault-card" onclick="showSecret('smile')">
                     <div class="icon">✨</div>
-                    <div class="title">تحدي السعادة</div>
+                    <div class="title">سر ضحكتك الجميلة</div>
                 </div>
 
-                <div class="vault-card" onclick="showSecret(4)">
+                <div class="vault-card" onclick="showSecret('wish')">
                     <div class="icon">🌹</div>
-                    <div class="title">أمنية اليوم</div>
+                    <div class="title">أمنية قلبية لكِ</div>
+                </div>
+
+                <div class="vault-card" onclick="showSecret('random')">
+                    <div class="icon">🎁</div>
+                    <div class="title">مفاجأة عشوائية</div>
                 </div>
             </div>
 
             <!-- صندوق عرض المفاجآت -->
             <div id="result-box" class="result-box">
-                <h3 id="result-title">رسالة خاصة</h3>
+                <h3 id="result-title">عنوان الرسالة</h3>
                 <p id="result-text">محتوى الرسالة يظهر هنا...</p>
             </div>
         </div>
 
         <div class="footer-note">
-            صُخصّص خصيصاً لأغلى مياسم في الدنيا ❤️
+            كل تفصيلة هنا تعني كم أنتِ غالية يا مياسم ❤️
         </div>
 
     </div>
 
     <script>
         function openVault() {
-            // إخفاء شاشة القفل وإظهار الخزنة
             document.getElementById('lock-screen').style.display = 'none';
             document.getElementById('vault-content').style.display = 'flex';
-            
-            // تشغيل احتفال ساحر بالكونفيتي
             triggerConfetti();
         }
 
         const secrets = {
-            1: {
-                title: "رسالة خاصة جداً 💌",
-                text: "أنتِ لستِ فقط جزءاً من أيامي، أنتِ النور الذي يملأ عتمتي، والبسمة التي تتربع على قلبي بلا منازع. دمتِ لي أجمل وأغلى عطايا الحياة."
+            love: {
+                title: "رسالة غزل دافئة 💌",
+                text: "لو تمكنتُ من إهداكِ شيئاً واحداً في هذه الحياة، لاخترتُ أن أهداكِ قدرتكِ على رؤية نفسكِ بعيني؛ لتعلمي تماماً كم أنتِ عظيمة وجميلة ومأهولة بالدفء والحنان."
             },
-            2: {
-                title: "لماذا أحبك؟ 💖",
-                text: "أحبكِ لأنكِ تملأين المكان بهجةً وسعادة، ولأن ضحكتكِ قادرة على تغيير مزاج أيامي للأبد، ولأنكِ ببساطة.. مياسم التي لا يُطاق الحياه بدونها!"
+            why: {
+                title: "لماذا أنتِ الأغلى؟ 💖",
+                text: "أنتِ لستِ مجرد شخص أحتل مكاناً في حياتي، بل أنتِ الشخص الذي تلاشت بوجوده كل عتمة، وأصبح لكل يوم معنى مختلف ولذيذ بفضل وجودكِ وحنيتكِ."
             },
-            3: {
-                title: "تحدي السعادة اليومي ✨",
-                text: "التحدي الآن: ابتسمي بعمق، خذي نفساً عميقاً، وأرسلي لي الآن أحلى وأجمل ابتسامة لتكتمل فرحتي اليوم!"
+            comfort: {
+                title: "حين يضيق بكِ العالم 🌿",
+                text: "تذكري دائماً أن صدر قلبي هو ملجأكِ الآمن من تعب ومتاعب الدنيا. متى ما أحسستِ بأي ثقل، تذكري أن هناك من يحمل همكِ ويدعو لكِ قبل نفسه."
             },
-            4: {
-                title: "أمنية اليوم 🌹",
-                text: "أمنيتي الوحيدة والأبدية هي أن تظل هذه الضحكة المشرقة تملأ عيناكِ، وأن أراكِ دائماً سعيدة وموفقة في كل خطواتكِ."
+            smile: {
+                title: "سر ضحكتك الجميلة ✨",
+                text: "ضحكتكِ ليست مجرد صوت، بل هي موسيقى تملأ أيامي فرحة ورضا. أقسم أن الكون بأكمله يهدأ ويصبح أجمل حين ترتسم تلك الابتسامة على وجهكِ."
+            },
+            wish: {
+                title: "أمنية قلبية لكِ 🌹",
+                text: "أمنيتي الدائمة أن تبقي ضحكتكِ مرافقتاً لعينيكِ، وأن لا يمس قلبكِ الحنون أي سوء، وأن أراكِ دائماً محققة لكل ما تتمنينه وأكثر."
+            },
+            random: {
+                title: "مفاجأة عشوائية 🎁",
+                text: "بما أنكِ فتحتِ هذه الخزنة الآن، عليكِ فوراً أن تاخذي نفساً عميقاً، تبتسمي بحب، وتتأكدي أن هناك شخصاً يرى فيكِ كل ألوان السعادة والدنيا الجميلة!"
             }
         };
 
-        function showSecret(id) {
+        function showSecret(type) {
             triggerConfetti();
             const box = document.getElementById('result-box');
             const titleEl = document.getElementById('result-title');
             const textEl = document.getElementById('result-text');
 
-            titleEl.innerText = secrets[id].title;
-            textEl.innerText = secrets[id].text;
+            titleEl.innerText = secrets[type].title;
+            textEl.innerText = secrets[type].text;
             box.style.display = 'block';
         }
 
         function triggerConfetti() {
             confetti({
-                particleCount: 100,
-                spread: 70,
+                particleCount: 120,
+                spread: 80,
                 origin: { y: 0.6 },
                 colors: ['#ecbec6', '#c77d8a', '#ffffff', '#ffb7b2']
             });
