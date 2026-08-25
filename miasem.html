@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خزنة أماني مياسم السحرية 🪄❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #140d16 0%, #080509 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18vw;
+            font-weight: 900;
+            color: rgba(236, 190, 198, 0.02);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            text-align: center;
+        }
+
+        /* شاشة القفل السحري */
+        #lock-screen {
+            background: rgba(25, 17, 27, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(236, 190, 198, 0.3);
+            border-radius: 30px;
+            padding: 40px 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.5s ease;
+        }
+
+        .lock-icon {
+            font-size: 4rem;
+            animation: float-lock 2s infinite alternate ease-in-out;
+            cursor: pointer;
+        }
+
+        @keyframes float-lock {
+            from { transform: translateY(0); text-shadow: 0 0 15px rgba(236, 190, 198, 0.3); }
+            to { transform: translateY(-10px); text-shadow: 0 0 30px rgba(236, 190, 198, 0.8); }
+        }
+
+        .lock-screen h1 {
+            color: #f3d1d7;
+            font-size: 1.8rem;
+            font-weight: 900;
+        }
+
+        .lock-screen p {
+            color: #b5a4a7;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .unlock-btn {
+            background: linear-gradient(90deg, #c77d8a 0%, #ecbec6 100%);
+            color: #140d16;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(236, 190, 198, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .unlock-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* محتوى الخزنة (مخفي بالبداية) */
+        #vault-content {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .vault-header h2 {
+            color: #ecbec6;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .vault-header p {
+            color: #b5a4a7;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .vault-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .vault-card {
+            background: rgba(25, 17, 27, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(236, 190, 198, 0.25);
+            border-radius: 22px;
+            padding: 22px 15px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 130px;
+            gap: 10px;
+        }
+
+        .vault-card:hover {
+            transform: translateY(-5px);
+            border-color: #ecbec6;
+            background: rgba(35, 23, 39, 0.9);
+            box-shadow: 0 15px 35px rgba(236, 190, 198, 0.2);
+        }
+
+        .vault-card .icon {
+            font-size: 2rem;
+        }
+
+        .vault-card .title {
+            color: #f3d1d7;
+            font-size: 1.05rem;
+            font-weight: 900;
+        }
+
+        /* صندوق عرض النتيجة */
+        .result-box {
+            background: rgba(25, 17, 27, 0.95);
+            border: 1px solid #ecbec6;
+            border-radius: 24px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(236, 190, 198, 0.2);
+            margin-top: 10px;
+            display: none;
+            animation: popUp 0.4s ease;
+        }
+
+        @keyframes popUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .result-box h3 {
+            color: #ecbec6;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .result-box p {
+            color: #f8fafc;
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.8;
+        }
+
+        .footer-note {
+            color: #6b585c;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-watermark">Miasem</div>
+
+    <div class="container">
+
+        <!-- شاشة القفل السحري -->
+        <div id="lock-screen">
+            <div class="lock-icon">🔒</div>
+            <h1>خزنة أماني مياسم الخاصة</h1>
+            <p>اضغطي على الزر أدناه لفتح الخزنة واكتشاف الأسرار السحرية ❤️</p>
+            <button class="unlock-btn" onclick="openVault()">افتحي الخزنة الآن 🪄</button>
+        </div>
+
+        <!-- محتوى الخزنة التفاعلي -->
+        <div id="vault-content">
+            <div class="vault-header">
+                <h2>مرحباً بقلب مياسم ✨</h2>
+                <p>اخترِ أحد المفاتيح السحرية أدناه واكتشفي ما يخفيه لكِ القلب</p>
+            </div>
+
+            <div class="vault-grid">
+                <div class="vault-card" onclick="showSecret(1)">
+                    <div class="icon">💌</div>
+                    <div class="title">رسالة من القلب</div>
+                </div>
+
+                <div class="vault-card" onclick="showSecret(2)">
+                    <div class="icon">💖</div>
+                    <div class="title">لماذا أحبك؟</div>
+                </div>
+
+                <div class="vault-card" onclick="showSecret(3)">
+                    <div class="icon">✨</div>
+                    <div class="title">تحدي السعادة</div>
+                </div>
+
+                <div class="vault-card" onclick="showSecret(4)">
+                    <div class="icon">🌹</div>
+                    <div class="title">أمنية اليوم</div>
+                </div>
+            </div>
+
+            <!-- صندوق عرض المفاجآت -->
+            <div id="result-box" class="result-box">
+                <h3 id="result-title">رسالة خاصة</h3>
+                <p id="result-text">محتوى الرسالة يظهر هنا...</p>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            صُخصّص خصيصاً لأغلى مياسم في الدنيا ❤️
+        </div>
+
+    </div>
+
+    <script>
+        function openVault() {
+            // إخفاء شاشة القفل وإظهار الخزنة
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('vault-content').style.display = 'flex';
+            
+            // تشغيل احتفال ساحر بالكونفيتي
+            triggerConfetti();
+        }
+
+        const secrets = {
+            1: {
+                title: "رسالة خاصة جداً 💌",
+                text: "أنتِ لستِ فقط جزءاً من أيامي، أنتِ النور الذي يملأ عتمتي، والبسمة التي تتربع على قلبي بلا منازع. دمتِ لي أجمل وأغلى عطايا الحياة."
+            },
+            2: {
+                title: "لماذا أحبك؟ 💖",
+                text: "أحبكِ لأنكِ تملأين المكان بهجةً وسعادة، ولأن ضحكتكِ قادرة على تغيير مزاج أيامي للأبد، ولأنكِ ببساطة.. مياسم التي لا يُطاق الحياه بدونها!"
+            },
+            3: {
+                title: "تحدي السعادة اليومي ✨",
+                text: "التحدي الآن: ابتسمي بعمق، خذي نفساً عميقاً، وأرسلي لي الآن أحلى وأجمل ابتسامة لتكتمل فرحتي اليوم!"
+            },
+            4: {
+                title: "أمنية اليوم 🌹",
+                text: "أمنيتي الوحيدة والأبدية هي أن تظل هذه الضحكة المشرقة تملأ عيناكِ، وأن أراكِ دائماً سعيدة وموفقة في كل خطواتكِ."
+            }
+        };
+
+        function showSecret(id) {
+            triggerConfetti();
+            const box = document.getElementById('result-box');
+            const titleEl = document.getElementById('result-title');
+            const textEl = document.getElementById('result-text');
+
+            titleEl.innerText = secrets[id].title;
+            textEl.innerText = secrets[id].text;
+            box.style.display = 'block';
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ecbec6', '#c77d8a', '#ffffff', '#ffb7b2']
+            });
+        }
+    </script>
+</body>
+</html>
