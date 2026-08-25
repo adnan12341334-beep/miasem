@@ -3,225 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Miasem</title>
+    <title>أهلاً بعودتك يا مياسم ✈️❤️</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700;800&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #0f172a;
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            text-align: center;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #31102f 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
             overflow-x: hidden;
         }
 
-        /* أنيميشن البالونات والقلوب المتحركة */
-        .balloon {
+        /* القلوب الممتدة في الخلفية */
+        .heart-bg {
             position: fixed;
-            bottom: -100px;
-            opacity: 0.7;
-            border-radius: 50%;
-            animation: floatUp 8s infinite linear;
-            z-index: 1;
+            top: -10px;
+            color: rgba(244, 63, 94, 0.3);
+            font-size: 20px;
+            animation: fall linear infinite;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.8; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        @keyframes fall {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+            }
         }
 
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .header-title {
-            color: #ff4b72;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        /* تصميم مشغل الصوت */
-        .playlist-card {
-            background: linear-gradient(135deg, #ff4b72, #8b5cf6);
-            border-radius: 20px;
-            padding: 25px;
-            margin: 30px auto;
-            box-shadow: 0 10px 25px rgba(255, 75, 114, 0.4);
-            max-width: 500px;
-        }
-
-        .track-list {
+            max-width: 650px;
+            width: 100%;
+            z-index: 1;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 25px;
+            margin-top: 10px;
+        }
+
+        /* الهيدر الرئيسي */
+        .header-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            animation: fadeInDown 1s ease;
+        }
+
+        .header-card h1 {
+            font-size: 2rem;
+            color: #f43f5e;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+        }
+
+        .header-card p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .days-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #f43f5e, #fb7185);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 12px;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.4);
+        }
+
+        /* شاشة المطار الفخمة */
+        .airport-board {
+            background: #020617;
+            border: 2px solid #334155;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #1e293b;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .flight-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border-right: 4px solid #f43f5e;
+        }
+
+        .flight-status {
+            color: #10b981;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* بطاقة صعود الطائرة الرومانسية */
+        .boarding-pass {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            color: #1e293b;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .pass-top {
+            background: linear-gradient(to right, #e11d48, #f43f5e);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pass-body {
+            padding: 25px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .pass-info label {
+            display: block;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-bottom: 3px;
+        }
+
+        .pass-info span {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .pass-footer {
+            border-top: 2px dashed #cbd5e1;
+            padding: 20px;
+            background: #f1f5f9;
+            text-align: center;
+        }
+
+        /* الرسالة الطويلة */
+        .love-letter {
+            background: rgba(255, 255, 255, 0.04);
+            border-right: 3px solid #f43f5e;
+            padding: 25px;
+            border-radius: 16px;
+            line-height: 1.9;
+            font-size: 1.1rem;
+            color: #e2e8f0;
+            text-align: justify;
+        }
+
+        .love-letter p {
             margin-bottom: 15px;
         }
 
-        .track-btn {
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #ffffff;
-            padding: 12px 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            text-align: right;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-        }
-
-        .track-btn:hover, .track-btn.active {
-            background: rgba(255, 255, 255, 0.35);
-            border-color: #ffffff;
-        }
-
-        audio {
-            width: 100%;
-            outline: none;
-            border-radius: 30px;
-        }
-
-        /* تصميم الكروت التفاعلية المخفية */
-        .card-container {
+        /* الأزرار التفاعلية */
+        .btn-group {
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin: 25px 0;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px dashed rgba(255, 75, 114, 0.5);
-            border-radius: 15px;
-            padding: 20px;
-            width: 220px;
+        .btn {
+            background: linear-gradient(45deg, #f43f5e, #e11d48);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(244, 63, 94, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
 
-        .card-content {
-            display: none;
+        .btn:active {
+            transform: scale(0.98);
         }
 
-        .card.open {
-            background: rgba(255, 255, 255, 0.15);
-            border-style: solid;
-            border-color: #ff4b72;
-            box-shadow: 0 5px 20px rgba(255, 75, 114, 0.4);
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .card.open .card-hint {
-            display: none;
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .card.open .card-content {
-            display: block;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
 
-    <!-- البالونات المتحركة -->
-    <div class="balloon" style="left: 10%; width: 40px; height: 50px; background: #ff4b72; animation-delay: 0s;"></div>
-    <div class="balloon" style="left: 30%; width: 35px; height: 45px; background: #38bdf8; animation-delay: 2s;"></div>
-    <div class="balloon" style="left: 55%; width: 50px; height: 60px; background: #facc15; animation-delay: 4s;"></div>
-    <div class="balloon" style="left: 80%; width: 40px; height: 50px; background: #a855f7; animation-delay: 1s;"></div>
-
     <div class="container">
-        
-        <div style="font-size: 1.2rem; color: #ff4b72;">Miasem</div>
-        
-        <h1 class="header-title">نورتِ الدنيا ورجعتِ لقلبك يا مياسم ❤️</h1>
-        <p>16 يوماً غبتِ فيها، واليوم عادت الروح بسلامة وصولك يا سوسو ✨</p>
-
-        <!-- قسم الصوتيات -->
-        <div class="playlist-card">
-            <h3 style="margin-top: 0;">🎙️ رسائل بابا الصوتية لمياسم</h3>
-            <p style="font-size: 0.85rem; opacity: 0.9; margin-bottom: 15px;">اضغطي على أي مقطع للاستماع إليه:</p>
-            
-            <div class="track-list">
-                <button class="track-btn active" onclick="playTrack('voice1.m4a', this)">
-                    ▶️ المقطع الأول: أهلاً وسهلاً يا روح بابا
-                </button>
-                <button class="track-btn" onclick="playTrack('voice2.m4a', this)">
-                    ▶️ المقطع الثاني: أنتِ قطعة من روحي
-                </button>
-                <button class="track-btn" onclick="playTrack('voice3.m4a', this)">
-                    ▶️ المقطع الثالث: في غيابك كنت أحس بنقص...
-                </button>
-            </div>
-
-            <audio id="mainAudio" controls>
-                <source id="audioSource" src="voice1.m4a" type="audio/mp4">
-                متصفحك لا يدعم تشغيل الصوت.
-            </audio>
+        <!-- الهيدر -->
+        <div class="header-card">
+            <h1>أهلاً بنور دنيتي، مياسم ✈️❤️</h1>
+            <p>أنارت الدنيا بوجودك ورجعتك بالسلامة</p>
+            <div class="days-badge">غبتِ 16 يوماً وكأنها 16 سنة!</div>
         </div>
 
-        <!-- الكروت التفاعلية -->
-        <h2 style="margin-top: 40px;">افتحي الكروت لتكتشفي المفاجآت 🎁</h2>
-        <div class="card-container">
-            <div class="card" onclick="this.classList.toggle('open')">
-                <div class="card-hint">🎁 اضغطي لفتح الكرت الأول</div>
-                <div class="card-content">
-                    <div style="font-size: 2rem;">🌹</div>
-                    <h4>إلى سوسو</h4>
-                    <p>أنتِ أجمل وردة في بستان عمري!</p>
-                </div>
+        <!-- جدول المطار -->
+        <div class="airport-board">
+            <div class="board-header">
+                <span>رقم الرحلة</span>
+                <span>الوجهة</span>
+                <span>الحالة</span>
             </div>
-
-            <div class="card" onclick="this.classList.toggle('open')">
-                <div class="card-hint">🎁 اضغطي لفتح الكرت الثاني</div>
-                <div class="card-content">
-                    <div style="font-size: 2rem;">✨</div>
-                    <h4>إلى مسومي</h4>
-                    <p>مكانك في الثريا وفي أعلى درجات قلبي.</p>
-                </div>
-            </div>
-
-            <div class="card" onclick="this.classList.toggle('open')">
-                <div class="card-hint">🎁 اضغطي لفتح الكرت الثالث</div>
-                <div class="card-content">
-                    <div style="font-size: 2rem;">🕊️</div>
-                    <h4>توأم الروح</h4>
-                    <p>عودتكِ كانت عودة الحياة لقلبٍ ينتظركِ.</p>
-                </div>
-            </div>
-
-            <div class="card" onclick="this.classList.toggle('open')">
-                <div class="card-hint">🎁 اضغطي لفتح الكرت الرابع</div>
-                <div class="card-content">
-                    <div style="font-size: 2rem;">❤️</div>
-                    <h4>قلب بابا</h4>
-                    <p>الحمد لله على سلامتك يا دنيتي كلها!</p>
-                </div>
+            <div class="flight-row">
+                <span>MS-2026</span>
+                <span>إلى قلبي مباشرة 💖</span>
+                <span class="flight-status">وصلت بحفظ الله</span>
             </div>
         </div>
 
-        <footer style="margin-top: 50px; opacity: 0.6; font-size: 0.85rem;">
-            صُنع بحب وشوق لا ينتهي لأجمل مياسم في الدنيا ❤️
-        </footer>
+        <!-- بطاقة صعود الطائرة -->
+        <div class="boarding-pass">
+            <div class="pass-top">
+                <h3>تذكرة وصول خاصة 🎫</h3>
+                <span>LOVE AIRLINES</span>
+            </div>
+            <div class="pass-body">
+                <div class="pass-info">
+                    <label>اسم المسافرة</label>
+                    <span>أميرة قلبي (مياسم) ❤️</span>
+                </div>
+                <div class="pass-info">
+                    <label>مدة الغياب</label>
+                    <span>16 يوماً من الشوق</span>
+                </div>
+                <div class="pass-info">
+                    <label>من</label>
+                    <span>أرض السفر</span>
+                </div>
+                <div class="pass-info">
+                    <label>إلى</label>
+                    <span>وريد قلبي وموطنك</span>
+                </div>
+                <div class="pass-info">
+                    <label>رقم المقعد</label>
+                    <span>VIP #1 في قلبي</span>
+                </div>
+                <div class="pass-info">
+                    <label>تاريخ الوصول</label>
+                    <span>اليوم (أجمل يوم)</span>
+                </div>
+            </div>
+            <div class="pass-footer">
+                <p style="color: #64748b; font-size: 0.85rem;">الحمد لله على سلامتك يا أغلى من سكن قلبي ✨</p>
+            </div>
+        </div>
 
+        <!-- الرسالة الرومانسية الطويلة -->
+        <div class="love-letter">
+            <p><strong>حمداً لله على سلامتك يا روح قلبي.. ❤️</strong></p>
+            <p>الـ 16 يوماً الماضية لم تكن مجرد أرقام في التقويم، بل كانت أياماً باردة وطويلة جداً بدون صوتك وقربك. كنتُ أعدّ الساعات والأيام ساعة بساعة، وأنتظر اللحظة التي ترجعين فيها وتنورين دنيتي من جديد.</p>
+            <p>السفر أخذكِ بعيداً بالمسافة، لكنكِ لم تغيبي عن بالي ولا عن دعائي لدقيقة واحدة. واليوم، بوصولك ورجعتك بالسلامة، رجعت الحياة لقلبي ورجعت الابتسامة لروحي.</p>
+            <p>نورتِ بلدك، ونورتِ دنيتي، وأهلاً بكِ في موطنك المفضل.. قلبي! 🌹</p>
+        </div>
+
+        <!-- أزرار التفاعل -->
+        <div class="btn-group">
+            <button class="btn" onclick="celebrate()">
+                <span>اضغطي هنا لاحتفال الوصول! 🎉✨</span>
+            </button>
+            <button class="btn btn-secondary" onclick="playBeep()">
+                <span>سمّعينا نداء المطار 🔔</span>
+            </button>
+        </div>
     </div>
 
     <script>
-        function playTrack(filePath, element) {
-            var audio = document.getElementById('mainAudio');
-            var source = document.getElementById('audioSource');
-            
-            source.src = filePath;
-            audio.load();
-            audio.play();
+        // إطلاق القلوب الممتدة
+        function createHearts() {
+            const heartCount = 20;
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart-bg');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+                document.body.appendChild(heart);
+            }
+        }
+        createHearts();
 
-            var buttons = document.querySelectorAll('.track-btn');
-            buttons.forEach(function(btn) {
-                btn.classList.remove('active');
+        // احتفال بالألعاب النارية والورد
+        function celebrate() {
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
             });
-            element.classList.add('active');
+
+            // صوت نغمة احتفالية
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const notes = [261.63, 329.63, 392.00, 523.25];
+            notes.forEach((freq, index) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(ctx.currentTime + index * 0.15);
+                osc.stop(ctx.currentTime + index * 0.15 + 0.3);
+            });
+        }
+
+        // نداء المطار
+        function playBeep() {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(587.33, ctx.currentTime); 
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.6);
         }
     </script>
-
 </body>
 </html>
