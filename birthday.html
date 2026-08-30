@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>هناك أميرة.. اقترب ميلادها ✨🎈</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
     <style>
         * {
             box-sizing: border-box;
@@ -12,6 +13,7 @@
             padding: 0;
             font-family: 'Tajawal', sans-serif;
         }
+
         body {
             background: linear-gradient(135deg, #120a0f, #221017, #0d0d0d);
             color: #fce4ec;
@@ -23,6 +25,7 @@
             overflow-x: hidden;
             position: relative;
         }
+
         .balloon {
             position: absolute;
             bottom: -150px;
@@ -31,11 +34,13 @@
             animation: floatUp 10s infinite ease-in-out;
             z-index: 0;
         }
+
         @keyframes floatUp {
             0% { transform: translateY(0) scale(1); opacity: 0.8; }
             50% { opacity: 0.4; }
             100% { transform: translateY(-110vh) scale(1.1); opacity: 0; }
         }
+
         .container {
             width: 100%;
             max-width: 680px;
@@ -48,6 +53,7 @@
             z-index: 1;
             position: relative;
         }
+
         #lock-screen {
             display: flex;
             flex-direction: column;
@@ -55,15 +61,18 @@
             gap: 20px;
             padding: 30px 0;
         }
+
         #lock-screen h2 {
             font-size: 1.4rem;
             color: #ff80ab;
             line-height: 1.7;
         }
+
         #lock-screen p {
             font-size: 0.9rem;
             color: #bbb;
         }
+
         .pin-input {
             width: 80%;
             padding: 14px;
@@ -76,6 +85,7 @@
             letter-spacing: 4px;
             outline: none;
         }
+
         .unlock-btn {
             background: linear-gradient(45deg, #ff4081, #c51162);
             color: white;
@@ -88,22 +98,27 @@
             transition: 0.3s;
             box-shadow: 0 5px 20px rgba(233, 30, 99, 0.4);
         }
+
         .unlock-btn:hover {
             transform: scale(1.05);
         }
+
         #error-msg {
             color: #ff5252;
             font-size: 0.9rem;
             display: none;
         }
+
         #main-content {
             display: none;
             animation: fadeIn 1.2s ease-in-out;
         }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .main-title {
             font-size: 1.7rem;
             color: #ff4081;
@@ -111,12 +126,14 @@
             font-weight: 900;
             line-height: 1.5;
         }
+
         .main-subtitle {
             font-size: 1rem;
             color: #ff80ab;
             margin-bottom: 25px;
             font-weight: 500;
         }
+
         .sub-dedication {
             font-size: 0.95rem;
             color: #fce4ec;
@@ -128,6 +145,7 @@
             border: 1px dashed rgba(255, 64, 129, 0.4);
             text-align: center;
         }
+
         .memory-card {
             background: rgba(40, 20, 30, 0.75);
             border: 1px solid rgba(255, 64, 129, 0.25);
@@ -137,22 +155,26 @@
             text-align: right;
             transition: 0.3s;
         }
+
         .memory-card:hover {
             border-color: #ff4081;
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(255, 64, 129, 0.15);
         }
+
         .memory-title {
             font-size: 1.2rem;
             color: #ff80ab;
             margin-bottom: 12px;
             font-weight: 700;
         }
+
         .memory-text {
             font-size: 0.97rem;
             color: #e8e8e8;
             line-height: 1.8;
         }
+
         .footer-note {
             margin-top: 30px;
             font-size: 0.9rem;
@@ -162,10 +184,10 @@
             text-align: center;
         }
 
-        /* العد التنازلي - إضافة فقط */
+        /* العد التنازلي - الإضافة الوحيدة */
         .countdown {
-            margin: 0 auto 30px;
-            padding: 18px;
+            margin: 0 0 30px;
+            padding: 20px;
             background: rgba(255, 64, 129, 0.12);
             border: 1px solid rgba(255, 64, 129, 0.35);
             border-radius: 18px;
@@ -175,7 +197,7 @@
             color: #ff80ab;
             font-size: 1rem;
             font-weight: 700;
-            margin-bottom: 14px;
+            margin-bottom: 15px;
         }
 
         .countdown-boxes {
@@ -188,7 +210,7 @@
         .countdown-box {
             min-width: 65px;
             padding: 10px 6px;
-            background: rgba(0,0,0,0.25);
+            background: rgba(0,0,0,0.3);
             border-radius: 12px;
         }
 
@@ -225,6 +247,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="balloon" style="left: 10%; width: 40px; height: 50px; animation-duration: 8s; animation-delay: 0s;"></div>
@@ -233,6 +256,7 @@
     <div class="balloon" style="left: 85%; width: 50px; height: 65px; animation-duration: 11s; animation-delay: 3s;"></div>
 
     <div class="container">
+
         <div id="lock-screen">
             <h2>🎈✨ هناك أميرة.. اقترب ميلادها وتزينت الدنيا لأجلها.. المفاجأة تنتظر مفتاحها لتنفتح أبواب قلبي وعالمنا الحافل بالحب 🤍</h2>
             <p>أدخلي الكود الخاص لتزهر الحكاية..</p>
@@ -242,10 +266,8 @@
         </div>
 
         <div id="main-content">
-            <h1 class="main-title">🎈 هناك أميرة.. اقترب ميلادها وعالمي يزهر بوجودها 🎉</h1>
-            <p class="main-subtitle">حفلة شوق، ومفاجآت قلب، وأيام ما تنمل بقربها</p>
 
-            <!-- العد التنازلي - الإضافة الوحيدة -->
+            <!-- العد التنازلي في أعلى الواجهة -->
             <div class="countdown">
                 <div class="countdown-title">🎂 باقي على ميلاد أميرتي مياسم</div>
 
@@ -271,6 +293,9 @@
                     </div>
                 </div>
             </div>
+
+            <h1 class="main-title">🎈 هناك أميرة.. اقترب ميلادها وعالمي يزهر بوجودها 🎉</h1>
+            <p class="main-subtitle">حفلة شوق، ومفاجآت قلب، وأيام ما تنمل بقربها</p>
             
             <div class="sub-dedication">
                 أميرتي، مسومي، سوسو، بنتي الغالية، قلب بابا، حياة عدنان، أنفاس عدنان، مياسم.. بدايتي ونهايتي، غايتي وسيلتي ومنتهى كل نبضة في قلبي 🤍✨.
@@ -339,6 +364,7 @@
             <div class="footer-note">
                 حكاية تنبض بالحب، وبالونات الفرح تزين أجمل عيد ميلاد لأجل أميرتي مياسم 🎈🤍
             </div>
+
         </div>
     </div>
 
@@ -353,7 +379,6 @@
             if (pin === correctPin) {
                 lockScreen.style.display = 'none';
                 mainContent.style.display = 'block';
-                updateCountdown();
             } else {
                 errorMsg.style.display = 'block';
                 document.getElementById('pin-code').value = '';
@@ -366,7 +391,7 @@
             }
         });
 
-        // العد التنازلي إلى 30 نوفمبر 2026 - إضافة فقط
+        // العد التنازلي إلى 30 نوفمبر 2026
         function updateCountdown() {
             const targetDate = new Date("November 30, 2026 00:00:00").getTime();
             const now = new Date().getTime();
@@ -394,5 +419,6 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
     </script>
+
 </body>
 </html>
