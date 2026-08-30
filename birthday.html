@@ -161,6 +161,68 @@
             padding-top: 15px;
             text-align: center;
         }
+
+        /* العد التنازلي - إضافة فقط */
+        .countdown {
+            margin: 0 auto 30px;
+            padding: 18px;
+            background: rgba(255, 64, 129, 0.12);
+            border: 1px solid rgba(255, 64, 129, 0.35);
+            border-radius: 18px;
+        }
+
+        .countdown-title {
+            color: #ff80ab;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .countdown-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            direction: ltr;
+        }
+
+        .countdown-box {
+            min-width: 65px;
+            padding: 10px 6px;
+            background: rgba(0,0,0,0.25);
+            border-radius: 12px;
+        }
+
+        .countdown-number {
+            display: block;
+            color: #ff4081;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        .countdown-label {
+            display: block;
+            color: #bbb;
+            font-size: 0.75rem;
+            margin-top: 3px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 18px;
+            }
+
+            .countdown-boxes {
+                gap: 5px;
+            }
+
+            .countdown-box {
+                min-width: 58px;
+            }
+
+            .countdown-number {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -182,6 +244,33 @@
         <div id="main-content">
             <h1 class="main-title">🎈 هناك أميرة.. اقترب ميلادها وعالمي يزهر بوجودها 🎉</h1>
             <p class="main-subtitle">حفلة شوق، ومفاجآت قلب، وأيام ما تنمل بقربها</p>
+
+            <!-- العد التنازلي - الإضافة الوحيدة -->
+            <div class="countdown">
+                <div class="countdown-title">🎂 باقي على ميلاد أميرتي مياسم</div>
+
+                <div class="countdown-boxes">
+                    <div class="countdown-box">
+                        <span id="days" class="countdown-number">0</span>
+                        <span class="countdown-label">يوم</span>
+                    </div>
+
+                    <div class="countdown-box">
+                        <span id="hours" class="countdown-number">0</span>
+                        <span class="countdown-label">ساعة</span>
+                    </div>
+
+                    <div class="countdown-box">
+                        <span id="minutes" class="countdown-number">0</span>
+                        <span class="countdown-label">دقيقة</span>
+                    </div>
+
+                    <div class="countdown-box">
+                        <span id="seconds" class="countdown-number">0</span>
+                        <span class="countdown-label">ثانية</span>
+                    </div>
+                </div>
+            </div>
             
             <div class="sub-dedication">
                 أميرتي، مسومي، سوسو، بنتي الغالية، قلب بابا، حياة عدنان، أنفاس عدنان، مياسم.. بدايتي ونهايتي، غايتي وسيلتي ومنتهى كل نبضة في قلبي 🤍✨.
@@ -264,6 +353,7 @@
             if (pin === correctPin) {
                 lockScreen.style.display = 'none';
                 mainContent.style.display = 'block';
+                updateCountdown();
             } else {
                 errorMsg.style.display = 'block';
                 document.getElementById('pin-code').value = '';
@@ -275,6 +365,34 @@
                 checkPin();
             }
         });
+
+        // العد التنازلي إلى 30 نوفمبر 2026 - إضافة فقط
+        function updateCountdown() {
+            const targetDate = new Date("November 30, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference <= 0) {
+                document.getElementById("days").textContent = "0";
+                document.getElementById("hours").textContent = "0";
+                document.getElementById("minutes").textContent = "0";
+                document.getElementById("seconds").textContent = "0";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / (1000 * 60)) % 60);
+            const seconds = Math.floor((difference / 1000) % 60);
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
