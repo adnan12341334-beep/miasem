@@ -3,220 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أهلاً بكِ مياسم</title>
+    <title>اشتياق لصوتك يا مياسم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #1a1518; /* خلفية داكنة أنيقة */
-            color: #ffffff;
-            font-family: 'Tahoma', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 450px;
-            background-color: #231c21;
-            border: 2px dashed #d47a96;
-            border-radius: 15px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
-            z-index: 2;
+            font-family: 'Cairo', sans-serif;
         }
 
-        /* شريط البالونات في الأعلى */
-        .balloons-header {
+        body {
+            background: linear-gradient(135deg, #20002c, #130722, #080210);
+            color: #f7f0f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+            padding-bottom: 50px;
+        }
+
+        /* الشريط المتحرك المدمج */
+        .marquee-container {
             width: 100%;
-            max-width: 490px;
-            height: 120px;
-            background: url('https://i.ibb.co/1n5L59N/pink-balloons-header.png') no-repeat center top;
-            background-size: cover;
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
+            background: linear-gradient(90deg, rgba(229,107,111,0.2), rgba(181,101,118,0.4), rgba(229,107,111,0.2));
+            backdrop-filter: blur(8px);
+            border-top: 1px solid rgba(255, 180, 162, 0.2);
+            border-bottom: 1px solid rgba(255, 180, 162, 0.2);
+            color: #ffd1dc;
+            padding: 14px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            z-index: 20;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 24s linear infinite;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 12px rgba(255, 180, 162, 0.6);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            max-width: 650px;
+            width: 90%;
+            text-align: center;
+            z-index: 10;
         }
 
         h1 {
-            color: #ffb6c1;
-            font-size: 24px;
-            margin-top: 40px;
-            margin-bottom: 15px;
+            color: #ffd1dc;
+            margin-bottom: 6px;
+            font-size: 2.4rem;
+            font-weight: 900;
+            text-shadow: 0 0 25px rgba(255, 180, 162, 0.4), 0 2px 5px rgba(0,0,0,0.8);
+            letter-spacing: 0.5px;
         }
 
-        p {
-            color: #e0e0e0;
-            font-size: 16px;
-            line-height: 1.6;
+        .subtitle {
+            color: #d1b3ff;
             margin-bottom: 25px;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-shadow: 0 0 10px rgba(209, 179, 255, 0.3);
         }
 
-        /* قسم العد التنازلي */
-        .countdown-section {
-            margin-bottom: 25px;
-            background: rgba(255, 182, 193, 0.05);
+        /* تنبيه القفل */
+        .lock-notice {
+            background: rgba(229, 107, 111, 0.08);
+            border: 1px dashed rgba(255, 180, 162, 0.4);
+            color: #ffd1dc;
             padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(212, 122, 150, 0.3);
-        }
-
-        .countdown-title {
-            color: #ffb6c1;
-            font-size: 14px;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        #timer {
-            font-size: 18px;
-            color: #fff;
-            letter-spacing: 2px;
-            font-weight: bold;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        input[type="password"] {
-            width: 80%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #d47a96;
-            background-color: #1a1518;
-            color: #fff;
-            text-align: center;
-            font-size: 16px;
-            outline: none;
-        }
-
-        input[type="password"]::placeholder {
-            color: #888;
-        }
-
-        button {
-            background-color: #d47a96;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        button:hover {
-            background-color: #b55d78;
-        }
-
-        .hidden-content {
+            border-radius: 16px;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
             display: none;
-            margin-top: 20px;
-            animation: fadeIn 1s ease-in-out;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 15px rgba(229, 107, 111, 0.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* العد التنازلي المدمج */
+        .countdown-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 180, 162, 0.15);
+            border-radius: 22px;
+            padding: 22px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.02);
+        }
+
+        .countdown-card h3 {
+            font-size: 1rem;
+            color: #ffd1dc;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(255, 180, 162, 0.3);
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .time-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 14px;
+            border-radius: 14px;
+            min-width: 65px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 12px rgba(255,180,162,0.8);
+        }
+
+        .time-box label {
+            font-size: 0.75rem;
+            color: #d1b3ff;
+            font-weight: 300;
+        }
+
+        /* الكروت المخفية والمدمجة */
+        .cards-section {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .hidden-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 180, 162, 0.2);
+            border-radius: 20px;
+            padding: 20px 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            text-align: right;
+        }
+
+        .hidden-card.locked {
+            border-color: rgba(255, 255, 255, 0.05);
+            opacity: 0.7;
+            cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .hidden-card:not(.locked):hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 180, 162, 0.6);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 12px 35px rgba(229, 107, 111, 0.25), inset 0 0 15px rgba(255, 180, 162, 0.05);
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: #ffd1dc;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            text-shadow: 0 0 8px rgba(255, 180, 162, 0.3);
+        }
+
+        .lock-icon {
+            font-size: 0.9rem;
+            color: #d1b3ff;
+            font-weight: 400;
+        }
+
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, margin-top 0.4s ease, opacity 0.4s ease;
+            color: #eadef4;
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 300;
+            opacity: 0;
+            border-top: 1px dashed rgba(255, 180, 162, 0.2);
+            padding-top: 0;
+        }
+
+        .hidden-card.active .card-content {
+            max-height: 350px;
+            margin-top: 15px;
+            opacity: 1;
+            padding-top: 15px;
+        }
+
+        /* ورود وبالونات خلفية عائمة شفافة */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .float-item {
+            position: absolute;
+            bottom: -60px;
+            opacity: 0.5;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.85);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-55vh) rotate(180deg) scale(1.05);
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg) scale(0.85);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- الشريط المتحرك المدمج -->
+    <div class="marquee-container" id="marquee-box">
+        <div class="marquee-text" id="marquee-text">
+            🔒 الشريط مقفل حتى تمام الساعة 12:00 من منتصف الليل... انتظروا لحظة اللقاء العذب ⏳
+        </div>
+    </div>
+
+    <!-- عناصر تزيينية عائمة -->
+    <div class="floating-elements" id="floating-container"></div>
+
+    <!-- المحتوى الرئيسي -->
     <div class="container">
-        <!-- شريط البالونات -->
-        <div class="balloons-header"></div>
+        <h1>إلى مياسم الروح 🌸</h1>
+        <p class="subtitle">حيث يسكن الشوق وتكتمل الحكاية...</p>
 
-        <h1>أهلاً بكِ مياسم</h1>
-        <p>مرحباً بكِ في هذه المساحة الخاصة التي جمعتنا، كل لحظة بانتظار عودتك كانت تعني الكثير.</p>
-
-        <!-- العد التنازلي صار فوق كلمة المرور وبنفس العنوان المطلوب -->
-        <div class="countdown-section">
-            <div class="countdown-title">ما أطيق الانتظار عشان أسمع صوتك 🤍</div>
-            <div id="timer">00:00:00</div>
+        <!-- تنبيه قفل الكروت والشريط -->
+        <div class="lock-notice" id="lock-notice">
+            🎉 لقد حان الوقت وانفتحت الكروت والشريط المتحرك! استمتعي بسماع الصوت واكتشاف كل رسائل الشوق 💖
         </div>
 
-        <div class="input-group">
-            <input type="password" id="secretCode" placeholder="أدخل الرمز السري">
+        <!-- العد التنازلي -->
+        <div class="countdown-card">
+            <h3>⏳ العد التنازلي للحظة التي يفتح فيها كل شيء وتسمعين صوت الشوق</h3>
+            <div class="timer-grid">
+                <div class="time-box">
+                    <span id="days">0</span>
+                    <label>أيام</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">0</span>
+                    <label>ساعات</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">0</span>
+                    <label>دقائق</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">0</span>
+                    <label>ثوانٍ</label>
+                </div>
+            </div>
         </div>
-        
-        <button onclick="checkCode()">دخول</button>
 
-        <div id="welcomeMessage" class="hidden-content">
-            <p style="color: #ffb6c1; font-weight: bold;">أهلاً بكِ يا أغلى الناس، نورتِ قلبي وعالمي من جديد!</p>
-            <!-- تقدر تحط هنا الصوتيات أو أي محتوى إضافي تبغاه يفتح بعد الرمز -->
+        <!-- الكروت المخفية والمقفلة -->
+        <div class="cards-section">
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>💌 كارت الشوق الأول: مرارة غياب الصوت</span>
+                    <span class="lock-icon" id="icon-0">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    لي شهر كامل ماسمعت صوتك... شهر كامل بحاله والكون ساكن بدون نبرتك التي تروي روحي. كأن الأيام تمر ببطء شديد لأن الموسيقى الوحيدة التي كانت تبهجني وتطرد وحشة أيامي كانت غائبة. افتقدت ضحكتك، حديثك، وكل تفصيلة صوتية تخصك يا أجمل أقداري.
+                </div>
+            </div>
+
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>🌹 كارت العشق الثاني: أحبك مياسم وأحب صوتك</span>
+                    <span class="lock-icon" id="icon-1">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    أحبك مياسم، وأعشق كل حرف ينطق به لسانك. صوتك بالنسبة لي ليس مجرد نبرة أسمعها، بل هو الوطن الدافئ والملجأ الذي أهرب إليه من تعب الدنيا. غياب هذا الصوت طال وأثقل صدري بالشوق، لكنني أدرك جيداً أن اللقاء القادم سيغفر كل لحظات الانتظار المريرة.
+                </div>
+            </div>
+
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>✨ كارت الارتواء الثالث: اكتملت حياتي بسماع صوتك</span>
+                    <span class="lock-icon" id="icon-2">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    حياتي الحقيقية لا تبدأ ولا تكتمل إلا بسماع صوتك. عندما يعود صوتك ليتردد في أذني، أشعر أن كل شيء ناقص في حياتي قد تجمل واستقام. أنتِ الروح التي تمنحني الحياة، وبصوتك يعود النبض لكل زاوية في داخلي. لا تحرميني منك، فاشتياقي لك يفوق كل وصف وكل حرف.
+                </div>
+            </div>
+
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>💖 كارت اللهفة الرابع: تفاصيل النبرة التي أحن لها</span>
+                    <span class="lock-icon" id="icon-3">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    أحتاج سماع صوتك أكثر من أي وقت مضى. تلك البداية الدافئة لأي حديث بيننا، وتلك البحة الحنونة التي تغير مزاج أيامي السوداء إلى نور وسعادة. شهر كامل وأنا أتخيل كيف سيكون وقع صوتك حين تنطقين اسمي من جديد. الشوق أكل قلبي، ولم يعد يهدئه سوى وعد لقائك القريب.
+                </div>
+            </div>
+
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>🌟 كارت الوعد الخامس: نهاية الانتظار وبداية الحياة</span>
+                    <span class="lock-icon" id="icon-4">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    ها قد انقضى العد التنازلي وفتحت الأقفال يا مياسم الروح. فتحت الكروت وفتح الشريط المتحرك لأن الوقت حان ليتردد أجمل صوت في الكون. أحبك، ولن أسمح للغياب أن يسرق منا لحظة إضافية. كل عام وكل ثانية وأنتِ معي وبصوتك العذب تكتمل دنيتي للأبد.
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // عد تنازلي تجريبي (وقت مستهدف، تقدر تعدل التاريخ والوقت براحتك)
-        const targetDate = new Date("August 26, 2026 00:00:00").getTime();
+        const targetDate = new Date("September 2, 2026 00:00:00").getTime();
+        let isUnlocked = false;
 
-        const timerInterval = setInterval(function() {
+        function updateCountdown() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            const difference = targetDate - now;
 
-            if (distance < 0) {
-                document.getElementById("timer").innerHTML = "انتهى الانتظار.. نورتِ!";
-                clearInterval(timerInterval);
+            if (difference <= 0) {
+                if (!isUnlocked) {
+                    isUnlocked = true;
+                    unlockEverything();
+                }
+                document.getElementById('days').innerText = 0;
+                document.getElementById('hours').innerText = 0;
+                document.getElementById('minutes').innerText = 0;
+                document.getElementById('seconds').innerText = 0;
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60تفضل يا عدنان! هذا كود محدث ومتكامل لصفحة HTML يدمج التصميم الداكن مع إطار البالونات الوردية والبيضاء المستوحى من الصورة، مع إضافة مؤقت العد التنازلي والعنوان الذي طلبت أن يكون فوق خانة كلمة المرور مباشرة ليعبر عن الشوق لسماع الصوت:
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-```html
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>في انتظارك يا مياسم</title>
-    <style>
-        body {
-            background-color: #1a1517;
-            color: #ffffff;
-            font-family: Tahoma, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
         }
-        .container {
-            width: 100%;
-            max-width: 450px;
-            background-color: #241d20;
-            border: 2px dashed #d47a96;
-            border-radius: 12px;
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+
+        function unlockEverything() {
+            document.getElementById('lock-notice').style.display = 'block';
+            
+            const marqueeText = document.getElementById('marquee-text');
+            marqueeText.innerHTML = "✨ وحشني صوت سوسو... شهر كامل وغاب عني أعذب صوت وأحن نبرة 💖 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🌹 أحبك مياسم، وبسماع صوتك تكتمل حياتي ويعود لها النبض ✨";
+
+            const cards = document.querySelectorAll('.hidden-card');
+            cards.forEach((card, index) => {
+                card.classList.remove('locked');
+                const lockIcon = document.getElementById(`icon-${index}`);
+                lockIcon.innerText = "🔓 اضغط للفتح";
+            });
         }
-        /* تصميم ديكور البالونات العلوي */
-        .balloons-header {
-            width: 100%;
-            height: 130px;
-            background: linear-gradient(135deg, #d47a96 0%, #241d20 100%);
-            border-radius: 8px 8px 0 0;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 10px;
-            box-sizing: border-box;
-            margin-bottom: 20px
+
+        function toggleCard(card) {
+            if (card.classList.contains('locked')) {
+                alert("هذا الكارت مقفل ولن يفتح إلا عند الساعة 12 منتصف الليل!");
+                return;
+            }
+            card.classList.toggle('active');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        const icons = ['🎈', '🌸', '💖', '🌹', '✨', '🤍', '🌷'];
+        const container = document.getElementById('floating-container');
+
+        function createFloatingItem() {
+            const item = document.createElement('div');
+            item.className = 'float-item';
+            item.innerText = icons[Math.floor(Math.random() * icons.length)];
+            item.style.left = Math.random() * 95 + 'vw';
+            item.style.fontSize = (Math.random() * 22 + 16) + 'px';
+            
+            const duration = Math.random() * 7 + 5;
+            item.style.animationDuration = duration + 's';
+
+            container.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createFloatingItem, 350);
+    </script>
+</body>
+</html>
