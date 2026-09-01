@@ -25,7 +25,7 @@
             padding-bottom: 50px;
         }
 
-        /* الشريط المتحرك العلوي */
+        /* الشريط المتحرك العلوي المقفل */
         .marquee-container {
             width: 100%;
             background: linear-gradient(90deg, #e56b6f, #b56576, #e56b6f);
@@ -42,7 +42,7 @@
 
         .marquee-text {
             display: inline-block;
-            animation: marquee 18s linear infinite;
+            animation: marquee 22s linear infinite;
             font-size: 1.2rem;
             font-weight: 700;
             letter-spacing: 1px;
@@ -75,6 +75,20 @@
             margin-bottom: 25px;
             font-size: 1.15rem;
             font-weight: 600;
+        }
+
+        /* رسالة حالة القفل العام */
+        .lock-notice {
+            background: rgba(229, 107, 111, 0.15);
+            border: 1.5px dashed #ffb4a2;
+            color: #ffb4a2;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            display: none;
+            backdrop-filter: blur(5px);
         }
 
         /* العد التنازلي */
@@ -122,7 +136,7 @@
             color: #d8bbff;
         }
 
-        /* قسم الكروت المعبرة والطويلة */
+        /* قسم الكروت المعبرة */
         .cards-section {
             display: flex;
             flex-direction: column;
@@ -142,7 +156,13 @@
             text-align: right;
         }
 
-        .hidden-card:hover {
+        .hidden-card.locked {
+            border-color: rgba(255, 255, 255, 0.1);
+            opacity: 0.75;
+            cursor: not-allowed;
+        }
+
+        .hidden-card:not(.locked):hover {
             transform: translateY(-5px);
             border-color: #ffb4a2;
             background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
@@ -155,7 +175,13 @@
             font-size: 1.2rem;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 12px;
+        }
+
+        .lock-icon {
+            font-size: 1rem;
+            color: #d8bbff;
         }
 
         .card-content {
@@ -171,7 +197,7 @@
         }
 
         .hidden-card.active .card-content {
-            max-height: 300px;
+            max-height: 350px;
             margin-top: 15px;
             opacity: 1;
             padding-top: 15px;
@@ -213,14 +239,14 @@
 </head>
 <body>
 
-    <!-- الشريط المتحرك العلوي -->
-    <div class="marquee-container">
-        <div class="marquee-text">
-            ✨ وحشني صوت سوسو... شهر كامل وغاب عني أعذب صوت وأحن نبرة 💖 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🌹 أحبك مياسم، وبسماع صوتك تكتمل حياتي ويعود لها النبض ✨
+    <!-- الشريط المتحرك العلوي (مقفل وينفتح بعد الساعة 12) -->
+    <div class="marquee-container" id="marquee-box">
+        <div class="marquee-text" id="marquee-text">
+            🔒 الشريط مقفل حتى تمام الساعة 12:00 من منتصف الليل... انتظروا لحظة اللقاء العذب ⏳
         </div>
     </div>
 
-    <!-- عناصر تزيينية عائمة (بالونات وورود وقلوب) -->
+    <!-- عناصر تزيينية عائمة -->
     <div class="floating-elements" id="floating-container"></div>
 
     <!-- المحتوى الرئيسي -->
@@ -228,9 +254,14 @@
         <h1>إلى مياسم الروح 🌸</h1>
         <p class="subtitle">حيث يسكن الشوق وتكتمل الحكاية...</p>
 
-        <!-- المؤقت التنازلي حتى تاريخ 2 سبتمبر -->
+        <!-- تنبيه قفل الكروت والشريط -->
+        <div class="lock-notice" id="lock-notice">
+            🔒 الكروت والشريط مقفلة حالياً، وستفتح تلقائياً عند الساعة 12:00 منتصف الليل!
+        </div>
+
+        <!-- المؤقت التنازلي حتى تاريخ 2 سبتمبر الساعة 12 صباحاً -->
         <div class="countdown-card">
-            <h3>⏳ العد التنازلي للحظة التي أسمع فيها صوتك من جديد</h3>
+            <h3>⏳ العد التنازلي للحظة التي يفتح فيها كل شيء وتسمعين صوت الشوق</h3>
             <div class="timer-grid">
                 <div class="time-box">
                     <span id="days">0</span>
@@ -251,67 +282,125 @@
             </div>
         </div>
 
-        <!-- الكروت المخفية التعبيرية العميقة -->
+        <!-- الكروت المخفية والمقفلة -->
         <div class="cards-section">
-            <div class="hidden-card" onclick="toggleCard(this)">
-                <div class="card-title">💌 كارت الشوق الأول: مرارة غياب الصوت</div>
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>💌 كارت الشوق الأول: مرارة غياب الصوت</span>
+                    <span class="lock-icon" id="icon-0">🔒 مقفل</span>
+                </div>
                 <div class="card-content">
-                    لي شهر كامل ماسمعت صوتك... شهر كامل بحاله والكون ساكن بدون نبرتك التي تروي روحي. كأن الأيام تمر ببطء شديد لأن الموسيقى الوحيدة التي كانت تبهجي وتطرد وحشة أيامي كانت غائبة. افتقدت ضحكتك، حديثك، وكل تفصيلة صوتية تخصك يا أجمل أقداري.
+                    لي شهر كامل ماسمعت صوتك... شهر كامل بحاله والكون ساكن بدون نبرتك التي تروي روحي. كأن الأيام تمر ببطء شديد لأن الموسيقى الوحيدة التي كانت تبهجني وتطرد وحشة أيامي كانت غائبة. افتقدت ضحكتك، حديثك، وكل تفصيلة صوتية تخصك يا أجمل أقداري.
                 </div>
             </div>
 
-            <div class="hidden-card" onclick="toggleCard(this)">
-                <div class="card-title">🌹 كارت العشق الثاني: أحبك مياسم وأحب صوتك</div>
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>🌹 كارت العشق الثاني: أحبك مياسم وأحب صوتك</span>
+                    <span class="lock-icon" id="icon-1">🔒 مقفل</span>
+                </div>
                 <div class="card-content">
-                    أحبك مياسم، وأعشق كل حرف ينطق به لسانك. صوتك بالنسبة لي ليس مجرد نبرة أسمعها، بل هو الوطن الدافئ والملجأ الذي هرب إليه من تعب الدنيا. غياب هذا الصوت طال وأثقل صدري بالشوق، لكنني أدرك جيداً أن اللقاء القادم سيغفر كل لحظات الانتظار المريرة.
+                    أحبك مياسم، وأعشق كل حرف ينطق به لسانك. صوتك بالنسبة لي ليس مجرد نبرة أسمعها، بل هو الوطن الدافئ والملجأ الذي أهرب إليه من تعب الدنيا. غياب هذا الصوت طال وأثقل صدري بالشوق، لكنني أدرك جيداً أن اللقاء القادم سيغفر كل لحظات الانتظار المريرة.
                 </div>
             </div>
 
-            <div class="hidden-card" onclick="toggleCard(this)">
-                <div class="card-title">✨ كارت الارتواء الثالث: اكتملت حياتي بسماع صوتك</div>
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>✨ كارت الارتواء الثالث: اكتملت حياتي بسماع صوتك</span>
+                    <span class="lock-icon" id="icon-2">🔒 مقفل</span>
+                </div>
                 <div class="card-content">
-                    حياتي الحقيقية لا تبدأ ولا تكتمل إلا بسماع صوتك. عندما يعود صوتك ليتردد في أذني، أشعر أن كل شي ناقص في حياتي قد تجمل واستقام. أنتِ الروح التي تمنحني الحياة، وبصوتك يعود النبض لكل زاوية في داخلي. لا تحرميني منك، فاشتياقي لك يفوق كل وصف وكل حرف.
+                    حياتي الحقيقية لا تبدأ ولا تكتمل إلا بسماع صوتك. عندما يعود صوتك ليتردد في أذني، أشعر أن كل شيء ناقص في حياتي قد تجمل واستقام. أنتِ الروح التي تمنحني الحياة، وبصوتك يعود النبض لكل زاوية في داخلي. لا تحرميني منك، فاشتياقي لك يفوق كل وصف وكل حرف.
+                </div>
+            </div>
+
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>💖 كارت اللهفة الرابع: تفاصيل النبرة التي أحن لها</span>
+                    <span class="lock-icon" id="icon-3">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    أحتاج سماع صوتك أكثر من أي وقت مضى. تلك البداية الدافئة لأي حديث بيننا، وتلك البحة الحنونة التي تغير مزاج أيامي السوداء إلى نور وسعادة. شهر كامل وأنا أتخيل كيف سيكون وقع صوتك حين تنطقين اسمي من جديد. الشوق أكل قلبي، ولم يعد يهدئه سوى وعد لقائك القريب.
+                </div>
+            </div>
+
+            <div class="hidden-card locked" onclick="toggleCard(this)">
+                <div class="card-title">
+                    <span>🌟 كارت الوعد الخامس: نهاية الانتظار وبداية الحياة</span>
+                    <span class="lock-icon" id="icon-4">🔒 مقفل</span>
+                </div>
+                <div class="card-content">
+                    ها قد انقضى العد التنازلي وفتحت الأقفال يا مياسم الروح. فتحت الكروت وفتح الشريط المتحرك لأن الوقت حان ليتردد أجمل صوت في الكون. أحبك، ولن أسمح للغياب أن يسرق منا لحظة إضافية. كل عام وكل ثانية وأنتِ معي وبصوتك العذب تكتمل دنيتي للأبد.
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // تفاعل فتح وإغلاق الكروت بسلاسة
-        function toggleCard(card) {
-            // إغلاق باقي الكروت إذا أردت أو تركها تفتح بحرية (هنا تفتح وتغلق بمرونة)
-            card.classList.toggle('active');
-        }
-
-        // العد التنازلي حتى 2 سبتمبر 2026
+        // تاريخ الهدف: 2 سبتمبر 2026 الساعة 00:00:00 (منتصف الليل تماماً)
         const targetDate = new Date("September 2, 2026 00:00:00").getTime();
+        let isUnlocked = false;
 
         function updateCountdown() {
             const now = new Date().getTime();
             const difference = targetDate - now;
 
-            if (difference > 0) {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                document.getElementById('days').innerText = days;
-                document.getElementById('hours').innerText = hours;
-                document.getElementById('minutes').innerText = minutes;
-                document.getElementById('seconds').innerText = seconds;
-            } else {
+            if (difference <= 0) {
+                // وقت القفل انتهى! فتح كل شيء
+                if (!isUnlocked) {
+                    isUnlocked = true;
+                    unlockEverything();
+                }
                 document.getElementById('days').innerText = 0;
                 document.getElementById('hours').innerText = 0;
                 document.getElementById('minutes').innerText = 0;
                 document.getElementById('seconds').innerText = 0;
+                return;
             }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        function unlockEverything() {
+            // إخفاء تنبيه القفل
+            document.getElementById('lock-notice').style.display = 'block';
+            document.getElementById('lock-notice').innerText = "🎉 لقد حان الوقت وانفتحت الكروت والشريط المتحرك! استمتعي بسماع الصوت واكتشاف كل رسائل الشوق 💖";
+            
+            // تحديث الشريط المتحرك بالنص الأصلي الجميل
+            const marqueeText = document.getElementById('marquee-text');
+            marqueeText.innerHTML = "✨ وحشني صوت سوسو... شهر كامل وغاب عني أعذب صوت وأحن نبرة 💖 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🌹 أحبك مياسم، وبسماع صوتك تكتمل حياتي ويعود لها النبض ✨";
+
+            // فك قفل الكروت
+            const cards = document.querySelectorAll('.hidden-card');
+            cards.forEach((card, index) => {
+                card.classList.remove('locked');
+                const lockIcon = document.getElementById(`icon-${index}`);
+                lockIcon.innerText = "🔓 اضغط للفتح";
+            });
+        }
+
+        // تفاعل فتح الكروت (لا يفتح إلا إذا انفك القفل)
+        function toggleCard(card) {
+            if (card.classList.contains('locked')) {
+                // اهتزاز خفيف أو تنبيه بصري بكونه مقفلاً
+                alert("هذا الكارت مقفل ولن يفتح إلا عند الساعة 12 منتصف الليل!");
+                return;
+            }
+            card.classList.toggle('active');
         }
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // توليد بالونات وورود وقلوب عائمة في الخلفية بروح رومانسية
+        // توليد بالونات وورود وقلوب عائمة في الخلفية
         const icons = ['🎈', '🌸', '💖', '🌹', '✨', '🤍', '🌷'];
         const container = document.getElementById('floating-container');
 
@@ -322,7 +411,7 @@
             item.style.left = Math.random() * 95 + 'vw';
             item.style.fontSize = (Math.random() * 22 + 16) + 'px';
             
-            const duration = Math.random() * 7 + 5; // مدة الحركة بين 5 إلى 12 ثانية لتكون هادئة
+            const duration = Math.random() * 7 + 5;
             item.style.animationDuration = duration + 's';
 
             container.appendChild(item);
