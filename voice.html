@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اشتياق لصوتك يا مياسم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* شاشة القفل */
+        #lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 30, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .lock-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            max-width: 350px;
+            width: 90%;
+        }
+
+        .lock-box h2 {
+            margin-bottom: 20px;
+            color: #ffb4a2;
+            font-size: 1.4rem;
+        }
+
+        .lock-box input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .lock-box button {
+            background: #e56b6f;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .lock-box button:hover {
+            background: #b56576;
+        }
+
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            max-width: 600px;
+            width: 90%;
+            padding: 30px;
+            text-align: center;
+            z-index: 10;
+            display: none;
+        }
+
+        h1 {
+            color: #ffb4a2;
+            margin-bottom: 10px;
+            font-size: 2rem;
+            text-shadow: 0 2px 10px rgba(229, 107, 111, 0.3);
+        }
+
+        .subtitle {
+            color: #d8bbff;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        /* العداد التنازلي */
+        .countdown-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .countdown-card h3 {
+            font-size: 1rem;
+            color: #ffb4a2;
+            margin-bottom: 15px;
+        }
+
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .time-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 15px;
+            border-radius: 10px;
+            min-width: 60px;
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .time-box label {
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        /* الكروت المخفية */
+        .cards-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .hidden-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+            border: 1px solid rgba(255, 180, 162, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .hidden-card:hover {
+            transform: translateY(-3px);
+            border-color: #ffb4a2;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #ffb4a2;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, margin-top 0.5s ease;
+            color: #f1f1f1;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .hidden-card.active .card-content {
+            max-height: 150px;
+            margin-top: 15px;
+        }
+
+        /* ورود وبالونات خلفية عائمة */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .float-item {
+            position: absolute;
+            bottom: -50px;
+            opacity: 0.6;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة الحماية بالرمز -->
+    <div id="lock-screen">
+        <div class="lock-box">
+            <h2>🔐 هذه الصفحة محمية</h2>
+            <p style="font-size: 0.85rem; color: #aaa; margin-bottom: 15px;">أدخل رمز الدخول الخاص للمتابعة</p>
+            <input type="password" id="pass-input" placeholder="الرمز السري">
+            <button onclick="checkPassword()">دخول</button>
+            <div id="error-msg" class="error-msg">الرمز غير صحيح، حاول مرة أخرى</div>
+        </div>
+    </div>
+
+    <!-- عناصر تزيينية عائمة (بالونات وورود) -->
+    <div class="floating-elements" id="floating-container"></div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container" id="main-content">
+        <h1>إلى مياسم الروح 🌸</h1>
+        <p class="subtitle">شهر كامل وغاب عني أعذب صوت...</p>
+
+        <!-- المؤقت التنازلي حتى تاريخ 2 سبتمبر -->
+        <div class="countdown-card">
+            <h3>⏳ العد التنازلي للقاء وسماع الصوت الحنون</h3>
+            <div class="timer-grid">
+                <div class="time-box">
+                    <span id="days">0</span>
+                    <label>أيام</label>
+                </div>
+                <div class="time-box">
+                    <span id="hours">0</span>
+                    <label>ساعات</label>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">0</span>
+                    <label>دقائق</label>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">0</span>
+                    <label>ثوانٍ</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- الكروت المخفية التعبيرية -->
+        <div class="cards-section">
+            <div class="hidden-card" onclick="toggleCard(this)">
+                <div class="card-title">💌 اضغط لاكتشاف رسالة الشوق الأولى</div>
+                <div class="card-content">
+                    لي شهر كامل ماسمعت صوتك... كأن الصمت ملأ المكان كله، وبغياب صوتك افتقدت أجمل تفاصيل يومي.
+                </div>
+            </div>
+
+            <div class="hidden-card" onclick="toggleCard(this)">
+                <div class="card-title">🌹 رسالة عن صوتها الحبيب</div>
+                <div class="card-content">
+                    أحبك مياسم، وأحب صوتك الذي يبعث الطمأنينة في روحي. غياب نبرتك طال، ولكنه زاد الشوق أضعافاً.
+                </div>
+            </div>
+
+            <div class="hidden-card" onclick="toggleCard(this)">
+                <div class="card-title">✨ نبض الحياة</div>
+                <div class="card-content">
+                    حياتي لا تكمل إلا بسماع صوتك... هو النغمة التي تعيد لروحي الحياة والارتياح بعد كل تعب.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // الرمز السري (يمكنك تغييره هنا، مثلاً رقماً خاصاً بكما أو تاريخاً مهماً)
+        const secretCode = "2026"; 
+
+        function checkPassword() {
+            const input = document.getElementById('pass-input').value;
+            const errorMsg = document.getElementById('error-msg');
+            
+            if (input === secretCode) {
+                document.getElementById('lock-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 500);
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // تفاعل فتح الكروت
+        function toggleCard(card) {
+            card.classList.toggle('active');
+        }
+
+        // العد التنازلي حتى 2 سبتمبر 2026
+        const targetDate = new Date("September 2, 2026 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
+            } else {
+                document.getElementById('days').innerText = 0;
+                document.getElementById('hours').innerText = 0;
+                document.getElementById('minutes').innerText = 0;
+                document.getElementById('seconds').innerText = 0;
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // توليد بالونات وورود عائمة في الخلفية
+        const icons = ['🎈', '🌸', '💖', '🌹', '✨'];
+        const container = document.getElementById('floating-container');
+
+        function createFloatingItem() {
+            const item = document.createElement('div');
+            item.className = 'float-item';
+            item.innerText = icons[Math.floor(Math.random() * icons.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            const duration = Math.random() * 6 + 4; // بين 4 إلى 10 ثواني
+            item.style.animationDuration = duration + 's';
+
+            container.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+
+        setInterval(createFloatingItem, 400);
+    </script>
+</body>
+</html>
