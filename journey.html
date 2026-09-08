@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غرفة الأسرار - إلى مياسم</title>
+    <title>غرفة الأسرار والمفاجآت - إلى مياسم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body {
@@ -32,44 +32,46 @@
             transition: opacity 1s ease;
         }
         .lock-box {
-            background: rgba(20, 16, 28, 0.8);
-            border: 1px solid rgba(255, 182, 193, 0.2);
-            padding: 40px;
-            border-radius: 20px;
+            background: rgba(20, 16, 28, 0.9);
+            border: 1px solid rgba(255, 182, 193, 0.25);
+            padding: 45px 30px;
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             max-width: 400px;
             width: 90%;
         }
         .lock-box h2 {
             color: #ffb6c1;
             margin-bottom: 15px;
-            font-size: 22px;
+            font-size: 24px;
         }
         .lock-box p {
             font-size: 14px;
-            color: #a89bc, #9c8da6;
+            color: #9c8da6;
             margin-bottom: 25px;
+            line-height: 1.8;
         }
         .lock-input {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 8px;
+            border-radius: 10px;
             color: #fff;
             font-size: 18px;
             text-align: center;
             margin-bottom: 20px;
             outline: none;
             box-sizing: border-box;
+            letter-spacing: 2px;
         }
         .lock-btn {
             background: #ffb6c1;
             color: #050408;
             border: none;
             padding: 12px 30px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 700;
             font-size: 15px;
             cursor: pointer;
@@ -77,19 +79,19 @@
         }
         .lock-btn:hover {
             background: #ffcbd1;
-            box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
         }
         .error-msg {
             color: #ff6b6b;
             font-size: 13px;
-            margin-top: 10px;
+            margin-top: 15px;
             display: none;
         }
 
         /* المحتوى الرئيسي المخفي */
         #main-content {
             display: none;
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto;
             padding: 60px 20px;
             opacity: 0;
@@ -98,11 +100,11 @@
 
         .header-title {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
         .header-title h1 {
             color: #ffb6c1;
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 900;
             margin-bottom: 10px;
         }
@@ -111,21 +113,22 @@
             font-size: 15px;
         }
 
-        /* الصناديق والمحطات التفاعلية */
+        /* الصناديق والمحطات المتنوعة */
         .secret-box {
             background: linear-gradient(145deg, #13101a, #0b0910);
             border: 1px solid rgba(255, 182, 193, 0.15);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             cursor: pointer;
             transition: all 0.4s ease;
-            position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
         .secret-box:hover {
             border-color: rgba(255, 182, 193, 0.4);
-            transform: translateY(-3px);
+            transform: translateY(-4px);
         }
         .box-header {
             display: flex;
@@ -160,132 +163,176 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .quote-inner {
-            background: rgba(255, 182, 193, 0.04);
+        /* تنسيقات مختلفة لكل صندوق لتكون منوعة */
+        .badge {
+            display: inline-block;
+            background: rgba(255, 182, 193, 0.1);
+            color: #ffb6c1;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .special-quote {
+            background: rgba(255, 182, 193, 0.05);
             border-right: 4px solid #ffb6c1;
-            padding: 15px 20px;
+            padding: 18px 22px;
             margin: 20px 0;
-            border-radius: 4px;
+            border-radius: 6px;
             font-style: italic;
             color: #ffb6c1;
+        }
+
+        /* تفاعل إضافي داخل الصندوق الثالث (مفاجأة تفاعلية) */
+        .interactive-btn {
+            background: rgba(255, 182, 193, 0.15);
+            border: 1px solid #ffb6c1;
+            color: #ffb6c1;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .interactive-btn:hover {
+            background: #ffb6c1;
+            color: #050408;
+        }
+        .hidden-surprise {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            color: #ffcbd1;
+            border: 1px dashed rgba(255, 182, 193, 0.3);
         }
 
         .final-vault {
             text-align: center;
             background: linear-gradient(145deg, #1a1224, #0d0a14);
             border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 50px 30px;
-            margin-top: 60px;
+            margin-top: 50px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
         }
         .final-vault h2 {
             color: #ffb6c1;
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 20px;
         }
         .final-vault p {
             color: #dfd8e8;
-            line-height: 2.5;
+            line-height: 2.6;
             font-size: 17px;
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة إدخال رمز الدخول للغرفة السرية -->
+    <!-- شاشة إدخال رمز الدخول السري -->
     <div id="lock-screen">
         <div class="lock-box">
             <h2>🔐 غرفة الأسرار المقفلة</h2>
-            <p>أدخل الرمز السري الخاص (تاريخ أو رقم يجمعنا) لفتح الخزنة والاستكشاف:</p>
-            <input type="password" id="passcode" class="lock-input" placeholder="أدخل الرمز هنا">
+            <p>أدخل الرمز السري الخاص (20243112) لفك قفل الغرفة والاستكشاف:</p>
+            <input type="password" id="passcode" class="lock-input" placeholder="••••••••">
             <button class="lock-btn" onclick="checkCode()">فتح الخزنة</button>
             <div id="error-msg" class="error-msg">الرمز غير صحيح، حاول مرة أخرى..</div>
         </div>
     </div>
 
-    <!-- المحتوى السري الطويل (يظهر بعد فتح القفل) -->
+    <!-- المحتوى الرئيسي المنوع والمفاجآت -->
     <div id="main-content">
         <div class="header-title">
-            <h1>✨ أسرار لا تنتهي إلى مياسم</h1>
-            <p>اضغط على كل صندوق لتفتح طبقة من طبقات الحكاية وتستكشف التفاصيل..</p>
+            <h1>✨ رحلة الأسرار والمفاجآت</h1>
+            <p>كل صندوق يفتح لك عالماً مختلفاً.. اضغط واستكشف على مهلك.</p>
         </div>
 
-        <!-- الصندوق الأول -->
+        <!-- الصندوق الأول: البداية وقصة التعارف -->
         <div class="secret-box" onclick="toggleBox(this)">
             <div class="box-header">
-                <span>📦 الصندوق الأول: البداية التي غيرت الاتجاهات</span>
+                <span>📦 الصندوق الأول: نقطة التحول والبداية</span>
                 <span>➕</span>
             </div>
-            <div class="box-hint">اضغط للاستكشاف وقراءة السر الأول</div>
+            <div class="box-hint">اضغط لفتح المحطة الأولى</div>
             <div class="box-content">
-                <p>في أحيان كثيرة، يعتقد الإنسان أن الأيام تكرر نفسها بملل، وأن الزحام لا يترك متسَعاً لشيء جديد. لكن، بين سكون الليل وضجيج الأفكار، حدث التغيير. لم تبدأ قصتنا بلقاء صاخب على رصيف محطة، ولا بموعد مدبر في مقهى مزدحم، بل بدأت بأبسط وأعمق طريقة ممكنة.</p>
-                <div class="quote-inner">
+                <span class="badge">محطة السرد والذكريات</span>
+                <p>لم تبدأ قصتنا بمحض صدفة عابرة، بل كانت تدبيراً خفياً من القدر ليضع في طريقي شخصاً يعيد ترتيب ملامح الأيام. في زحمة العالم، حين كانت التفاصيل تبدو مكررة وباهتة، ظهرتِ أنتِ يا مياسم لتكوني الحدث الأهم الذي يكسر روتين الأيام.</p>
+                <div class="special-quote">
                     "بعض الوجوه والأصوات لا تأتي لتملأ فراغاً عابراً، بل تأتي لتعيد صياغة معنى الوطن في داخلنا بالكامل."
                 </div>
-                <p>منذ ذلك الحين، تحولت التفاصيل الصغيرة إلى أحداث كبرى. صار الصباح يبدأ بطعم مختلف، والليل يحمل اسماً واحداً يتردد في الذاكرة قبل أن تغمض الأعين.</p>
+                <p>منذ تلك اللحظة، صار لكل توقيت طعم مختلف، وصار لاسمكِ رنين خاص يتردد بهدوء في الذاكرة.</p>
             </div>
         </div>
 
-        <!-- الصندوق الثاني -->
+        <!-- الصندوق الثاني: سحر الصوت (مفاجأة نبرة الصوت) -->
         <div class="secret-box" onclick="toggleBox(this)">
             <div class="box-header">
-                <span>📦 الصندوق الثاني: سحر الصوت الذي يعيد الروح</span>
+                <span>📦 الصندوق الثاني: طقس الصوت والحنين المستمر</span>
                 <span>➕</span>
             </div>
-            <div class="box-hint">اضغط للاستكشاف وقراءة السر الثاني</div>
+            <div class="box-hint">اضغط لاكتشاف سر الصوت والنبرة</div>
             <div class="box-content">
-                <p>بيننا شاشات ومسافات جغرافية تفرض حدودها، لكنها تعجز تماماً عن الاقتراب من الروح. هناك نبرة صوت واحدة قادرة على تبديل حال كامل اليوم، لتقلب التعب إلى راحة والانتظار إلى طمأنينة.</p>
-                <div class="quote-inner">
-                    "وحشني صوت سوسو.. تلك الجملة ليست مجرد كلمات عابرة، بل هي الحنين الدائم لصوت يختصر العالم كله في عبارة واحدة."
+                <span class="badge">محطة الحنين والمشاعر</span>
+                <p>رغم قسوة المسافات وطول الشاشات، إلا أن هناك قانوناً آخر لا تدركه الجغرافيا: صوتك. هناك نبرة واحدة قادرة على مسح تعب الأسبوع بأكمله في ثوانٍ معدودة.</p>
+                <div class="special-quote">
+                    "وحشني صوت سوسو.. جملة بسيطة لكنها تختصر صخب الكون وتضعني في أهدأ مكان ممكن."
                 </div>
-                <p>نتحدث عن كل شيء ولا نحس بمرور الساعات؛ تذوب الساعات وكأنها ثوانٍ معدودة، لأن الحديث معك يا مياسم لا يشبه أي حديث آخر. هو طمأنينة تشبه الجلوس أمام مدفأة دافئة في ليلة شتاء عاصفة.</p>
+                <p>الحديث معك لا يمل، والساعات تذوب وكأنها دقائق قصيرة، لأن العقول والأرواح تلتقي طويلاً قبل أن تتحدث الألسنة.</p>
             </div>
         </div>
 
-        <!-- الصندوق الثالث -->
+        <!-- الصندوق الثالث: مفاجأة تفاعلية (زر سري داخلي) -->
         <div class="secret-box" onclick="toggleBox(this)">
             <div class="box-header">
-                <span>📦 الصندوق الثالث: ملاذ الصمت والأمان المطلق</span>
+                <span>📦 الصندوق الثالث: غرفة الأسرار المخفية (مفاجأة)</span>
                 <span>➕</span>
             </div>
-            <div class="box-hint">اضغط للاستكشاف وقراءة السر الثالث</div>
+            <div class="box-hint">اضغط لاكتشاف المفاجأة التفاعلية بالداخل</div>
             <div class="box-content">
-                <p>حين يكون الحب حقيقياً وعميقاً، فإنه لا يحتاج إلى صخب أو تكلف. لقد وجدنا في بعضنا الملاذ الآمن من كل هذا العالم الممتلئ بالضجيج. حتى لحظات الصمت الطويلة بيننا لم تكن أبداً وحشة أو فراغاً، بل كانت لغة تامة تفهمها القلوب وتدركها الأرواح قبل أن تنطقها الألسنة.</p>
-                <p>الأمان هو أن تحس أن هناك من يتكئ عليك بقلبه وعقله، وإن كانت بينكما مسافات الأرض كلها. وهو اليقين التام بأنكِ لستِ وحدكِ، وأن هناك شخصاً يحمل همومك وأيامك كأنها تخصه تماماً.</p>
-            </div>
-        </div>
-
-        <!-- الصندوق الرابع -->
-        <div class="secret-box" onclick="toggleBox(this)">
-            <div class="box-header">
-                <span>📦 الصندوق الرابع: وعد اللقاء والمسافات المكسورة</span>
-                <span>➕</span>
-            </div>
-            <div class="box-hint">اضغط للاستكشاف وقراءة السر الرابع</div>
-            <div class="box-content">
-                <p>من السهل أن نحب القريب المتواجد خلف الباب، لكن الصعوبة والجمال الحقيقي يكمنان في أن تحب شخصاً غاب عن عينيك وحضر في كل تفاصيل يومك. قد تكون الطرق بيننا طويلة، والبحار والحدود تفصل بين ملامحنا الحقيقية، لكن اليقين بأن القدر يخبئ لقاءً عظيماً يجعل الصبر جميلاً ومحتملاً.</p>
-                <div class="quote-inner">
-                    "المهلة التي تفرضها المسافات ليست إلا اختباراً لعمق الشعور، ونحن في هذا الاختبار نربح كل يوم."
+                <span class="badge">محطة الأسرار التفاعلية</span>
+                <p>في هذا الصندوق لا توجد كلمات عادية، بل يوجد زر سري مخفي تم إعداده خصيصاً لك. هل أنت مستعد لاكتشاف الرسالة الخاصة جداً؟</p>
+                <button class="interactive-btn" onclick="revealSurprise(event)">اضغط هنا لكشف المفاجأة المخفية 🎁</button>
+                <div id="surprise-box" class="hidden-surprise">
+                    <strong>🌟 سر خفي:</strong> لم أكن أؤمن أن الشاشات قادرة على حمل هذا القدر من الدفء الحقيقي، حتى عرفتكِ وتأكدت أن الروح تتجاوز حدود الأماكن والمسافات بمسافة شعرة!
                 </div>
             </div>
         </div>
 
-        <!-- المحطة الختامية للغرفة -->
+        <!-- الصندوق الرابع: فلسفة الانتظار والصبر -->
+        <div class="secret-box" onclick="toggleBox(this)">
+            <div class="box-header">
+                <span>📦 الصندوق الرابع: جغرافيا البعد والوعد القادم</span>
+                <span>➕</span>
+            </div>
+            <div class="box-hint">اضغط لقراءة فلسفة اللقاء المنتظر</div>
+            <div class="box-content">
+                <span class="badge">محطة الانتظار والأمل</span>
+                <p>الانتظار لأجل شخص يستحق هو بحد ذاته متعة، واليقين بأن اللقاء قادم يجعل الصبر جميلاً ومحتملاً. نتخيل معاً تفاصيل المدن القادمة، الشوارع التي لم نزيّنها بخطواتنا بعد، والضحكات التي لن تكون محصورة خلف زجاج الهواتف بعد اليوم.</p>
+                <p>كل يوم يمضي هو خصم حقيقي من رصيد المسافات الباقية، وكل شروق شمس يقربنا خطوة إضافية نحو اللحظة العظيمة التي ستنكسر فيها كل الحدود للأبد.</p>
+            </div>
+        </div>
+
+        <!-- الصندوق الخامس: المفاجأة الكبرى والعهد الأبدي -->
         <div class="final-vault">
-            <h2>✨ العهد الأبدي</h2>
+            <h2>✨ الختام والمفاجأة الكبرى</h2>
             <p>
                 إلى مياسم.. سوسو القلب وأمان الأيام،<br><br>
-                بعد فتح كل هذه الصناديق واستكشاف خبايا الحكاية، يبقى المعنى الثابت الوحيد: أن كل هذه الكيلومترات ستتلاشى، وأن النهاية ستكون كما تمناه قلبانا تماماً.. لقاء حقيقي، وابتسامة واسعة، ويدان تمضيان معاً في طريق واحد لا ينتهي.<br><br>
+                بعد أن فتحتِ كل الصناديق وتجولتِ بين تفاصيل الحكاية وأسرارها المتنوعة، يبقى المعنى الثابت والأخير: أن كل هذه الكيلومترات ستتلاشى قريباً، وأن النهاية ستكون كما تمناه قلبانا تماماً.. لقاء حقيقي، وابتسامة واسعة، ويدان تمضيان معاً في طريق واحد لا ينتهي.<br><br>
                 أحبكِ اليوم، غداً، وفي كل نبضة قادمة. ❤️
             </p>
         </div>
     </div>
 
     <script>
-        // دالة التحقق من الرمز السري (يمكنك تغيير الرقم "2006" أو أي رمز تحبه)
+        // دالة التحقق من الرمز السري 20243112
         function checkCode() {
             const codeInput = document.getElementById('passcode').value;
-            const correctCode = "2006"; // استبدل هذا الرقم بالرمز السري الخاص بكم
+            const correctCode = "20243112"; 
             const errorMsg = document.getElementById('error-msg');
             const lockScreen = document.getElementById('lock-screen');
             const mainContent = document.getElementById('main-content');
@@ -304,7 +351,7 @@
             }
         }
 
-        // دالة فتح وإغلاق الصناديق التفاعلية عند النقر
+        // دالة فتح وإغلاق الصناديق التفاعلية
         function toggleBox(element) {
             const content = element.querySelector('.box-content');
             const sign = element.querySelector('.box-header span:last-child');
@@ -315,6 +362,17 @@
             } else {
                 content.classList.add('open');
                 sign.textContent = '➖';
+            }
+        }
+
+        // دالة إظهار المفاجأة المخفية داخل الصندوق الثالث دون إغلاق الصندوق
+        function revealSurprise(event) {
+            event.stopPropagation(); // منع إغلاق الصندوق عند النقر على الزر
+            const surprise = document.getElementById('surprise-box');
+            if (surprise.style.display === 'block') {
+                surprise.style.display = 'none';
+            } else {
+                surprise.style.display = 'block';
             }
         }
     </script>
