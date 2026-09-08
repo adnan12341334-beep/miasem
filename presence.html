@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أفق الحضور - مياسم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020205;
+            --text-main: #f0edf6;
+            --accent: #c93b5d;
+            --gold: #e5b853;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* خلفية الإضاءة الهادئة */
+        .ambient-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(201, 59, 93, 0.03) 0%, transparent 70%);
+            transition: 2s ease;
+            pointer-events: none;
+        }
+
+        body.illuminated .ambient-glow {
+            background: radial-gradient(circle at center, rgba(229, 184, 83, 0.08) 0%, transparent 80%);
+        }
+
+        .workspace {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            padding: 24px;
+        }
+
+        /* الإطار الهندسي الصامت (يشبه النافذة أو الأفق) */
+        .horizon-frame {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(201, 59, 93, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 1.8s ease;
+        }
+
+        body.illuminated .horizon-frame {
+            border-color: rgba(229, 184, 83, 0.4);
+            box-shadow: 0 0 50px rgba(229, 184, 83, 0.15);
+            background: rgba(229, 184, 83, 0.02);
+        }
+
+        /* النقاط أو الأثر المتناثر الذي يضيء تدريجياً */
+        .spark-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(201, 59, 93, 0.4);
+            border-radius: 50%;
+            transition: 0.8s ease;
+            box-shadow: 0 0 10px rgba(201, 59, 93, 0.2);
+        }
+
+        #spark-1 { top: 60px; left: 80px; }
+        #spark-2 { top: 60px; right: 80px; }
+        #spark-3 { bottom: 70px; left: 100px; }
+        #spark-4 { top: 130px; left: 50px; }
+        #spark-5 { top: 130px; right: 50px; }
+
+        /* حالة إضاءة النقاط */
+        .spark-node.active {
+            background: var(--gold);
+            box-shadow: 0 0 20px var(--gold);
+            transform: scale(1.4);
+        }
+
+        /* التوجيه الهادئ */
+        .instruction-hint {
+            position: absolute;
+            top: 18vh;
+            font-size: 13px;
+            color: rgba(240, 237, 246, 0.35);
+            letter-spacing: 2px;
+            font-weight: 300;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
+        }
+
+        body.illuminated .instruction-hint {
+            opacity: 0;
+        }
+
+        /* نافذة الرسالة العميقة */
+        .profound-message {
+            position: absolute;
+            bottom: 6vh;
+            width: 90%;
+            max-width: 390px;
+            background: rgba(5, 4, 10, 0.97);
+            border: 1px solid rgba(229, 184, 83, 0.35);
+            backdrop-filter: blur(20px);
+            padding: 30px 24px;
+            border-radius: 12px;
+            text-align: right;
+            line-height: 2.6;
+            font-size: 15px;
+            font-weight: 300;
+            color: #eae6f4;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+            opacity: 0;
+            transform: translateY(30px) scale(0.97);
+            pointer-events: none;
+            transition: 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10;
+        }
+
+        body.illuminated .profound-message {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .profound-message strong {
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .signature {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-align: left;
+            font-weight: 300;
+        }
+        body.illuminated .signature {
+            color: var(--gold);
+        }
+    </style>
+</head>
+<body onclick="handleScreenTap(event)">
+
+    <div class="ambient-glow"></div>
+
+    <div class="workspace">
+        
+        <div class="instruction-hint">المس الشاشة لتبديد العتمة واستدعاء النور</div>
+
+        <div class="horizon-frame" id="horizonFrame">
+            <div class="spark-node" id="spark-1"></div>
+            <div class="spark-node" id="spark-2"></div>
+            <div class="spark-node" id="spark-3"></div>
+            <div class="spark-node" id="spark-4"></div>
+            <div class="spark-node" id="spark-5"></div>
+        </div>
+
+        <div class="profound-message">
+            حين كانت الأيام موحشة وممتلئة بالشتات والمسافات الباردة، جاء حضوركِ كأنه النور الوحيد الذي غيّر ملامح العتمة. بلمسة هادئة منكِ، استقام كل شيء في مكانه، و<strong>أشرق المكان واعتدل</strong> وكأن شيئاً من الألم لم يكن.
+            <div class="signature">إلى مياسم (سوسو)</div>
+        </div>
+
+    </div>
+
+    <script>
+        let tapCount = 0;
+        const totalTaps = 5;
+
+        function handleScreenTap(e) {
+            // منع تفعيل التفاعل إذا كانت الرسالة ظهرت بالفعل
+            if (document.body.classList.contains('illuminated')) return;
+            // منع التفاعل إذا كان النقر فوق محتوى الرسالة نفسها (لو ظهرت مستقبلاً)
+            if (e.target.closest('.profound-message')) return;
+
+            tapCount++;
+            if (tapCount <= totalTaps) {
+                const spark = document.getElementById(`spark-${tapCount}`);
+                if (spark) {
+                    spark.classList.add('active');
+                }
+            }
+
+            if (tapCount === totalTaps) {
+                setTimeout(() => {
+                    document.body.classList.add('illuminated');
+                }, 400);
+            }
+        }
+    </script>
+</body>
+</html>
