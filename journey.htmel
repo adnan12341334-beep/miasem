@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رحلة حكايتنا ❤️</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928DAB);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            direction: rtl;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ffb6c1;
+        }
+        .desc {
+            text-align: center;
+            font-size: 14px;
+            color: #ddd;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .timeline {
+            position: relative;
+            padding-right: 20px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 10px;
+            height: 100%;
+            width: 3px;
+            background: #ffb6c1;
+        }
+        .point {
+            position: relative;
+            margin-bottom: 30px;
+            padding-right: 20px;
+        }
+        .point::before {
+            content: '❤️';
+            position: absolute;
+            right: -14px;
+            top: 0;
+            font-size: 14px;
+            background: #1f1c2c;
+            border-radius: 50%;
+            padding: 2px;
+        }
+        .point h3 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            color: #fff;
+        }
+        .point p {
+            margin: 0;
+            font-size: 14px;
+            color: #e0e0e0;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            border-radius: 10px;
+        }
+        .footer-msg {
+            margin-top: 40px;
+            background: rgba(255, 182, 193, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            text-align: center;
+        }
+        .footer-msg h3 {
+            color: #ffb6c1;
+            margin-top: 0;
+        }
+        .footer-msg p {
+            margin: 0;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>رحلتنا من الصدفة إلى الحلم ❤️</h1>
+    <div class="desc">محطات صغيرة لقصة روحين جمعتهم أجمل التفاصيل قبل أن يجمعهم المكان.</div>
+
+    <div class="timeline">
+        <div class="point">
+            <h3>📍 المحطة الأولى: البداية</h3>
+            <p>“هنا بدأت حكايتنا. نقطة صغيرة، لكنها كانت بداية لكل شيء جميل في عمري.”</p>
+        </div>
+
+        <div class="point">
+            <h3>📍 المحطة الثانية: أول محادثة</h3>
+            <p>“أول كلام انكتب، وأول شعور بأن هذا اليوم مختلف عن كل الأيام اللي قبله. كيف لساعات الكلام الأولى أن تكون بهذه الخفة والعمق؟”</p>
+        </div>
+
+        <div class="point">
+            <h3>📍 المحطة الثالثة: أول ضحكة ✨</h3>
+            <p>“الموقف اللي خلاك تحس إنك ارتحت لها تماماً، اللحظة اللي ضحكتِ فيها من قلبك وطارت معها كل التكلفات وبقى بيننا الأمان.”</p>
+        </div>
+
+        <div class="point">
+            <h3>📍 المحطة الرابعة: نقطة التحول 💫</h3>
+            <p>“أهم لحظة بالنسبة لنا.. اللحظة اللي حسيت فيها إن الموضوع صار أكبر من مجرد صدفة، وإني لقيت المكان اللي أرتاح فيه صدق.”</p>
+        </div>
+
+        <div class="point">
+            <h3>📍 المحطة الخامسة: الحلم القادم 🌍</h3>
+            <p>“هنا حطيت مدينة أو مكان أتمنى أكون أنا وأنتِ فيه سوا، نمشي بشوارعه ونصنع فيه ذكريات جديدة حقيقية مو فقط عبر الشاشات.”</p>
+        </div>
+
+        <div class="point">
+            <h3>📍 المحطة السادسة: اللقاء الأول ⏳</h3>
+            <p>“هذي المحطة خالية من التاريخ للحين.. لأنها اللحظة اللي أنتظرها بكل شغف. المكان اللي بينتهي فيه البعد، ويبدأ فيه الواقع اللي أتمناه.”</p>
+        </div>
+    </div>
+
+    <div class="footer-msg">
+        <h3>❤️ مياسم</h3>
+        <p>“يا سوسو.. كل المسافات وكل الشاشات تهون دام النهاية دايم تجمعني فيكِ. أنتِ مو فقط شخص أكلمه كل يوم، أنتِ المكان اللي ألقى فيه نفسي. صح إننا ما تقابلنا مكانياً للحين، بس قلبي معك بكل خطوة. شكراً لأنكِ أجمل شيء صار لي، وبانتظار اليوم اللي تنور فيه أول نقطة لقاء بيننا. أحبك.”</p>
+    </div>
+</div>
+
+</body>
+</html>
