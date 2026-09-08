@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أثر - رحلة الإصلاح والاحتواء</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>أثر - مساحة الوصال</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #030305;
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --border-glow: rgba(255, 255, 255, 0.08);
-            --accent-pink: #ff758c;
-            --accent-purple: #7f7fd5;
-            --accent-gold: #f6d365;
-            --text-main: #f0eff5;
-            --text-muted: #8e8b9f;
+            --bg-color: #020204;
+            --surface: #0a0a0f;
+            --text-main: #e8e6ef;
+            --text-muted: #716e85;
+            --glow-primary: rgba(255, 117, 140, 0.4);
+            --accent: #ff758c;
+            --gold: #f6d365;
         }
 
         * {
@@ -25,473 +24,532 @@
         }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-color);
             font-family: 'Tajawal', sans-serif;
             color: var(--text-main);
             min-height: 100vh;
-            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        /* شاشة القفل */
-        #lock-screen {
-            position: fixed;
-            inset: 0;
-            background: var(--bg-deep);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .lock-container {
-            text-align: center;
-            padding: 40px;
-            width: 100%;
-            max-width: 360px;
-        }
-
-        .lock-title {
-            font-size: 14px;
-            letter-spacing: 4px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .lock-dots {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            border: 1px solid var(--text-muted);
-            transition: 0.3s;
-        }
-
-        .dot.filled {
-            background: var(--accent-pink);
-            border-color: var(--accent-pink);
-            box-shadow: 0 0 15px rgba(255, 117, 140, 0.5);
-        }
-
-        .keypad {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .key {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            color: var(--text-main);
-            font-size: 20px;
-            height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .key:active {
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(0.95);
-        }
-
-        /* المحتوى الرئيسي */
-        #journey-content {
-            display: none;
-            width: 100%;
-            max-width: 500px;
-            min-height: 100vh;
-            padding: 40px 20px;
-            box-sizing: border-box;
-            opacity: 0;
-            transition: opacity 1.5s ease;
+            overflow: hidden;
             position: relative;
+        }
+
+        /* جزيئات الضوء الخلفية المتطايرة */
+        .ambient-dust {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,117,140,0.08) 1px, transparent 1px);
+            background-size: 140px 140px, 200px 200px;
+            opacity: 0.35;
+            animation: driftDust 25s linear infinite;
+        }
+
+        @keyframes driftDust {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-140px); }
+        }
+
+        /* مؤشر التقدم السينمائي العلوي */
+        .cinematic-progress {
+            position: absolute;
+            top: 30px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .prog-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .prog-dot.active {
+            background: var(--accent);
+            width: 20px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px var(--glow-primary);
+        }
+
+        /* تأثير الموجة عند اللمس */
+        .touch-ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            background: radial-gradient(circle, rgba(255,117,140,0.3) 0%, transparent 70%);
+            pointer-events: none;
+            animation: rippleEffect 0.8s linear forwards;
+            z-index: 5;
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* حاوية التجربة */
+        .stage-container {
+            width: 100%;
+            max-width: 440px;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .stage {
-            display: none;
+            position: absolute;
+            inset: 0;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.96);
+            padding: 30px;
             text-align: center;
-            animation: fadeInStage 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .stage.active {
-            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
         }
 
-        @keyframes fadeInStage {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hint-text {
-            margin-top: 30px;
-            font-size: 14px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            font-weight: 300;
-        }
-
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple), var(--accent-gold));
-            width: 0%;
-            transition: width 0.6s ease;
-        }
-
-        /* المرحلة الأولى: تبديد العتمة والضباب */
-        .fog-box {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed var(--border-glow);
+        .interactive-spot {
+            cursor: pointer;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            position: relative;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
-            transition: 0.8s;
+            transition: transform 0.4s ease;
         }
 
-        .fog-box.cleared {
-            background: radial-gradient(circle, rgba(246,211,101,0.2) 0%, rgba(3,3,5,0) 80%);
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 40px rgba(246, 211, 101, 0.3);
+        .interactive-spot:active {
+            transform: scale(0.95);
         }
 
-        /* المرحلة الثانية: تجميع الشتات */
-        .scattered-area {
-            position: relative;
-            width: 260px;
-            height: 260px;
-            border: 1px dashed var(--border-glow);
+        /* المرحلة 1: تبدّد العتمة */
+        #stage-1 .core-darkness {
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
+            transition: 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .fragment {
+        #stage-1.cleared .core-darkness {
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(246,211,101,0.15) 0%, transparent 75%);
+            border-color: rgba(246,211,101,0.3);
+            box-shadow: 0 0 80px rgba(246,211,101,0.2);
+        }
+
+        /* المرحلة 2: الشتات المبعثر والتئامه */
+        .scatter-canvas {
+            width: 240px;
+            height: 240px;
+            position: relative;
+        }
+
+        .shards {
             position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .shards:nth-child(1) { top: 20px; left: 40px; }
+        .shards:nth-child(2) { top: 40px; right: 30px; }
+        .shards:nth-child(3) { bottom: 30px; left: 50px; }
+        .shards:nth-child(4) { bottom: 40px; right: 40px; }
+
+        .scatter-canvas.assembled .shards {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(2.5);
+            background: var(--accent);
+            box-shadow: 0 0 30px var(--glow-primary);
+        }
+
+        /* المرحلة 3: سكون الدموع */
+        .tear-element {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .drop {
+            width: 6px;
+            height: 14px;
+            background: #7f7fd5;
+            border-radius: 50%;
+            animation: fallDrop 1.8s infinite ease-in;
+            box-shadow: 0 0 10px #7f7fd5;
+        }
+
+        @keyframes fallDrop {
+            0% { transform: translateY(-15px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(20px); opacity: 0; }
+        }
+
+        .tear-element.fixed .drop {
+            animation: none;
+            display: none;
+        }
+
+        .tear-element.fixed {
+            background: rgba(246, 211, 101, 0.05);
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(246, 211, 101, 0.2);
+        }
+
+        /* المرحلة 4: النهوض */
+        .rise-node {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 1s ease;
+        }
+
+        .rise-line {
+            width: 2px;
+            height: 30px;
+            background: var(--text-muted);
+            transition: 1s ease;
+        }
+
+        .rise-node.risen {
+            border-color: var(--accent);
+            box-shadow: 0 0 40px var(--glow-primary);
+        }
+
+        .rise-node.risen .rise-line {
+            height: 50px;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* المرحلة 5: التئام القلب */
+        .heart-container {
+            display: flex;
+            gap: 12px;
+        }
+
+        .heart-side {
+            width: 35px;
+            height: 60px;
+            border: 2px solid var(--text-muted);
+            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .heart-side.left {
+            border-radius: 50px 50px 0 50px;
+            border-right: none;
+            transform-origin: right center;
+        }
+
+        .heart-side.right {
+            border-radius: 50px 50px 50px 0;
+            border-left: none;
+            transform-origin: left center;
+        }
+
+        .heart-container.healed .left {
+            transform: translateX(6px) rotate(-10deg);
+            border-color: var(--accent);
+            background: rgba(255, 117, 140, 0.15);
+            box-shadow: -10px 0 25px var(--glow-primary);
+        }
+
+        .heart-container.healed .right {
+            transform: translateX(-6px) rotate(10deg);
+            border-color: var(--accent);
+            background: rgba(255, 117, 140, 0.15);
+            box-shadow: 10px 0 25px var(--glow-primary);
+        }
+
+        /* المرحلة 6: أثر الخطى المضيء */
+        .footstep-node {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 1px dashed var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: 1s ease;
+        }
+
+        .footstep-core {
+            width: 12px;
+            height: 12px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            transition: 0.8s ease;
+        }
+
+        .footstep-node.imprinted {
+            border-color: var(--gold);
+            border-style: solid;
+            box-shadow: 0 0 40px rgba(246, 211, 101, 0.25);
+        }
+
+        .footstep-node.imprinted .footstep-core {
             width: 40px;
             height: 40px;
-            background: var(--card-bg);
-            border: 1px solid var(--accent-purple);
-            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 25px var(--gold);
+        }
+
+        /* المرحلة 7: اتزان النبض */
+        .harmony-box {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-            color: var(--accent-purple);
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            flex-direction: column;
+            gap: 15px;
+            width: 160px;
         }
 
-        .fragment.collected {
-            transform: translate(110px, 110px) scale(0);
-            opacity: 0;
+        .harmony-line {
+            width: 100%;
+            height: 2px;
+            background: var(--text-muted);
+            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* المرحلة الثالثة: مسح الدموع */
-        .eye-container {
-            font-size: 60px;
-            cursor: pointer;
-            transition: 0.5s;
-            position: relative;
+        .harmony-box.synchronized .harmony-line:nth-child(1) {
+            transform: translateY(8px) scaleX(0.8);
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
         }
 
-        .tear {
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 20px;
-            animation: dropTear 1.5s infinite ease-in;
+        .harmony-box.synchronized .harmony-line:nth-child(2) {
+            transform: translateY(-8px) scaleX(0.8);
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
         }
 
-        @keyframes dropTear {
-            0% { transform: translateX(-50%) translateY(0); opacity: 1; }
-            100% { transform: translateX(-50%) translateY(30px); opacity: 0; }
-        }
-
-        /* المرحلة الرابعة: الانتشال والنهوض */
-        .fall-box {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            cursor: pointer;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .fall-box.lifted {
-            transform: translateY(-20px) scale(1.1);
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 30px rgba(246, 211, 101, 0.3);
-        }
-
-        /* المرحلة الخامسة: التئام القلب المكسور */
-        .broken-heart-container {
-            display: flex;
-            gap: 20px;
-            cursor: pointer;
-        }
-
-        .heart-half {
-            font-size: 50px;
-            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* المرحلة السادسة: الرسالة النهائية */
-        .final-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 360px;
-            line-height: 2.2;
+        /* المرحلة 8: الرسالة النهائية التشبيهية */
+        .message-box {
+            max-width: 340px;
+            line-height: 2.4;
+            font-weight: 300;
             font-size: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            color: #dcd9e3;
+            border-right: 2px solid var(--accent);
+            padding-right: 20px;
+            text-align: right;
+            background: linear-gradient(90deg, rgba(255,117,140,0.03), transparent);
+            padding-top: 15px;
+            padding-bottom: 15px;
         }
 
-        .final-card span {
-            color: var(--accent-pink);
-            font-weight: 700;
+        .message-box strong {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .ambient-hint {
+            position: absolute;
+            bottom: 40px;
+            font-size: 12px;
+            font-weight: 200;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة الرمز السري (20243112) -->
-    <div id="lock-screen">
-        <div class="lock-container">
-            <div class="lock-title">أدخل مفتاح العبور</div>
-            <div class="lock-dots" id="lockDots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-            <div class="keypad">
-                <button class="key" onclick="pressKey('1')">1</button>
-                <button class="key" onclick="pressKey('2')">2</button>
-                <button class="key" onclick="pressKey('3')">3</button>
-                <button class="key" onclick="pressKey('4')">4</button>
-                <button class="key" onclick="pressKey('5')">5</button>
-                <button class="key" onclick="pressKey('6')">6</button>
-                <button class="key" onclick="pressKey('7')">7</button>
-                <button class="key" onclick="pressKey('8')">8</button>
-                <button class="key" onclick="pressKey('9')">9</button>
-                <button class="key" style="grid-column: 2;" onclick="pressKey('0')">0</button>
-            </div>
-        </div>
+    <!-- خلفية الجزيئات الضوئية -->
+    <div class="ambient-dust"></div>
+
+    <!-- مؤشر التقدم السينمائي العلوي -->
+    <div class="cinematic-progress" id="cinProgress">
+        <div class="prog-dot active"></div>
+        <div class="prog-dot"></div>
+        <div class="prog-dot"></div>
+        <div class="prog-dot"></div>
+        <div class="prog-dot"></div>
+        <div class="prog-dot"></div>
+        <div class="prog-dot"></div>
+        <div class="prog-dot"></div>
     </div>
 
-    <!-- شريط التقدم العلوي -->
-    <div class="progress-bar" id="progressBar"></div>
+    <div class="stage-container" onclick="createRipple(event)">
 
-    <!-- المحتوى التفاعلي -->
-    <div id="journey-content">
-
-        <!-- المرحلة الأولى: تبديد العتمة والضباب -->
-        <div class="stage active" id="stage-1">
-            <div class="fog-box" id="fogBox" onclick="clearFog()">
-                <span id="fogIcon" style="font-size: 28px; color: var(--text-muted);">☁️</span>
+        <!-- المرحلة 1: تبدّد العتمة -->
+        <div class="stage active" id="stage-1" onclick="progressStage(1, event)">
+            <div class="interactive-spot">
+                <div class="core-darkness" id="coreDark"></div>
             </div>
-            <div class="hint-text" id="fogHint">اضغط لتبديد العتمة وإضاءة المكان</div>
+            <div class="ambient-hint">المس لتبديد العتمة</div>
         </div>
 
-        <!-- المرحلة الثانية: جمع الشتات المبعثر -->
-        <div class="stage" id="stage-2">
-            <div class="scattered-area" id="scatterArea">
-                <div class="fragment" style="top: 20px; left: 30px;" onclick="collectFragment(this)">✦</div>
-                <div class="fragment" style="top: 40px; right: 25px;" onclick="collectFragment(this)">✦</div>
-                <div class="fragment" style="bottom: 30px; left: 40px;" onclick="collectFragment(this)">✦</div>
-                <div class="fragment" style="bottom: 25px; right: 35px;" onclick="collectFragment(this)">✦</div>
+        <!-- المرحلة 2: تجميع الشتات -->
+        <div class="stage" id="stage-2" onclick="progressStage(2, event)">
+            <div class="interactive-spot">
+                <div class="scatter-canvas" id="scatterBox">
+                    <div class="shards"></div>
+                    <div class="shards"></div>
+                    <div class="shards"></div>
+                    <div class="shards"></div>
+                </div>
             </div>
-            <div class="hint-text" id="fragHint">اجمع الشتات لتلتئم البداية (<span id="fragCount">0</span>/4)</div>
+            <div class="ambient-hint">المس لجمع المبعثر</div>
         </div>
 
-        <!-- المرحلة الثالثة: إيقاف الدموع -->
-        <div class="stage" id="stage-3">
-            <div class="eye-container" id="eyeElem" onclick="fixEye()">
-                <span>😢</span>
-                <div class="tear" id="tearElem">💧</div>
+        <!-- المرحلة 3: سكون الدموع -->
+        <div class="stage" id="stage-3" onclick="progressStage(3, event)">
+            <div class="interactive-spot">
+                <div class="tear-element" id="tearEl">
+                    <div class="drop"></div>
+                </div>
             </div>
-            <div class="hint-text" id="eyeHint">المس العين لتتوقف الدموع وتشرق</div>
+            <div class="ambient-hint">المس لتجفيف الدموع</div>
         </div>
 
-        <!-- المرحلة الرابعة: الانتشال والدعم -->
-        <div class="stage" id="stage-4">
-            <div class="fall-box" id="fallBox" onclick="liftUp()">
-                <span id="fallIcon">🥀</span>
+        <!-- المرحلة 4: النهوض -->
+        <div class="stage" id="stage-4" onclick="progressStage(4, event)">
+            <div class="interactive-spot">
+                <div class="rise-node" id="riseEl">
+                    <div class="rise-line"></div>
+                </div>
             </div>
-            <div class="hint-text" id="liftHint">مد يدك لترفع ما اثقلته الأيام</div>
+            <div class="ambient-hint">المس لرفع ما اثقله السقوط</div>
         </div>
 
-        <!-- المرحلة الخامسة: التئام القلب المكسور -->
-        <div class="stage" id="stage-5">
-            <div class="broken-heart-container" id="heartBox" onclick="fixHeart()">
-                <div class="heart-half left-half">💔</div>
+        <!-- المرحلة 5: التئام القلب -->
+        <div class="stage" id="stage-5" onclick="progressStage(5, event)">
+            <div class="interactive-spot">
+                <div class="heart-container" id="heartEl">
+                    <div class="heart-side left"></div>
+                    <div class="heart-side right"></div>
+                </div>
             </div>
-            <div class="hint-text" id="heartHint">اضغط ليوصل الشوق وينبض القلب كاملاً</div>
+            <div class="ambient-hint">المس ليوصل الكسر</div>
         </div>
 
-        <!-- المرحلة السادسة: الرسالة النهائية المؤثرة -->
-        <div class="stage" id="stage-6">
-            <div class="final-card">
-                بكل تفصيلة وكل لمسة إصلاح... أدركت أن حضورك هو الترميم الحقيقي لكل كسر، والنور اللي يمسح أي عتمة. <span>إلى الأبد، بكِ يكتمل المعنى.</span> ❤️
+        <!-- المرحلة 6: أثر الخطى -->
+        <div class="stage" id="stage-6" onclick="progressStage(6, event)">
+            <div class="interactive-spot">
+                <div class="footstep-node" id="footstepEl">
+                    <div class="footstep-core"></div>
+                </div>
             </div>
-            <div class="hint-text" style="color: var(--accent-pink);">نهاية بلا مسافات</div>
+            <div class="ambient-hint">المس لتثبيت الأثر</div>
+        </div>
+
+        <!-- المرحلة 7: اتزان النبض -->
+        <div class="stage" id="stage-7" onclick="progressStage(7, event)">
+            <div class="interactive-spot">
+                <div class="harmony-box" id="harmonyEl">
+                    <div class="harmony-line"></div>
+                    <div class="harmony-line"></div>
+                </div>
+            </div>
+            <div class="ambient-hint">المس لتحقيق التناغم</div>
+        </div>
+
+        <!-- المرحلة 8: الرسالة النهائية التشبيهية -->
+        <div class="stage" id="stage-8">
+            <div class="message-box">
+                مثل ضوء مفاجئ يمتد في غرفة مظلمة فيبدد وحشتها ويعيد ترتيب تفاصيلها الساكنة... هكذا كان <strong>دخولكِ إلى حياتي</strong>؛ ترميم ناعم لكل شتات، ونور أزال أثر العتمة للأبد.
+            </div>
+            <div class="ambient-hint" style="color: var(--accent); opacity: 1;">بلا مسافات</div>
         </div>
 
     </div>
 
     <script>
-        const targetCode = "20243112";
-        let enteredCode = "";
+        let currentActiveStage = 1;
 
-        function pressKey(num) {
-            if (enteredCode.length < 8) {
-                enteredCode += num;
-                updateDots();
-            }
-            if (enteredCode.length === 8) {
-                if (enteredCode === targetCode) {
-                    unlockVault();
-                } else {
-                    setTimeout(() => {
-                        enteredCode = "";
-                        updateDots();
-                    }, 400);
-                }
-            }
+        function createRipple(e) {
+            const ripple = document.createElement('div');
+            ripple.className = 'touch-ripple';
+            ripple.style.left = `${e.clientX - 40}px`;
+            ripple.style.top = `${e.clientY - 40}px`;
+            ripple.style.width = '80px';
+            ripple.style.height = '80px';
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 800);
         }
 
-        function updateDots() {
-            const dots = document.querySelectorAll('.dot');
+        function updateProgressDots(stageNum) {
+            const dots = document.querySelectorAll('.prog-dot');
             dots.forEach((dot, index) => {
-                if (index < enteredCode.length) {
-                    dot.classList.add('filled');
+                if (index < stageNum) {
+                    dot.classList.add('active');
                 } else {
-                    dot.classList.remove('filled');
+                    dot.classList.remove('active');
                 }
             });
         }
 
-        function unlockVault() {
-            const lockScreen = document.getElementById('lock-screen');
-            const journey = document.getElementById('journey-content');
-            lockScreen.style.opacity = '0';
+        function progressStage(stageNum, e) {
+            if (stageNum !== currentActiveStage) return;
+            e.stopPropagation();
+
+            const currentElement = document.getElementById(`stage-${stageNum}`);
+
+            if (stageNum === 1) {
+                currentElement.classList.add('cleared');
+            } else if (stageNum === 2) {
+                document.getElementById('scatterBox').classList.add('assembled');
+            } else if (stageNum === 3) {
+                document.getElementById('tearEl').classList.add('fixed');
+            } else if (stageNum === 4) {
+                document.getElementById('riseEl').classList.add('risen');
+            } else if (stageNum === 5) {
+                document.getElementById('heartEl').classList.add('healed');
+            } else if (stageNum === 6) {
+                document.getElementById('footstepEl').classList.add('imprinted');
+            } else if (stageNum === 7) {
+                document.getElementById('harmonyEl').classList.add('synchronized');
+            }
+
+            const delay = (stageNum >= 5) ? 1200 : 900;
+
             setTimeout(() => {
-                lockScreen.style.display = 'none';
-                journey.style.display = 'block';
-                setTimeout(() => { journey.style.opacity = '1'; }, 50);
-            }, 1200);
-        }
-
-        function updateProgress(stageNum) {
-            const progress = (stageNum / 6) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
-
-        function nextStage(current) {
-            updateProgress(current);
-            document.getElementById(`stage-${current}`).classList.remove('active');
-            const next = current + 1;
-            if(document.getElementById(`stage-${next}`)) {
-                document.getElementById(`stage-${next}`).classList.add('active');
-            }
-        }
-
-        // تفاعل المرحلة الأولى: تبديد العتمة
-        let fogCleared = false;
-        function clearFog() {
-            if (!fogCleared) {
-                fogCleared = true;
-                const box = document.getElementById('fogBox');
-                box.classList.add('cleared');
-                document.getElementById('fogIcon').innerText = '✨';
-                document.getElementById('fogHint').innerText = "انجلى الضباب وأشرق النور";
-                setTimeout(() => nextStage(1), 1200);
-            }
-        }
-
-        // تفاعل المرحلة الثانية: تجميع الشتات
-        let collectedFragments = 0;
-        function collectFragment(el) {
-            if (!el.classList.contains('collected')) {
-                el.classList.add('collected');
-                collectedFragments++;
-                document.getElementById('fragCount').innerText = collectedFragments;
-                if (collectedFragments === 4) {
-                    setTimeout(() => nextStage(2), 800);
+                currentElement.classList.remove('active');
+                currentActiveStage++;
+                updateProgressDots(currentActiveStage - 1);
+                
+                const nextElement = document.getElementById(`stage-${currentActiveStage}`);
+                if (nextElement) {
+                    nextElement.classList.add('active');
                 }
-            }
-        }
-
-        // تفاعل المرحلة الثالثة: إيقاف الدموع
-        let eyeFixed = false;
-        function fixEye() {
-            if (!eyeFixed) {
-                eyeFixed = true;
-                const eyeElem = document.getElementById('eyeElem');
-                eyeElem.innerHTML = '✨';
-                document.getElementById('eyeHint').innerText = "عادت الإشراقة وابتسمت الروح";
-                setTimeout(() => nextStage(3), 1200);
-            }
-        }
-
-        // تفاعل المرحلة الرابعة: الانتشال والنهوض
-        let isLifted = false;
-        function liftUp() {
-            if (!isLifted) {
-                isLifted = true;
-                const box = document.getElementById('fallBox');
-                box.classList.add('lifted');
-                document.getElementById('fallIcon').innerText = '🌱';
-                document.getElementById('liftHint').innerText = "نهضت وبدأت تزهر من جديد";
-                setTimeout(() => nextStage(4), 1200);
-            }
-        }
-
-        // تفاعل المرحلة الخامسة: التئام القلب
-        let heartFixed = false;
-        function fixHeart() {
-            if (!heartFixed) {
-                heartFixed = true;
-                const heartBox = document.getElementById('heartBox');
-                heartBox.innerHTML = '<div class="heart-half" style="transform: scale(1.3); filter: drop-shadow(0 0 20px rgba(255,117,140,0.6));">❤️</div>';
-                document.getElementById('heartHint').innerText = "التام الكسر وأصبح نبضاً واحداً";
-                setTimeout(() => nextStage(5), 1500);
-            }
+            }, delay);
         }
     </script>
 </body>
