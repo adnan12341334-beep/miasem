@@ -3,377 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>غرفة الأسرار والمفاجآت - إلى مياسم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>أثر - Journey of Echoes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --bg-deep: #030305;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --accent-pink: #ff758c;
+            --accent-purple: #7f7fd5;
+            --accent-gold: #f6d365;
+            --text-main: #f0eff5;
+            --text-muted: #8e8b9f;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background-color: #050408;
-            font-family: 'Tajawal', sans-serif;
-            color: #d8d0e3;
-            direction: rtl;
-            overflow-x: hidden;
+            user-select: none;
         }
 
-        /* شاشة قفل الخزنة */
-        #lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: #050408;
+        body {
+            background-color: var(--bg-deep);
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-            transition: opacity 1s ease;
         }
-        .lock-box {
-            background: rgba(20, 16, 28, 0.9);
-            border: 1px solid rgba(255, 182, 193, 0.25);
-            padding: 45px 30px;
-            border-radius: 24px;
+
+        /* شاشة القفل */
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-deep);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .lock-container {
             text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            max-width: 400px;
-            width: 90%;
-        }
-        .lock-box h2 {
-            color: #ffb6c1;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-        .lock-box p {
-            font-size: 14px;
-            color: #9c8da6;
-            margin-bottom: 25px;
-            line-height: 1.8;
-        }
-        .lock-input {
+            padding: 40px;
             width: 100%;
-            padding: 14px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-            outline: none;
-            box-sizing: border-box;
-            letter-spacing: 2px;
+            max-width: 360px;
         }
-        .lock-btn {
-            background: #ffb6c1;
-            color: #050408;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 10px;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
+
+        .lock-title {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .lock-dots {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--text-muted);
             transition: 0.3s;
         }
-        .lock-btn:hover {
-            background: #ffcbd1;
-            box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
-        }
-        .error-msg {
-            color: #ff6b6b;
-            font-size: 13px;
-            margin-top: 15px;
-            display: none;
+
+        .dot.filled {
+            background: var(--accent-pink);
+            border-color: var(--accent-pink);
+            box-shadow: 0 0 15px rgba(255, 117, 140, 0.5);
         }
 
-        /* المحتوى الرئيسي المخفي */
-        #main-content {
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .key {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            color: var(--text-main);
+            font-size: 20px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .key:active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(0.95);
+        }
+
+        /* المحتوى الرئيسي */
+        #journey-content {
             display: none;
-            max-width: 750px;
-            margin: 0 auto;
-            padding: 60px 20px;
+            width: 100%;
+            max-width: 500px;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
             opacity: 0;
             transition: opacity 1.5s ease;
-        }
-
-        .header-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .header-title h1 {
-            color: #ffb6c1;
-            font-size: 32px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-        .header-title p {
-            color: #9c8da6;
-            font-size: 15px;
-        }
-
-        /* الصناديق والمحطات المتنوعة */
-        .secret-box {
-            background: linear-gradient(145deg, #13101a, #0b0910);
-            border: 1px solid rgba(255, 182, 193, 0.15);
-            border-radius: 18px;
-            padding: 30px;
-            margin-bottom: 35px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             position: relative;
-            overflow: hidden;
-        }
-        .secret-box:hover {
-            border-color: rgba(255, 182, 193, 0.4);
-            transform: translateY(-4px);
-        }
-        .box-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #ffb6c1;
-            font-weight: 700;
-            font-size: 18px;
-        }
-        .box-hint {
-            font-size: 13px;
-            color: #7a6e8c;
-            margin-top: 5px;
-        }
-        .box-content {
-            display: none;
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 182, 193, 0.1);
-            color: #c9bcce;
-            font-size: 16px;
-            line-height: 2.3;
-            text-align: justify;
-        }
-        .box-content.open {
-            display: block;
-            animation: fadeIn 0.8s ease;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        .stage {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+            animation: fadeInStage 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .stage.active {
+            display: flex;
+        }
+
+        @keyframes fadeInStage {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* تنسيقات مختلفة لكل صندوق لتكون منوعة */
-        .badge {
-            display: inline-block;
-            background: rgba(255, 182, 193, 0.1);
-            color: #ffb6c1;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-bottom: 15px;
-        }
-        
-        .special-quote {
-            background: rgba(255, 182, 193, 0.05);
-            border-right: 4px solid #ffb6c1;
-            padding: 18px 22px;
-            margin: 20px 0;
-            border-radius: 6px;
-            font-style: italic;
-            color: #ffb6c1;
-        }
-
-        /* تفاعل إضافي داخل الصندوق الثالث (مفاجأة تفاعلية) */
-        .interactive-btn {
-            background: rgba(255, 182, 193, 0.15);
-            border: 1px solid #ffb6c1;
-            color: #ffb6c1;
-            padding: 10px 20px;
-            border-radius: 8px;
+        /* تصميم المرحلة الأولى: نبض الروح (Pulse) */
+        .pulse-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,117,140,0.3) 0%, rgba(3,3,5,0) 70%);
+            border: 1px solid rgba(255,117,140,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            margin-top: 15px;
-            transition: 0.3s;
-        }
-        .interactive-btn:hover {
-            background: #ffb6c1;
-            color: #050408;
-        }
-        .hidden-surprise {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 8px;
-            color: #ffcbd1;
-            border: 1px dashed rgba(255, 182, 193, 0.3);
+            animation: corePulse 3s infinite ease-in-out;
+            box-shadow: 0 0 30px rgba(255,117,140,0.1);
         }
 
-        .final-vault {
-            text-align: center;
-            background: linear-gradient(145deg, #1a1224, #0d0a14);
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            border-radius: 22px;
-            padding: 50px 30px;
-            margin-top: 50px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+        @keyframes corePulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 20px rgba(255,117,140,0.1); }
+            50% { transform: scale(1.08); box-shadow: 0 0 45px rgba(255,117,140,0.3); }
+            100% { transform: scale(0.95); box-shadow: 0 0 20px rgba(255,117,140,0.1); }
         }
-        .final-vault h2 {
-            color: #ffb6c1;
-            font-size: 26px;
-            margin-bottom: 20px;
+
+        .symbol-icon {
+            font-size: 28px;
+            color: var(--accent-pink);
         }
-        .final-vault p {
-            color: #dfd8e8;
-            line-height: 2.6;
-            font-size: 17px;
+
+        /* تصميم المرحلة الثانية: المدارات الفضائية (Orbit) */
+        .orbit-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .orbit-ring {
+            position: absolute;
+            inset: 0;
+            border: 1px dashed rgba(127, 127, 213, 0.3);
+            border-radius: 50%;
+            animation: rotateOrbit 20s linear infinite;
+        }
+
+        @keyframes rotateOrbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .orbit-center {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(127, 127, 213, 0.6);
+            cursor: pointer;
+        }
+
+        .orbit-satellite {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            border-radius: 50%;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px #fff;
+        }
+
+        /* تصميم المرحلة الثالثة: بوابات النور (Lumina Gates) */
+        .gates-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .gate-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            height: 90px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.4s;
+            font-size: 22px;
+        }
+
+        .gate-card.unlocked {
+            border-color: var(--accent-gold);
+            background: rgba(246, 211, 101, 0.05);
+            box-shadow: 0 0 20px rgba(246, 211, 101, 0.15);
+        }
+
+        /* تصميم المرحلة الرابعة: خط الزمن المتصل (Constellation Line) */
+        .constellation-box {
+            width: 100%;
+            max-width: 320px;
+            height: 180px;
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            background: var(--card-bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .constellation-line {
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-gold));
+            position: absolute;
+            bottom: 40px;
+            left: 10%;
+            transition: width 1.5s ease;
+        }
+
+        .constellation-box.active .constellation-line {
+            width: 80%;
+        }
+
+        /* تصميم المرحلة الخامسة: الخاتمة الكونية (The Core Singularity) */
+        .singularity-core {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff 0%, var(--accent-pink) 50%, transparent 80%);
+            box-shadow: 0 0 60px rgba(255, 117, 140, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: singularityPulse 4s infinite alternate;
+        }
+
+        @keyframes singularityPulse {
+            0% { transform: scale(0.95); filter: brightness(1); }
+            100% { transform: scale(1.05); filter: brightness(1.2); }
+        }
+
+        /* عناصر مساعدة */
+        .hint-text {
+            margin-top: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple), var(--accent-gold));
+            width: 0%;
+            transition: width 0.6s ease;
         }
     </style>
 </head>
 <body>
 
-    <!-- شاشة إدخال رمز الدخول السري -->
+    <!-- شاشة الرمز السري (20243112) -->
     <div id="lock-screen">
-        <div class="lock-box">
-            <h2>🔐 غرفة الأسرار المقفلة</h2>
-            <p>أدخل الرمز السري الخاص (20243112) لفك قفل الغرفة والاستكشاف:</p>
-            <input type="password" id="passcode" class="lock-input" placeholder="••••••••">
-            <button class="lock-btn" onclick="checkCode()">فتح الخزنة</button>
-            <div id="error-msg" class="error-msg">الرمز غير صحيح، حاول مرة أخرى..</div>
+        <div class="lock-container">
+            <div class="lock-title">أدخل مفتاح العبور</div>
+            <div class="lock-dots" id="lockDots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <div class="keypad">
+                <button class="key" onclick="pressKey('1')">1</button>
+                <button class="key" onclick="pressKey('2')">2</button>
+                <button class="key" onclick="pressKey('3')">3</button>
+                <button class="key" onclick="pressKey('4')">4</button>
+                <button class="key" onclick="pressKey('5')">5</button>
+                <button class="key" onclick="pressKey('6')">6</button>
+                <button class="key" onclick="pressKey('7')">7</button>
+                <button class="key" onclick="pressKey('8')">8</button>
+                <button class="key" onclick="pressKey('9')">9</button>
+                <button class="key" style="grid-column: 2;" onclick="pressKey('0')">0</button>
+            </div>
         </div>
     </div>
 
-    <!-- المحتوى الرئيسي المنوع والمفاجآت -->
-    <div id="main-content">
-        <div class="header-title">
-            <h1>✨ رحلة الأسرار والمفاجآت</h1>
-            <p>كل صندوق يفتح لك عالماً مختلفاً.. اضغط واستكشف على مهلك.</p>
+    <!-- شريط التقدم العلوي -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- المحتوى التفاعلي المتنوع -->
+    <div id="journey-content">
+
+        <!-- المرحلة الأولى: نبض الروح -->
+        <div class="stage active" id="stage-1">
+            <div class="pulse-circle" onclick="nextStage(1)">
+                <div class="symbol-icon">✦</div>
+            </div>
+            <div class="hint-text">اضغط للإيقاظ</div>
         </div>
 
-        <!-- الصندوق الأول: البداية وقصة التعارف -->
-        <div class="secret-box" onclick="toggleBox(this)">
-            <div class="box-header">
-                <span>📦 الصندوق الأول: نقطة التحول والبداية</span>
-                <span>➕</span>
+        <!-- المرحلة الثانية: المدار الفضائي -->
+        <div class="stage" id="stage-2">
+            <div class="orbit-container">
+                <div class="orbit-ring"></div>
+                <div class="orbit-satellite"></div>
+                <div class="orbit-center" onclick="nextStage(2)"></div>
             </div>
-            <div class="box-hint">اضغط لفتح المحطة الأولى</div>
-            <div class="box-content">
-                <span class="badge">محطة السرد والذكريات</span>
-                <p>لم تبدأ قصتنا بمحض صدفة عابرة، بل كانت تدبيراً خفياً من القدر ليضع في طريقي شخصاً يعيد ترتيب ملامح الأيام. في زحمة العالم، حين كانت التفاصيل تبدو مكررة وباهتة، ظهرتِ أنتِ يا مياسم لتكوني الحدث الأهم الذي يكسر روتين الأيام.</p>
-                <div class="special-quote">
-                    "بعض الوجوه والأصوات لا تأتي لتملأ فراغاً عابراً، بل تأتي لتعيد صياغة معنى الوطن في داخلنا بالكامل."
-                </div>
-                <p>منذ تلك اللحظة، صار لكل توقيت طعم مختلف، وصار لاسمكِ رنين خاص يتردد بهدوء في الذاكرة.</p>
-            </div>
+            <div class="hint-text">المس نقطة الالتقاء</div>
         </div>
 
-        <!-- الصندوق الثاني: سحر الصوت (مفاجأة نبرة الصوت) -->
-        <div class="secret-box" onclick="toggleBox(this)">
-            <div class="box-header">
-                <span>📦 الصندوق الثاني: طقس الصوت والحنين المستمر</span>
-                <span>➕</span>
+        <!-- المرحلة الثالثة: بوابات النور الأربع -->
+        <div class="stage" id="stage-3">
+            <div class="gates-grid">
+                <div class="gate-card" onclick="unlockGate(this, 1)">✧</div>
+                <div class="gate-card" onclick="unlockGate(this, 2)">✧</div>
+                <div class="gate-card" onclick="unlockGate(this, 3)">✧</div>
+                <div class="gate-card" onclick="unlockGate(this, 4)">✧</div>
             </div>
-            <div class="box-hint">اضغط لاكتشاف سر الصوت والنبرة</div>
-            <div class="box-content">
-                <span class="badge">محطة الحنين والمشاعر</span>
-                <p>رغم قسوة المسافات وطول الشاشات، إلا أن هناك قانوناً آخر لا تدركه الجغرافيا: صوتك. هناك نبرة واحدة قادرة على مسح تعب الأسبوع بأكمله في ثوانٍ معدودة.</p>
-                <div class="special-quote">
-                    "وحشني صوت سوسو.. جملة بسيطة لكنها تختصر صخب الكون وتضعني في أهدأ مكان ممكن."
-                </div>
-                <p>الحديث معك لا يمل، والساعات تذوب وكأنها دقائق قصيرة، لأن العقول والأرواح تلتقي طويلاً قبل أن تتحدث الألسنة.</p>
-            </div>
+            <div class="hint-text" id="gatesHint">افتح النوافذ الأربع للعبور</div>
         </div>
 
-        <!-- الصندوق الثالث: مفاجأة تفاعلية (زر سري داخلي) -->
-        <div class="secret-box" onclick="toggleBox(this)">
-            <div class="box-header">
-                <span>📦 الصندوق الثالث: غرفة الأسرار المخفية (مفاجأة)</span>
-                <span>➕</span>
+        <!-- المرحلة الرابعة: خط التوافق -->
+        <div class="stage" id="stage-4">
+            <div class="constellation-box" id="constBox" onclick="triggerConstellation()">
+                <div style="font-size: 24px; color: var(--accent-gold); margin-bottom: 20px;">✧ ── ✧</div>
+                <div class="constellation-line"></div>
             </div>
-            <div class="box-hint">اضغط لاكتشاف المفاجأة التفاعلية بالداخل</div>
-            <div class="box-content">
-                <span class="badge">محطة الأسرار التفاعلية</span>
-                <p>في هذا الصندوق لا توجد كلمات عادية، بل يوجد زر سري مخفي تم إعداده خصيصاً لك. هل أنت مستعد لاكتشاف الرسالة الخاصة جداً؟</p>
-                <button class="interactive-btn" onclick="revealSurprise(event)">اضغط هنا لكشف المفاجأة المخفية 🎁</button>
-                <div id="surprise-box" class="hidden-surprise">
-                    <strong>🌟 سر خفي:</strong> لم أكن أؤمن أن الشاشات قادرة على حمل هذا القدر من الدفء الحقيقي، حتى عرفتكِ وتأكدت أن الروح تتجاوز حدود الأماكن والمسافات بمسافة شعرة!
-                </div>
-            </div>
+            <div class="hint-text">اسحب أو انقر لمد الأثر</div>
         </div>
 
-        <!-- الصندوق الرابع: فلسفة الانتظار والصبر -->
-        <div class="secret-box" onclick="toggleBox(this)">
-            <div class="box-header">
-                <span>📦 الصندوق الرابع: جغرافيا البعد والوعد القادم</span>
-                <span>➕</span>
-            </div>
-            <div class="box-hint">اضغط لقراءة فلسفة اللقاء المنتظر</div>
-            <div class="box-content">
-                <span class="badge">محطة الانتظار والأمل</span>
-                <p>الانتظار لأجل شخص يستحق هو بحد ذاته متعة، واليقين بأن اللقاء قادم يجعل الصبر جميلاً ومحتملاً. نتخيل معاً تفاصيل المدن القادمة، الشوارع التي لم نزيّنها بخطواتنا بعد، والضحكات التي لن تكون محصورة خلف زجاج الهواتف بعد اليوم.</p>
-                <p>كل يوم يمضي هو خصم حقيقي من رصيد المسافات الباقية، وكل شروق شمس يقربنا خطوة إضافية نحو اللحظة العظيمة التي ستنكسر فيها كل الحدود للأبد.</p>
-            </div>
+        <!-- المرحلة الخامسة: التفرد الأبدي (الخاتمة) -->
+        <div class="stage" id="stage-5">
+            <div class="singularity-core" onclick="finalResonance()"></div>
+            <div class="hint-text" style="color: var(--accent-pink);">النبض الأخير</div>
         </div>
 
-        <!-- الصندوق الخامس: المفاجأة الكبرى والعهد الأبدي -->
-        <div class="final-vault">
-            <h2>✨ الختام والمفاجأة الكبرى</h2>
-            <p>
-                إلى مياسم.. سوسو القلب وأمان الأيام،<br><br>
-                بعد أن فتحتِ كل الصناديق وتجولتِ بين تفاصيل الحكاية وأسرارها المتنوعة، يبقى المعنى الثابت والأخير: أن كل هذه الكيلومترات ستتلاشى قريباً، وأن النهاية ستكون كما تمناه قلبانا تماماً.. لقاء حقيقي، وابتسامة واسعة، ويدان تمضيان معاً في طريق واحد لا ينتهي.<br><br>
-                أحبكِ اليوم، غداً، وفي كل نبضة قادمة. ❤️
-            </p>
-        </div>
     </div>
 
     <script>
-        // دالة التحقق من الرمز السري 20243112
-        function checkCode() {
-            const codeInput = document.getElementById('passcode').value;
-            const correctCode = "20243112"; 
-            const errorMsg = document.getElementById('error-msg');
-            const lockScreen = document.getElementById('lock-screen');
-            const mainContent = document.getElementById('main-content');
+        const targetCode = "20243112";
+        let enteredCode = "";
 
-            if (codeInput === correctCode) {
-                lockScreen.style.opacity = '0';
-                setTimeout(() => {
-                    lockScreen.style.display = 'none';
-                    mainContent.style.display = 'block';
+        function pressKey(num) {
+            if (enteredCode.length < 8) {
+                enteredCode += num;
+                updateDots();
+            }
+            if (enteredCode.length === 8) {
+                if (enteredCode === targetCode) {
+                    unlockVault();
+                } else {
                     setTimeout(() => {
-                        mainContent.style.opacity = '1';
-                    }, 50);
-                }, 1000);
-            } else {
-                errorMsg.style.display = 'block';
+                        enteredCode = "";
+                        updateDots();
+                    }, 400);
+                }
             }
         }
 
-        // دالة فتح وإغلاق الصناديق التفاعلية
-        function toggleBox(element) {
-            const content = element.querySelector('.box-content');
-            const sign = element.querySelector('.box-header span:last-child');
-            
-            if (content.classList.contains('open')) {
-                content.classList.remove('open');
-                sign.textContent = '➕';
-            } else {
-                content.classList.add('open');
-                sign.textContent = '➖';
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if (index < enteredCode.length) {
+                    dot.classList.add('filled');
+                } else {
+                    dot.classList.remove('filled');
+                }
+            });
+        }
+
+        function unlockVault() {
+            const lockScreen = document.getElementById('lock-screen');
+            const journey = document.getElementById('journey-content');
+            lockScreen.style.opacity = '0';
+            setTimeout(() => {
+                lockScreen.style.display = 'none';
+                journey.style.display = 'block';
+                setTimeout(() => { journey.style.opacity = '1'; }, 50);
+            }, 1200);
+        }
+
+        function updateProgress(stageNum) {
+            const progress = (stageNum / 5) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextStage(current) {
+            updateProgress(current);
+            document.getElementById(`stage-${current}`).classList.remove('active');
+            const next = current + 1;
+            if(document.getElementById(`stage-${next}`)) {
+                document.getElementById(`stage-${next}`).classList.add('active');
             }
         }
 
-        // دالة إظهار المفاجأة المخفية داخل الصندوق الثالث دون إغلاق الصندوق
-        function revealSurprise(event) {
-            event.stopPropagation(); // منع إغلاق الصندوق عند النقر على الزر
-            const surprise = document.getElementById('surprise-box');
-            if (surprise.style.display === 'block') {
-                surprise.style.display = 'none';
-            } else {
-                surprise.style.display = 'block';
+        let unlockedGatesCount = 0;
+        function unlockGate(element, id) {
+            if (!element.classList.contains('unlocked')) {
+                element.classList.add('unlocked');
+                element.innerHTML = '✦';
+                unlockedGatesCount++;
+                if (unlockedGatesCount === 4) {
+                    setTimeout(() => {
+                        nextStage(3);
+                    }, 800);
+                }
             }
+        }
+
+        let constellationDone = false;
+        function triggerConstellation() {
+            const box = document.getElementById('constBox');
+            if (!constellationDone) {
+                constellationDone = true;
+                box.classList.add('active');
+                setTimeout(() => {
+                    nextStage(4);
+                }, 1800);
+            }
+        }
+
+        function finalResonance() {
+            document.body.style.transition = "background-color 2s ease";
+            document.body.style.backgroundColor = "#120a1a";
+            const core = document.querySelector('.singularity-core');
+            core.style.transform = "scale(2.5)";
+            core.style.opacity = "0";
+            setTimeout(() => {
+                document.querySelector('#stage-5').innerHTML = `
+                    <div style="font-size: 32px; color: #ff758c; font-weight: 300; letter-spacing: 2px;">✦</div>
+                `;
+            }, 1000);
         }
     </script>
 </body>
