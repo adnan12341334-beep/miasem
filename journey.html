@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التئام الأثر - مياسم</title>
+    <title>أفق الحضور - مياسم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -31,22 +31,20 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
 
-        /* خلفية ناعمة هادئة */
+        /* خلفية الإضاءة الهادئة */
         .ambient-glow {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(201, 59, 93, 0.06) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 0;
-            transition: 1.8s ease;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(201, 59, 93, 0.03) 0%, transparent 70%);
+            transition: 2s ease;
+            pointer-events: none;
         }
 
-        body.completed .ambient-glow {
-            background: radial-gradient(circle, rgba(229, 184, 83, 0.12) 0%, transparent 75%);
-            transform: scale(1.3);
+        body.illuminated .ambient-glow {
+            background: radial-gradient(circle at center, rgba(229, 184, 83, 0.08) 0%, transparent 80%);
         }
 
         .workspace {
@@ -62,123 +60,69 @@
             padding: 24px;
         }
 
-        /* مسرح القلب المعكوس الكبير والدقيق */
-        .sanctuary {
+        /* الإطار الهندسي الصامت (يشبه النافذة أو الأفق) */
+        .horizon-frame {
             position: relative;
-            width: 320px;
-            height: 320px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .heart-frame {
-            position: absolute;
             width: 280px;
             height: 280px;
-            transform: scaleX(-1) rotate(180deg);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .heart-frame svg {
-            width: 100%;
-            height: 100%;
-            fill: none;
-            stroke: rgba(201, 59, 93, 0.2);
-            stroke-width: 1;
-            transition: 1.5s ease;
-        }
-
-        body.completed .heart-frame svg {
-            stroke: var(--gold);
-            stroke-width: 1.5;
-            fill: rgba(229, 184, 83, 0.04);
-            filter: drop-shadow(0 0 30px rgba(229, 184, 83, 0.25));
-        }
-
-        /* الشظايا أو الأجزاء المبعثرة التي سيتم ترتيبها بدقة */
-        .fragments-container {
-            position: absolute;
-            inset: 40px;
-            z-index: 3;
-        }
-
-        .fragment {
-            position: absolute;
-            width: 44px;
-            height: 44px;
-            background: #120e1a;
-            border: 1px solid rgba(201, 59, 93, 0.35);
+            border: 1px solid rgba(201, 59, 93, 0.2);
             border-radius: 50%;
             display: flex;
-            align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            align-items: center;
+            transition: 1.8s ease;
         }
 
-        .fragment::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            background: var(--accent);
+        body.illuminated .horizon-frame {
+            border-color: rgba(229, 184, 83, 0.4);
+            box-shadow: 0 0 50px rgba(229, 184, 83, 0.15);
+            background: rgba(229, 184, 83, 0.02);
+        }
+
+        /* النقاط أو الأثر المتناثر الذي يضيء تدريجياً */
+        .spark-node {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(201, 59, 93, 0.4);
             border-radius: 50%;
-            transition: 0.5s ease;
+            transition: 0.8s ease;
+            box-shadow: 0 0 10px rgba(201, 59, 93, 0.2);
         }
 
-        .fragment:hover {
-            border-color: var(--accent);
-            transform: scale(1.1);
-        }
+        #spark-1 { top: 60px; left: 80px; }
+        #spark-2 { top: 60px; right: 80px; }
+        #spark-3 { bottom: 70px; left: 100px; }
+        #spark-4 { top: 130px; left: 50px; }
+        #spark-5 { top: 130px; right: 50px; }
 
-        /* مواقع الشظايا وهي مبعثرة في البداية */
-        #frag-1 { top: 20px; left: 40px; }
-        #frag-2 { top: 10px; right: 40px; }
-        #frag-3 { top: 110px; left: 10px; }
-        #frag-4 { top: 110px; right: 10px; }
-        #frag-5 { bottom: 20px; left: 110px; }
-
-        /* عندما تصطف الشظايا في مكانها الصحيح وتلتئم */
-        .fragment.aligned {
-            background: rgba(229, 184, 83, 0.15);
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(229, 184, 83, 0.3);
-            pointer-events: none;
-        }
-
-        .fragment.aligned::after {
+        /* حالة إضاءة النقاط */
+        .spark-node.active {
             background: var(--gold);
-            box-shadow: 0 0 10px var(--gold);
+            box-shadow: 0 0 20px var(--gold);
+            transform: scale(1.4);
         }
-
-        /* انتقال القطع لأماكنها المركزية المتناسقة عند الاكتمال */
-        body.completed #frag-1 { top: 60px; left: 90px; }
-        body.completed #frag-2 { top: 60px; right: 90px; }
-        body.completed #frag-3 { top: 120px; left: 60px; }
-        body.completed #frag-4 { top: 120px; right: 60px; }
-        body.completed #frag-5 { bottom: 50px; left: 118px; }
 
         /* التوجيه الهادئ */
         .instruction-hint {
             position: absolute;
-            top: 14vh;
+            top: 18vh;
             font-size: 13px;
             color: rgba(240, 237, 246, 0.35);
             letter-spacing: 2px;
             font-weight: 300;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease;
+            pointer-events: none;
         }
 
-        body.completed .instruction-hint {
+        body.illuminated .instruction-hint {
             opacity: 0;
         }
 
-        /* الرسالة العميقة والمدروسة بدقة */
+        /* نافذة الرسالة العميقة */
         .profound-message {
             position: absolute;
-            bottom: 5vh;
+            bottom: 6vh;
             width: 90%;
             max-width: 390px;
             background: rgba(5, 4, 10, 0.97);
@@ -199,7 +143,7 @@
             z-index: 10;
         }
 
-        body.completed .profound-message {
+        body.illuminated .profound-message {
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: auto;
@@ -218,60 +162,55 @@
             text-align: left;
             font-weight: 300;
         }
-        body.completed .signature {
+        body.illuminated .signature {
             color: var(--gold);
         }
     </style>
 </head>
-<body>
+<body onclick="handleScreenTap(event)">
 
     <div class="ambient-glow"></div>
 
     <div class="workspace">
         
-        <div class="instruction-hint">اضغط على أجزاء الشتات لتلتئم في مكانها الصحيح</div>
+        <div class="instruction-hint">المس الشاشة لتبديد العتمة واستدعاء النور</div>
 
-        <div class="sanctuary">
-            
-            <div class="heart-frame">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                </svg>
-            </div>
-
-            <!-- أجزاء الشتات التفاعلية -->
-            <div class="fragments-container">
-                <div class="fragment" id="frag-1" onclick="alignFragment(1)"></div>
-                <div class="fragment" id="frag-2" onclick="alignFragment(2)"></div>
-                <div class="fragment" id="frag-3" onclick="alignFragment(3)"></div>
-                <div class="fragment" id="frag-4" onclick="alignFragment(4)"></div>
-                <div class="fragment" id="frag-5" onclick="alignFragment(5)"></div>
-            </div>
-
+        <div class="horizon-frame" id="horizonFrame">
+            <div class="spark-node" id="spark-1"></div>
+            <div class="spark-node" id="spark-2"></div>
+            <div class="spark-node" id="spark-3"></div>
+            <div class="spark-node" id="spark-4"></div>
+            <div class="spark-node" id="spark-5"></div>
         </div>
 
         <div class="profound-message">
-            حين كانت كل تفاصيل الروح مبعثرة وتأخذ ألواناً مختلفة من الشتات والغياب، جئتِ أنتِ بهدوء حضورك الحقيقي لتعيدي ترتيب كل زاوية وتضعيها في نصابها الصحيح. بلمستك الواعية، <strong>أنتِ أصلحتِ قلبي</strong> وأعدتِ له النبض والتناغم والصفاء التام.
+            حين كانت الأيام موحشة وممتلئة بالشتات والمسافات الباردة، جاء حضوركِ كأنه النور الوحيد الذي غيّر ملامح العتمة. بلمسة هادئة منكِ، استقام كل شيء في مكانه، و<strong>أشرق المكان واعتدل</strong> وكأن شيئاً من الألم لم يكن.
             <div class="signature">إلى مياسم (سوسو)</div>
         </div>
 
     </div>
 
     <script>
-        let alignedCount = 0;
-        const totalFragments = 5;
-        const states = { 1: false, 2: false, 3: false, 4: false, 5: false };
+        let tapCount = 0;
+        const totalTaps = 5;
 
-        function alignFragment(id) {
-            if (states[id]) return;
+        function handleScreenTap(e) {
+            // منع تفعيل التفاعل إذا كانت الرسالة ظهرت بالفعل
+            if (document.body.classList.contains('illuminated')) return;
+            // منع التفاعل إذا كان النقر فوق محتوى الرسالة نفسها (لو ظهرت مستقبلاً)
+            if (e.target.closest('.profound-message')) return;
 
-            states[id] = true;
-            document.getElementById(`frag-${id}`).classList.add('aligned');
-            alignedCount++;
+            tapCount++;
+            if (tapCount <= totalTaps) {
+                const spark = document.getElementById(`spark-${tapCount}`);
+                if (spark) {
+                    spark.classList.add('active');
+                }
+            }
 
-            if (alignedCount === totalFragments) {
+            if (tapCount === totalTaps) {
                 setTimeout(() => {
-                    document.body.classList.add('completed');
+                    document.body.classList.add('illuminated');
                 }, 400);
             }
         }
