@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>انسجام الأثر - مياسم</title>
+    <title>تآلف المسارات - مياسم</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -11,7 +11,6 @@
             --text-main: #f0edf6;
             --accent: #c93b5d;
             --gold: #e5b853;
-            --muted-tile: #1a1624;
         }
 
         * {
@@ -34,7 +33,6 @@
             position: relative;
         }
 
-        /* الخلفية الهادئة */
         .ambient-watermarks {
             position: absolute;
             inset: 0;
@@ -71,7 +69,7 @@
             padding: 20px;
         }
 
-        /* مسرح القلب الكبير والمعكوس الحقيقي */
+        /* مسرح القلب الكبير المعكوس */
         .sanctuary-board {
             position: relative;
             width: 340px;
@@ -83,9 +81,9 @@
 
         .structural-heart {
             position: relative;
-            width: 250px;
-            height: 250px;
-            /* عكس الشكل أفقياً ورأسياً للطابع الفني */
+            width: 280px;
+            height: 280px;
+            /* قلب معكوس تماماً وبحجم كبير ومنحوت بدقة */
             transform: scaleX(-1) rotate(180deg);
         }
 
@@ -98,53 +96,68 @@
             transition: 1.6s ease;
         }
 
-        /* شبكة المكعبات المتفاعلة داخل مساحة القلب (مثل لعبة توحيد الألوان) */
-        .puzzle-grid {
+        /* شبكة النقاط المتفاعلة لإصلاح المسار */
+        .nodes-container {
             position: absolute;
-            inset: 35px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 8px;
-            padding: 15px;
+            inset: 50px;
             z-index: 4;
         }
 
-        .puzzle-tile {
-            background-color: var(--muted-tile);
-            border: 1px solid rgba(201, 59, 93, 0.25);
-            border-radius: 4px;
+        .node {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            background: #14101c;
+            border: 1px solid rgba(201, 59, 93, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: 0.5s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        .node::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
             transition: 0.4s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        .puzzle-tile:hover {
+        .node:hover {
             border-color: var(--accent);
-            transform: scale(1.05);
+            transform: scale(1.15);
         }
 
-        /* حالات المكعبات حسب الألوان المتبعثرة */
-        .puzzle-tile.state-0 { background-color: #161221; border-color: rgba(201, 59, 93, 0.2); }
-        .puzzle-tile.state-1 { background-color: #3b1828; border-color: var(--accent); }
-        .puzzle-tile.state-2 { background-color: #611e3b; border-color: #e0486d; }
-        
-        /* الحالة المكتملة (توحيد لون جميع المكعبات للذهب الهادئ المتناسق) */
-        .sanctuary-board.harmonized .puzzle-tile {
-            background-color: rgba(229, 184, 83, 0.18);
+        /* مواقع النقاط المبعثرة داخل القلب */
+        #node-1 { top: 40px; left: 60px; }
+        #node-2 { top: 30px; right: 60px; }
+        #node-3 { top: 100px; left: 30px; }
+        #node-4 { top: 100px; right: 30px; }
+        #node-5 { bottom: 30px; left: 100px; }
+
+        /* حالة الاتصال والاندمال */
+        .node.connected {
+            background: rgba(229, 184, 83, 0.15);
             border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(229, 184, 83, 0.3);
-            pointer-events: none;
+            box-shadow: 0 0 20px rgba(229, 184, 83, 0.3);
         }
 
-        .sanctuary-board.harmonized .structural-heart svg {
+        .node.connected::after {
+            background: var(--gold);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .sanctuary-board.aligned .structural-heart svg {
             stroke: var(--gold);
             stroke-width: 1.5;
             fill: rgba(229, 184, 83, 0.05);
             filter: drop-shadow(0 0 40px rgba(229, 184, 83, 0.25));
         }
 
-        /* تعليمات إرشادية هادئة للمستخدم */
         .instruction-hint {
             position: absolute;
             top: 15vh;
@@ -155,11 +168,11 @@
             transition: opacity 0.6s ease;
         }
 
-        .sanctuary-board.harmonized ~ .instruction-hint {
+        .sanctuary-board.aligned ~ .instruction-hint {
             opacity: 0;
         }
 
-        /* الرسالة الأكثر عمقاً وتأثيراً */
+        /* الرسالة العميقة */
         .profound-message-box {
             position: absolute;
             bottom: 6vh;
@@ -206,7 +219,6 @@
 </head>
 <body>
 
-    <!-- الخلفية الصامتة -->
     <div class="ambient-watermarks">
         <span class="watermark-text wm-1">سوسو</span>
         <span class="watermark-text wm-2">مياسم</span>
@@ -215,86 +227,54 @@
 
     <div class="workspace">
         
-        <div class="instruction-hint">اضغط لتوحيد وتنسيق تفاصيل القلب</div>
+        <div class="instruction-hint">اضغط على نقاط الشتات لتتصل وتتألف معاً</div>
 
-        <!-- مسرح اللعبة الهندسي المتكامل -->
         <div class="sanctuary-board" id="sanctuaryBoard">
             
             <div class="structural-heart">
-                <!-- منحنى هندسي واقعي لقلب حقيقي -->
                 <svg viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
             </div>
 
-            <!-- شبكة مكعبات التنسيق (لعبة توحيد الحالة واللون) -->
-            <div class="puzzle-grid" id="puzzleGrid">
-                <div class="puzzle-tile state-1" onclick="toggleTile(0)"></div>
-                <div class="puzzle-tile state-0" onclick="toggleTile(1)"></div>
-                <div class="puzzle-tile state-2" onclick="toggleTile(2)"></div>
-                <div class="puzzle-tile state-2" onclick="toggleTile(3)"></div>
-                <div class="puzzle-tile state-1" onclick="toggleTile(4)"></div>
-                <div class="puzzle-tile state-0" onclick="toggleTile(5)"></div>
-                <div class="puzzle-tile state-0" onclick="toggleTile(6)"></div>
-                <div class="puzzle-tile state-2" onclick="toggleTile(7)"></div>
-                <div class="puzzle-tile state-1" onclick="toggleTile(8)"></div>
+            <!-- نقاط المسارات الداخلية -->
+            <div class="nodes-container">
+                <div class="node" id="node-1" onclick="connectNode(1)"></div>
+                <div class="node" id="node-2" onclick="connectNode(2)"></div>
+                <div class="node" id="node-3" onclick="connectNode(3)"></div>
+                <div class="node" id="node-4" onclick="connectNode(4)"></div>
+                <div class="node" id="node-5" onclick="connectNode(5)"></div>
             </div>
 
         </div>
 
-        <!-- الرسالة العميقة والمؤثرة -->
         <div class="profound-message-box" id="profoundMessage">
-            حين كانت كل تفاصيل الروح مبعثرة وتأخذ ألواناً مختلفة من الشتات والغياب، جئتِ أنتِ بهدوء حضورك الحقيقي لتعيدي ترتيب كل زاوية وضعها في نصابها الصحيح. بلمستك الواعية، <strong>أنتِ أصلحتِ قلبي</strong> وأعدتِ له النبض والتناغم والصفاء التام.
+            حين كانت مسارات الروح مبعثرة وتائهة بين تفاصيل الغياب، جئتِ أنتِ بهدوئك المطلق لتربطي كل خيط وتضعيه في مكانه الصحيح. بلمسة حضورك، <strong>أنتِ أصلحتِ قلبي</strong> وأعدتِ له التناغم والنبض الحقيقي.
             <div class="message-attribution">إلى مياسم (سوسو)</div>
         </div>
 
     </div>
 
     <script>
-        // مصفوفة تمثل الحالات والألوان المختلفة للمكعبات (0 إلى 2)
-        let tileStates = [1, 0, 2, 2, 1, 0, 0, 2, 1];
-        let isHarmonized = false;
+        let connectedCount = 0;
+        const totalNodes = 5;
+        const nodeStates = { 1: false, 2: false, 3: false, 4: false, 5: false };
 
-        function toggleTile(index) {
-            if (isHarmonized) return;
+        function connectNode(id) {
+            if (nodeStates[id]) return;
 
-            // تغيير حالة المكعب عند الضغط عليه والمكعبات المحيطة به (تأثير شبكي متصل)
-            let affected = [index];
-            if (index % 3 !== 0) affected.push(index - 1); // اليسار
-            if (index % 3 !== 2) affected.push(index + 1); // اليمين
-            if (index >= 3) affected.push(index - 3);      // الأعلى
-            if (index < 6) affected.push(index + 3);      // الأسفل
+            nodeStates[id] = true;
+            document.getElementById(`node-${id}`).classList.add('connected');
+            connectedCount++;
 
-            affected.forEach(i => {
-                tileStates[i] = (tileStates[i] + 1) % 3;
-            });
-
-            renderGrid();
-            checkHarmonization();
-        }
-
-        function renderGrid() {
-            const grid = document.getElementById('puzzleGrid');
-            const tiles = grid.children;
-            for (let i = 0; i < tiles.length; i++) {
-                tiles[i].className = `puzzle-tile state-${tileStates[i]}`;
-            }
-        }
-
-        function checkHarmonization() {
-            // التحقق مما إذا أصبحت كل المكعبات تحمل نفس القيمة والحالة المتطابقة تماماً
-            const firstState = tileStates[0];
-            const allSame = tileStates.every(state => state === firstState);
-
-            if (allSame) {
-                isHarmonized = true;
+            if (connectedCount === totalNodes) {
                 setTimeout(() => {
-                    document.getElementById('sanctuaryBoard').classList.add('harmonized');
-                }, 400);
+                    document.getElementById('sanctuaryBoard').classList.add('aligned');
+                }, 500);
 
                 setTimeout(() => {
                     document.getElementById('profoundMessage').classList.add('reveal');
-                }, 1300);
+                }, 1400);
             }
         }
     </script>
