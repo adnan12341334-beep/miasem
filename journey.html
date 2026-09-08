@@ -2,79 +2,181 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى مياسم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #08070b;
+            background-color: #050408;
             font-family: 'Tajawal', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            color: #d8d0e3;
+            overflow-x: hidden;
             direction: rtl;
         }
-        .card {
-            width: 380px;
-            padding: 50px 35px;
-            background: linear-gradient(145deg, #13101a, #0b0910);
-            border: 1px solid rgba(255, 182, 193, 0.2);
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        .section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            position: relative;
-            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease;
+            margin-bottom: 100px;
         }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #ffb6c1, transparent);
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-        .icon {
-            font-size: 24px;
+        h1 {
+            font-size: 32px;
             color: #ffb6c1;
-            margin-bottom: 25px;
-        }
-        .title {
-            color: #ffb6c1;
-            font-size: 20px;
-            font-weight: 700;
+            font-weight: 900;
             margin-bottom: 20px;
             letter-spacing: 1px;
         }
-        .message {
-            color: #d8d0e3;
-            font-size: 15px;
-            line-height: 2.2;
+        h2 {
+            font-size: 24px;
+            color: #fff;
+            font-weight: 700;
             margin-bottom: 30px;
-            font-weight: 400;
-            text-align: center;
+            border-bottom: 1px solid rgba(255, 182, 193, 0.2);
+            padding-bottom: 15px;
         }
-        .signature {
-            color: #9c8da6;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 20px;
+        p {
+            font-size: 17px;
+            line-height: 2.5;
+            color: #c9bcce;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+        .quote-box {
+            background: rgba(255, 182, 193, 0.04);
+            border-right: 4px solid #ffb6c1;
+            padding: 25px 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            font-style: italic;
+            color: #ffb6c1;
+            font-size: 18px;
+            line-height: 2.2;
+            text-align: right;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .ornament {
+            color: #ffb6c1;
+            font-size: 22px;
+            margin: 40px 0;
+            letter-spacing: 8px;
+        }
+        .audio-prompt {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 182, 193, 0.15);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 30px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .footer-note {
+            font-size: 14px;
+            color: #7a6e8c;
+            margin-top: 50px;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <div class="icon">✨</div>
-        <div class="title">إلى مياسم</div>
-        <div class="message">
-            "بين ضجيج المسافات وشاشات الانتظار.. يبقى صوتك هو الملاذ، وقريباً تنكسر كل الحدود لنلتقي."
+    <div class="container">
+        <!-- المحطة الأولى: البداية -->
+        <div class="section visible">
+            <div style="font-size: 35px; margin-bottom: 20px;">✨</div>
+            <h1>حكاية تبدأ ولا تنتهي</h1>
+            <p>إلى مياسم.. سوسو القلب وأمان الأيام.</p>
+            <p>هذه ليست مجرد كلمات عابرة تترتب على شاشة، ولا نصاً يقرأ في عجالة ثم يُطوى. هذه رحلة طويلة، ممتدة بين تفاصيل الأيام، وبساتين الصبر، ومسافات الأرض التي تحاول عبثاً أن تقف حائلاً بين قلبين عقدا العزم على أن يكونا شيئاً واحدًا.</p>
+            <div class="ornament">❧ ❦ ❧</div>
         </div>
-        <div class="signature">سوسو القلب 🤍</div>
+
+        <!-- المحطة الثانية: جغرافيا البعد -->
+        <div class="section">
+            <h2>المحطة الأولى: جغرافيا البعد وسكون المدن</h2>
+            <p>في عالم تفرضه الخرائط، وتتباعد فيه المدن وتتزاحم الطرق، يعتقد البعض أن المسافات الجغرافية قادرة على إطفاء الشغف أو إخراس نبض الحنين. لكنهم لا يعلمون شيئاً عن القوانين الخفية التي تربط الأرواح.</p>
+            <p>حين تبدأ الحكاية بصدق، لا يعود للحدود أي معنى. تصبح الشاشات الباردة نوافذ دافئة، ويتحول ضوء الهاتف في منتصف الليل إلى شعاع نور يزيل عتمة المكان كله. لم تكن صدفة عابرة تلك التي جمعتنا، بل كانت نقطة تحول كبرى أعادت ترتيب كل الاتجاهات في عمق روحي.</p>
+            <div class="quote-box">
+                "بعض الوجوه والأصوات لا تأتي لتملأ فراغاً عابراً، بل تأتي لتعيد صياغة معنى الوطن في داخلنا."
+            </div>
+        </div>
+
+        <!-- المحطة الثالثة: إيقاع التفاصيل -->
+        <div class="section">
+            <h2>المحطة الثانية: إيقاع التفاصيل اليومية</h2>
+            <p>تتسلل التفاصيل الصغيرة بهدوء لتصبح طقوساً مقدسة. تصبح الساعات التي تمر بين الحديث والضحكات وكأنها ثوانٍ معدودة، وتذوب المسافات تماماً حين ينطق صوتك بكلمة واحدة تعيد للروح طمأنينتها.</p>
+            <p>"وحشني صوت سوسو".. ليست مجرد عبارة تتقاسَمها الشفاه، بل هي شعور عميق يتجدد مع كل شروق وغروب، حنين دائم لصوت يختصر صخب العالم الخارجي كله ويضعه جانباً، ليترك مساحة خالصة للراحة والسلام.</p>
+            <p>نأكل، نمشي، ونتنفس بين الرسائل والنصوص، وكأننا نسير جنباً إلى جنب رغم أن بيننا مدناً وبحاراً.</p>
+        </div>
+
+        <!-- المحطة الرابعة: ملاذ الصمت -->
+        <div class="section">
+            <h2>المحطة الثالثة: ملاذ الصمت والأمان المطلق</h2>
+            <p>حين يكون الحب حقيقياً، فإنه يعفينا من تكلف الحديث وصخب الكلمات. لقد وجدنا في بعضنا الملاذ الآمن والملجأ الحقيقي من كل ضجيج الحياة ومتاعبها المستمرة.</p>
+            <p>حتى لحظات الصمت الطويلة بيننا لم تكن أبداً وحشة أو فراغاً مخيفاً، بل كانت لغة أعمق وأصفى، تفهمها القلوب وتدركها الأرواح قبل أن تنطقها الألسنة. الأمان هو أن تعلم تماماً أن هناك قلباً ينبض لك وحدك، يتقاسم معك تفاصيل أيامك وثقلها كأنها تخصه تماماً.</p>
+            <div class="quote-box">
+                "معك، سقطت كل الأقنعة والتكلّفات، وبقيت الروح على طبيعتها البسيطة والنقية."
+            </div>
+        </div>
+
+        <!-- المحطة الخامسة: وعد اللقاء -->
+        <div class="section">
+            <h2>المحطة الرابعة: وعد اللقاء والمسافات المكسورة</h2>
+            <p>الانتظار لأجل شخص يستحق هو بحد ذاته متعة، واليقين بأن اللقاء قادم يجعل الصبر جميلاً ومحتملاً. نتخيل معاً تفاصيل المدن القادمة، الشوارع التي لم نزيّنها بخطواتنا بعد، والضحكات التي لن تكون محصورة خلف زجاج الهواتف بعد اليوم.</p>
+            <p>كل يوم يمضي هو خصم حقيقي من رصيد المسافات الباقية. كل شروق شمس يقربنا خطوة إضافية نحو اللحظة العظيمة التي ستنكسر فيها كل الحدود، وتتلاشى فيها الفوارق المكانية للأبد، لنلتقي وجهاً لوجه بلا حواجز.</p>
+        </div>
+
+        <!-- المحطة الختامية -->
+        <div class="section">
+            <h2>العهد الأبدي</h2>
+            <p style="text-align: center; font-size: 19px; line-height: 2.5; color: #ffb6c1;">
+                إلى مياسم.. سوسو القلب وأمان الأيام،<br><br>
+                شكراً لأنكِ أضفتِ هذا النور كله لأيامي، وشكراً لأنكِ الحكاية التي لا أملّ من عيش تفاصيلها كل يوم.<br><br>
+                مهما كانت الكيلومترات بعيدة، ومهما تطلب الأمر من صبر وانتظار، أعلم تماماً أن النهاية ستكون كما تمناه قلبانا: لقاء حقيقي، وابتسامة واسعة، ويدان تمضيان معاً في طريق واحد لا ينتهي.<br><br>
+                أحبكِ اليوم، غداً، وفي كل نبضة قادمة. ❤️
+            </p>
+            <div class="ornament" style="margin-top: 50px;">❦ ❧ ❦</div>
+            <div class="footer-note">إلى اللقاء القريب جداً</div>
+        </div>
     </div>
 
+    <script>
+        // تأثير الظهور التدريجي السلس للمحتوى أثناء النزول بالقراءة
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.fn = (entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                };
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
