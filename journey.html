@@ -3,157 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لغز حكايتنا ❤️</title>
+    <title>قصتنا السينمائية ❤️</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            background: #050508;
             color: #fff;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             direction: rtl;
+            overflow-x: hidden;
+        }
+        .scene {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-        .container {
-            max-width: 500px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 20px;
             text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 1s ease-in-out;
+            position: relative;
+        }
+        .scene.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         h2 {
             color: #ffb6c1;
-            margin-bottom: 15px;
-            font-size: 22px;
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(255, 182, 193, 0.4);
         }
         p {
-            font-size: 15px;
-            color: #e0e0e0;
-            line-height: 1.6;
-            margin-bottom: 25px;
+            font-size: 17px;
+            color: #dcd6df;
+            max-width: 600px;
+            line-height: 2;
+            margin-bottom: 30px;
         }
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .card-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 182, 193, 0.2);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
-        button {
+        .interactive-btn {
             background: linear-gradient(135deg, #ff758c, #ff7eb3);
             border: none;
             color: white;
-            padding: 12px 20px;
+            padding: 12px 25px;
             font-size: 16px;
-            border-radius: 12px;
+            border-radius: 15px;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 117, 140, 0.4);
             font-family: inherit;
-            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            margin-top: 15px;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.6);
+        .interactive-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 117, 140, 0.7);
         }
-        .wrong-msg {
-            color: #ff6b6b;
-            font-size: 13px;
-            margin-top: 10px;
+        .hidden-surprise {
             display: none;
-        }
-        .step {
-            display: none;
-        }
-        .step.active {
-            display: block;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 182, 193, 0.1);
+            border-radius: 12px;
+            color: #ffb6c1;
+            font-size: 16px;
             animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
-        .final-box {
-            background: rgba(255, 182, 193, 0.15);
-            padding: 20px;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 182, 193, 0.3);
-            text-align: right;
-            margin-top: 15px;
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            font-size: 13px;
+            color: #888;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+        .final-scene {
+            background: radial-gradient(circle, #1f1c2c 0%, #050508 100%);
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <!-- المرحلة الأولى -->
-    <div id="step1" class="step active">
-        <h2>✨ المحطة الأولى</h2>
-        <p>عشان نفتح كتاب حكايتنا سوا.. لازم تجاوبي على أول سؤال: وش أكثر شي يجمعنا وكل يوم نسويه؟</p>
-        <div class="btn-group">
-            <button onclick="wrongAnswer(1)">نتخاصم دايم 😜</button>
-            <button onclick="nextStep(2)">نسولف بلا توقف 💬</button>
-            <button onclick="wrongAnswer(1)">نن نام بدري 😴</button>
+    <!-- المشهد الأول -->
+    <div class="scene visible">
+        <h2>🎬 المشهد الأول: البداية الهادئة</h2>
+        <div class="card-box">
+            <p>في أحيان كثيرة، لا تبدأ الحكايات بلقاء صاخب.. بل تبدأ بصدفة بسيطة، برمز على الشاشة، وبحرف واحد غير مجرى الأيام كلها.</p>
         </div>
-        <div id="error1" class="wrong-msg">حاولي مرة ثانية يا سوسو! ركزي زين ❤️</div>
+        <div class="scroll-down">انزلي لأسفل لتتابعي القصة 👇</div>
     </div>
 
-    <!-- المرحلة الثانية -->
-    <div id="step2" class="step">
-        <h2>💫 المحطة الثانية</h2>
-        <p>ممتاز! السؤال الثاني: اللحظة اللي طارت فيها كل التكلفات وصار بيننا أمان الدنيا، وش كانت؟</p>
-        <div class="btn-group">
-            <button onclick="nextStep(3)">أول ضحكة من القلب ✨</button>
-            <button onclick="wrongAnswer(2)">يوم ضعت بالمحطة 🗺️</button>
-            <button onclick="wrongAnswer(2)">لما قفلنا الخط 📵</button>
+    <!-- المشهد الثاني -->
+    <div class="scene">
+        <h2>💬 المشهد الثاني: تفاصيل الصوت والحديث</h2>
+        <div class="card-box">
+            <p>تدريجياً.. تحولت الصدفة إلى عادة لا غنى عنها. صارت الساعات تمر كأنها دقائق، وكل كلمة تنكتب كأنها ترسم ملامح جديدة لعالم ثاني.</p>
+            <button class="interactive-btn" onclick="reveal('s2-text')">اضغطي هنا لاكتشاف سر هذا المشهد ✨</button>
+            <div id="s2-text" class="hidden-surprise">
+                "وحشني صوت سوسو.. الجملة اللي تتكرر بقلبي كل ما غاب صوتك عني."
+            </div>
         </div>
-        <div id="error2" class="wrong-msg">خطأ! تذكري زين وش صار بيننا 💭</div>
+        <div class="scroll-down">ابحري أكثر في القصة 👇</div>
     </div>
 
-    <!-- المرحلة الثالثة -->
-    <div id="step3" class="step">
-        <h2>🌍 المحطة الثالثة والاخيرة</h2>
-        <p>وصلنا للنقطة الأهم.. المكان اللي ما وصلنا له للحين بس نتمنى نمشي بشوارعه سوا:</p>
-        <div class="btn-group">
-            <button onclick="wrongAnswer(3)">المريخ 🚀</button>
-            <button onclick="wrongAnswer(3)">نهاية العالم 🌊</button>
-            <button onclick="showFinal()">حلمنا القادم معاً ✈️</button>
+    <!-- المشهد الثالث -->
+    <div class="scene">
+        <h2>💫 المشهد الثالث: الأمان الذي لم يخطر على بال</h2>
+        <div class="card-box">
+            <p>في زحمة هذا العالم، صرتِ أنتِ المكان اللي أهرب له من كل تعب. الضحكة اللي تطير التكلفات، والأمان اللي يغنيكِ عن ألف مدينة.</p>
         </div>
-        <div id="error3" class="wrong-msg">فكري بالمكان اللي دايم نتمنى نزوره! 😉</div>
+        <div class="scroll-down">قربنا للنهاية، تابعي النزول 👇</div>
     </div>
 
-    <!-- الرسالة النهائية -->
-    <div id="finalStep" class="step">
-        <h2>❤️ مياسم</h2>
-        <div class="final-box">
-            <p>“يا سوسو.. كل المسافات وكل الشاشات تهون دام النهاية دايم تجمعني فيكِ. أنتِ مو فقط شخص أكلمه كل يوم، أنتِ المكان اللي ألقى فيه نفسي. صح إننا ما تقابلنا مكانياً للحين، بس قلبي معك بكل خطوة. شكراً لأنكِ أجمل شيء صار لي، وبانتظار اليوم اللي تنور فيه أول نقطة لقاء بيننا. أحبك.”</p>
+    <!-- المشهد الرابع -->
+    <div class="scene">
+        <h2>🌍 المشهد الرابع: أحلامنا المعلقة على السفر</h2>
+        <div class="card-box">
+            <p>هنا.. على هذه الخريطة الافتراضية، حطيت كل المدن والطرق اللي أتمنى نمشيها أنا وأنتِ سوا، نمسك الأيدي ونصنع ذكريات حقيقية مو خلف الشاشات.</p>
+            <button class="interactive-btn" onclick="reveal('s4-text')">افتحي صندوق الأماني ✈️</button>
+            <div id="s4-text" class="hidden-surprise">
+                "كل شوارع العالم تنتظرنا.. وقريب جداً بنكون فيها مع بعض."
+            </div>
+        </div>
+        <div class="scroll-down">المشهد الأخير ينتظرك 👇</div>
+    </div>
+
+    <!-- المشهد الخامس والأخير -->
+    <div class="scene final-scene">
+        <h2>❤️ المشهد الختامي: مياسم</h2>
+        <div class="card-box" style="border-color: #ffb6c1; background: rgba(255, 182, 193, 0.08);">
+            <p style="font-size: 18px; line-height: 2.2; color: #fff;">
+                “يا سوسو.. كل المسافات وكل الشاشات تهون دام النهاية دايم تجمعني فيكِ. أنتِ مو فقط شخص أكلمه كل يوم، أنتِ المكان اللي ألقى فيه نفسي. صح إننا ما تقابلنا مكانياً للحين، بس قلبي معك بكل خطوة. شكراً لأنكِ أجمل شيء صار لي، وبانتظار اليوم اللي تنور فيه أول نقطة لقاء بيننا. أحبك بجنون.”
+            </p>
         </div>
     </div>
-</div>
 
-<script>
-    function nextStep(stepNum) {
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        document.getElementById('step' + stepNum).classList.add('active');
-    }
+    <script>
+        // تأثير ظهور المشاهد تدريجياً مع التمرير
+        const scenes = document.querySelectorAll('.scene');
 
-    function wrongAnswer(stepNum) {
-        const err = document.getElementById('error' + stepNum);
-        err.style.display = 'block';
-        setTimeout(() => {
-            err.style.display = 'none';
-        }, 2500);
-    }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.3 });
 
-    function showFinal() {
-        document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
-        document.getElementById('finalStep').classList.add('active');
-    }
-</script>
+        scenes.forEach(scene => {
+            observer.observe(scene);
+        });
+
+        function reveal(id) {
+            const box = document.getElementById(id);
+            box.style.display = box.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
 
 </body>
 </html>
