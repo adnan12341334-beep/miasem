@@ -16,162 +16,184 @@
             direction: rtl;
         }
         .container {
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
-        .section {
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        .card-section {
+            background: linear-gradient(145deg, #13101a, #0b0910);
+            border: 1px solid rgba(255, 182, 193, 0.15);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-bottom: 70px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
             transition: all 1.5s ease;
-            margin-bottom: 100px;
         }
-        .section.visible {
+        .card-section.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        h1 {
-            font-size: 32px;
+        .img-container {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1);
+        }
+        .img-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(5,4,8,0.9), transparent);
             color: #ffb6c1;
-            font-weight: 900;
-            margin-bottom: 20px;
+            font-size: 13px;
             letter-spacing: 1px;
         }
         h2 {
-            font-size: 24px;
+            font-size: 22px;
             color: #fff;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border-bottom: 1px solid rgba(255, 182, 193, 0.2);
-            padding-bottom: 15px;
+            padding-bottom: 12px;
         }
         p {
-            font-size: 17px;
-            line-height: 2.5;
+            font-size: 16px;
+            line-height: 2.3;
             color: #c9bcce;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: justify;
         }
         .quote-box {
             background: rgba(255, 182, 193, 0.04);
             border-right: 4px solid #ffb6c1;
-            padding: 25px 30px;
-            margin: 30px 0;
-            border-radius: 8px;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 6px;
             font-style: italic;
             color: #ffb6c1;
-            font-size: 18px;
-            line-height: 2.2;
+            font-size: 17px;
+            line-height: 2;
             text-align: right;
-            width: 100%;
-            box-sizing: border-box;
         }
         .ornament {
+            text-align: center;
             color: #ffb6c1;
-            font-size: 22px;
-            margin: 40px 0;
-            letter-spacing: 8px;
-        }
-        .audio-prompt {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 182, 193, 0.15);
-            padding: 20px;
-            border-radius: 12px;
+            font-size: 20px;
             margin: 30px 0;
-            width: 100%;
-            box-sizing: border-box;
+            letter-spacing: 6px;
         }
-        .footer-note {
-            font-size: 14px;
-            color: #7a6e8c;
-            margin-top: 50px;
-            letter-spacing: 2px;
+        .final-card {
+            text-align: center;
+            background: linear-gradient(145deg, #181222, #0d0a14);
+            border: 1px solid rgba(255, 182, 193, 0.3);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        
         <!-- المحطة الأولى: البداية -->
-        <div class="section visible">
-            <div style="font-size: 35px; margin-bottom: 20px;">✨</div>
-            <h1>حكاية تبدأ ولا تنتهي</h1>
-            <p>إلى مياسم.. سوسو القلب وأمان الأيام.</p>
-            <p>هذه ليست مجرد كلمات عابرة تترتب على شاشة، ولا نصاً يقرأ في عجالة ثم يُطوى. هذه رحلة طويلة، ممتدة بين تفاصيل الأيام، وبساتين الصبر، ومسافات الأرض التي تحاول عبثاً أن تقف حائلاً بين قلبين عقدا العزم على أن يكونا شيئاً واحدًا.</p>
+        <div class="card-section visible">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="بداية الحكاية">
+                <div class="img-overlay">✨ البداية التي لم تكن صدفة</div>
+            </div>
+            <h2>إلى مياسم.. سوسو القلب وأمان الأيام</h2>
+            <p>هذه ليست مجرد كلمات عابرة تترتب على شاشة، ولا نصاً يُقرأ في عجالة ثم يُطوى. هذه رحلة طويلة وممتدة بين تفاصيل الأيام، وبساتين الصبر، ومسافات الأرض التي تحاول عبثاً أن تقف حائلاً بين قلبين عقدا العزم على أن يكونا شيئاً واحداً.</p>
             <div class="ornament">❧ ❦ ❧</div>
         </div>
 
         <!-- المحطة الثانية: جغرافيا البعد -->
-        <div class="section">
-            <h2>المحطة الأولى: جغرافيا البعد وسكون المدن</h2>
+        <div class="card-section">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" alt="سكون الليل والمسافات">
+                <div class="img-overlay">🌌 جغرافيا البعد وسكون المدن</div>
+            </div>
+            <h2>المحطة الأولى: حين تتلاشى الحدود</h2>
             <p>في عالم تفرضه الخرائط، وتتباعد فيه المدن وتتزاحم الطرق، يعتقد البعض أن المسافات الجغرافية قادرة على إطفاء الشغف أو إخراس نبض الحنين. لكنهم لا يعلمون شيئاً عن القوانين الخفية التي تربط الأرواح.</p>
-            <p>حين تبدأ الحكاية بصدق، لا يعود للحدود أي معنى. تصبح الشاشات الباردة نوافذ دافئة، ويتحول ضوء الهاتف في منتصف الليل إلى شعاع نور يزيل عتمة المكان كله. لم تكن صدفة عابرة تلك التي جمعتنا، بل كانت نقطة تحول كبرى أعادت ترتيب كل الاتجاهات في عمق روحي.</p>
+            <p>حين تبدأ الحكاية بصدق، لا يعود للحدود أي معنى. تصبح الشاشات الباردة نوافذ دافئة، ويتحول ضوء الهاتف في منتصف الليل إلى شعاع نور يزيل عتمة المكان كله.</p>
             <div class="quote-box">
                 "بعض الوجوه والأصوات لا تأتي لتملأ فراغاً عابراً، بل تأتي لتعيد صياغة معنى الوطن في داخلنا."
             </div>
         </div>
 
         <!-- المحطة الثالثة: إيقاع التفاصيل -->
-        <div class="section">
-            <h2>المحطة الثانية: إيقاع التفاصيل اليومية</h2>
+        <div class="card-section">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=800&q=80" alt="تفاصيل الشوق">
+                <div class="img-overlay">💬 إيقاع التفاصيل ويوميات الشوق</div>
+            </div>
+            <h2>المحطة الثانية: تفاصيل الصوت الذي يعيد الروح</h2>
             <p>تتسلل التفاصيل الصغيرة بهدوء لتصبح طقوساً مقدسة. تصبح الساعات التي تمر بين الحديث والضحكات وكأنها ثوانٍ معدودة، وتذوب المسافات تماماً حين ينطق صوتك بكلمة واحدة تعيد للروح طمأنينتها.</p>
-            <p>"وحشني صوت سوسو".. ليست مجرد عبارة تتقاسَمها الشفاه، بل هي شعور عميق يتجدد مع كل شروق وغروب، حنين دائم لصوت يختصر صخب العالم الخارجي كله ويضعه جانباً، ليترك مساحة خالصة للراحة والسلام.</p>
-            <p>نأكل، نمشي، ونتنفس بين الرسائل والنصوص، وكأننا نسير جنباً إلى جنب رغم أن بيننا مدناً وبحاراً.</p>
+            <p>"وحشني صوت سوسو".. ليست مجرد عبارة تتقاسَمها الشفاه، بل هي شعور عميق يتجدد مع كل شروق وغروب، حنين دائم لصوت يختصر صخب العالم الخارجي كله ويضع جانباً كل متاعب اليوم.</p>
         </div>
 
         <!-- المحطة الرابعة: ملاذ الصمت -->
-        <div class="section">
-            <h2>المحطة الثالثة: ملاذ الصمت والأمان المطلق</h2>
+        <div class="card-section">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80" alt="الأمان والهدوء">
+                <div class="img-overlay">🕯️ ملاذ الصمت والأمان المطلق</div>
+            </div>
+            <h2>المحطة الثالثة: الراحة التي لا توصف</h2>
             <p>حين يكون الحب حقيقياً، فإنه يعفينا من تكلف الحديث وصخب الكلمات. لقد وجدنا في بعضنا الملاذ الآمن والملجأ الحقيقي من كل ضجيج الحياة ومتاعبها المستمرة.</p>
-            <p>حتى لحظات الصمت الطويلة بيننا لم تكن أبداً وحشة أو فراغاً مخيفاً، بل كانت لغة أعمق وأصفى، تفهمها القلوب وتدركها الأرواح قبل أن تنطقها الألسنة. الأمان هو أن تعلم تماماً أن هناك قلباً ينبض لك وحدك، يتقاسم معك تفاصيل أيامك وثقلها كأنها تخصه تماماً.</p>
+            <p>حتى لحظات الصمت الطويلة بيننا لم تكن أبداً وحشة أو فراغاً مخيفاً، بل كانت لغة أعمق وأصفى، تفهمها القلوب وتدركها الأرواح قبل أن تنطقها الألسنة.</p>
             <div class="quote-box">
-                "معك، سقطت كل الأقنعة والتكلّفات، وبقيت الروح على طبيعتها البسيطة والنقية."
+                "معكِ، سقطت كل الأقنعة والتكلّفات، وبقيت الروح على طبيعتها البسيطة والنقية."
             </div>
         </div>
 
         <!-- المحطة الخامسة: وعد اللقاء -->
-        <div class="section">
-            <h2>المحطة الرابعة: وعد اللقاء والمسافات المكسورة</h2>
+        <div class="card-section">
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80" alt="الطريق واللقاء">
+                <div class="img-overlay">✈️ وعد اللقاء والمسافات المكسورة</div>
+            </div>
+            <h2>المحطة الرابعة: قريباً.. تنكسر المسافات</h2>
             <p>الانتظار لأجل شخص يستحق هو بحد ذاته متعة، واليقين بأن اللقاء قادم يجعل الصبر جميلاً ومحتملاً. نتخيل معاً تفاصيل المدن القادمة، الشوارع التي لم نزيّنها بخطواتنا بعد، والضحكات التي لن تكون محصورة خلف زجاج الهواتف بعد اليوم.</p>
-            <p>كل يوم يمضي هو خصم حقيقي من رصيد المسافات الباقية. كل شروق شمس يقربنا خطوة إضافية نحو اللحظة العظيمة التي ستنكسر فيها كل الحدود، وتتلاشى فيها الفوارق المكانية للأبد، لنلتقي وجهاً لوجه بلا حواجز.</p>
+            <p>كل يوم يمضي هو خصم حقيقي من رصيد المسافات الباقية، وكل شروق شمس يقربنا خطوة إضافية نحو اللحظة العظيمة التي ستنكسر فيها كل الحدود للأبد.</p>
         </div>
 
         <!-- المحطة الختامية -->
-        <div class="section">
+        <div class="card-section final-card">
+            <div style="font-size: 30px; margin-bottom: 15px;">❤️</div>
             <h2>العهد الأبدي</h2>
-            <p style="text-align: center; font-size: 19px; line-height: 2.5; color: #ffb6c1;">
+            <p style="text-align: center; font-size: 17px; line-height: 2.5; color: #ffb6c1;">
                 إلى مياسم.. سوسو القلب وأمان الأيام،<br><br>
                 شكراً لأنكِ أضفتِ هذا النور كله لأيامي، وشكراً لأنكِ الحكاية التي لا أملّ من عيش تفاصيلها كل يوم.<br><br>
                 مهما كانت الكيلومترات بعيدة، ومهما تطلب الأمر من صبر وانتظار، أعلم تماماً أن النهاية ستكون كما تمناه قلبانا: لقاء حقيقي، وابتسامة واسعة، ويدان تمضيان معاً في طريق واحد لا ينتهي.<br><br>
-                أحبكِ اليوم، غداً، وفي كل نبضة قادمة. ❤️
+                أحبكِ اليوم، غداً، وفي كل نبضة قادمة.
             </p>
-            <div class="ornament" style="margin-top: 50px;">❦ ❧ ❦</div>
-            <div class="footer-note">إلى اللقاء القريب جداً</div>
+            <div class="ornament" style="margin-top: 35px;">❦ ❧ ❦</div>
+            <div style="font-size: 13px; color: #7a6e8c; letter-spacing: 2px; margin-top: 20px;">القادم أعظم.. واللقاء قريب</div>
         </div>
+
     </div>
 
     <script>
-        // تأثير الظهور التدريجي السلس للمحتوى أثناء النزول بالقراءة
+        // تأثير الظهور التدريجي السلس أثناء القراءة
         document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.querySelectorAll('.section');
+            const sections = document.querySelectorAll('.card-section');
             const observer = new IntersectionObserver((entries) => {
-                entries.fn = (entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                };
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                     }
                 });
-            }, { threshold: 0.2 });
+            }, { threshold: 0.15 });
 
             sections.forEach(section => {
                 observer.observe(section);
