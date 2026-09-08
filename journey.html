@@ -140,7 +140,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* تصميم المرحلة الأولى: نبض الروح (Pulse) */
+        /* المرحلة الأولى: نبض الروح */
         .pulse-circle {
             width: 120px;
             height: 120px;
@@ -166,7 +166,7 @@
             color: var(--accent-pink);
         }
 
-        /* تصميم المرحلة الثانية: المدارات الفضائية (Orbit) */
+        /* المرحلة الثانية: المدار الفضائي المعدل */
         .orbit-container {
             position: relative;
             width: 220px;
@@ -181,7 +181,7 @@
             inset: 0;
             border: 1px dashed rgba(127, 127, 213, 0.3);
             border-radius: 50%;
-            animation: rotateOrbit 20s linear infinite;
+            animation: rotateOrbit 12s linear infinite;
         }
 
         @keyframes rotateOrbit {
@@ -190,27 +190,35 @@
         }
 
         .orbit-center {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             background: var(--accent-purple);
             border-radius: 50%;
             box-shadow: 0 0 25px rgba(127, 127, 213, 0.6);
-            cursor: pointer;
         }
 
         .orbit-satellite {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             background: #fff;
             border-radius: 50%;
-            top: 10px;
+            top: 5px;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 15px #fff;
+            box-shadow: 0 0 20px #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
         }
 
-        /* تصميم المرحلة الثالثة: بوابات النور (Lumina Gates) */
+        .orbit-satellite:active {
+            transform: translateX(-50%) scale(0.85);
+        }
+
+        /* المرحلة الثالثة: بوابات النور */
         .gates-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -238,7 +246,7 @@
             box-shadow: 0 0 20px rgba(246, 211, 101, 0.15);
         }
 
-        /* تصميم المرحلة الرابعة: خط الزمن المتصل (Constellation Line) */
+        /* المرحلة الرابعة: خط التوافق */
         .constellation-box {
             width: 100%;
             max-width: 320px;
@@ -269,7 +277,7 @@
             width: 80%;
         }
 
-        /* تصميم المرحلة الخامسة: الخاتمة الكونية (The Core Singularity) */
+        /* المرحلة الخامسة: التفرد الأبدي */
         .singularity-core {
             width: 140px;
             height: 140px;
@@ -288,7 +296,6 @@
             100% { transform: scale(1.05); filter: brightness(1.2); }
         }
 
-        /* عناصر مساعدة */
         .hint-text {
             margin-top: 30px;
             font-size: 13px;
@@ -353,14 +360,14 @@
             <div class="hint-text">اضغط للإيقاظ</div>
         </div>
 
-        <!-- المرحلة الثانية: المدار الفضائي -->
+        <!-- المرحلة الثانية: المدار الفضائي (الزر هو الدائرة البيضاء المتحركة) -->
         <div class="stage" id="stage-2">
             <div class="orbit-container">
                 <div class="orbit-ring"></div>
-                <div class="orbit-satellite"></div>
-                <div class="orbit-center" onclick="nextStage(2)"></div>
+                <div class="orbit-satellite" onclick="nextStage(2)"></div>
+                <div class="orbit-center"></div>
             </div>
-            <div class="hint-text">المس نقطة الالتقاء</div>
+            <div class="hint-text">اضغط على النقطة البيضاء المتحركة</div>
         </div>
 
         <!-- المرحلة الثالثة: بوابات النور الأربع -->
@@ -371,7 +378,7 @@
                 <div class="gate-card" onclick="unlockGate(this, 3)">✧</div>
                 <div class="gate-card" onclick="unlockGate(this, 4)">✧</div>
             </div>
-            <div class="hint-text" id="gatesHint">افتح النوافذ الأربع للعبور</div>
+            <div class="hint-text">افتح النوافذ الأربع للعبور</div>
         </div>
 
         <!-- المرحلة الرابعة: خط التوافق -->
@@ -380,7 +387,7 @@
                 <div style="font-size: 24px; color: var(--accent-gold); margin-bottom: 20px;">✧ ── ✧</div>
                 <div class="constellation-line"></div>
             </div>
-            <div class="hint-text">اسحب أو انقر لمد الأثر</div>
+            <div class="hint-text">انقر هنا لمد الأثر</div>
         </div>
 
         <!-- المرحلة الخامسة: التفرد الأبدي (الخاتمة) -->
