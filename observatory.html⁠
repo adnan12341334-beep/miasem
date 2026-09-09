@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرصد الزمن والذاكرة - مياسم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #010104;
+            --text-main: #f0edf6;
+            --accent: #c93b5d;
+            --gold: #e5b853;
+            --dim-gray: rgba(240, 237, 246, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* خلفية ناعمة تفاعلية تتغير مع التمرير */
+        .ambient-layer {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 20%, rgba(201, 59, 93, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+            transition: background 1.5s ease;
+        }
+
+        /* حاوية الرحلة الطويلة */
+        .journey-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* كل محطة في الرحلة تشغل شاشة كاملة أو مساحة عميقة مريحة للتأمل */
+        .station {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 0;
+            opacity: 0.2;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .station.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* المحطة الأولى: مرصد الفراغ والعدّ */
+        .observatory-title {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--dim-gray);
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+
+        .time-counter {
+            font-size: 2.5rem;
+            font-weight: 200;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .station-desc {
+            font-size: 16px;
+            font-weight: 300;
+            line-height: 2.8;
+            color: rgba(240, 237, 246, 0.8);
+            max-width: 480px;
+        }
+
+        /* مؤشر التمرير للأسفل */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            font-size: 12px;
+            color: var(--dim-gray);
+            letter-spacing: 3px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(8px); opacity: 0.8; }
+        }
+
+        /* المحطة الثانية: خريطة الأثر والنجوم */
+        .constellation-box {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            border: 1px solid rgba(201, 59, 93, 0.15);
+            border-radius: 50%;
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .star-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent);
+            opacity: 0.4;
+            transition: 1s ease;
+        }
+
+        .station.visible .star-point {
+            opacity: 1;
+            box-shadow: 0 0 20px var(--gold);
+            background: var(--gold);
+        }
+
+        .sp-1 { top: 40px; left: 70px; }
+        .sp-2 { top: 50px; right: 60px; }
+        .sp-3 { bottom: 60px; left: 90px; }
+        .sp-4 { bottom: 50px; right: 80px; }
+
+        /* المحطة الثالثة: المونولوج العميق */
+        .monologue-text {
+            font-size: 17px;
+            font-weight: 300;
+            line-height: 3;
+            color: #eae6f4;
+            max-width: 500px;
+            border-right: 2px solid var(--accent);
+            padding-right: 20px;
+            text-align: right;
+        }
+
+        .monologue-text span {
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        /* المحطة الرابعة والأخيرة: الإشراق والالتئام الكامل */
+        .sanctuary-card {
+            background: rgba(6, 5, 12, 0.95);
+            border: 1px solid rgba(229, 184, 83, 0.4);
+            backdrop-filter: blur(30px);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: right;
+            line-height: 2.8;
+            font-size: 16px;
+            font-weight: 300;
+            color: #f2edf9;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.95);
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .sanctuary-card strong {
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .signature-area {
+            margin-top: 25px;
+            font-size: 14px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-align: left;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-layer" id="ambientLayer"></div>
+
+    <div class="journey-container">
+        
+        <!-- المحطة الأولى: مرصد الفراغ -->
+        <section class="station visible" id="station-1">
+            <div class="observatory-title">المحطة الأولى : رصد الغياب</div>
+            <div class="time-counter" id="timerCount">04 : 18 : 22</div>
+            <div class="station-desc">
+                في هذا المكان الصامت، حيث تتقاطع خطوط الزمن ببطء شديد، كانت الساعات تمر ثقيلة ومحملة بمسافات الشتات والانتظار الطويل، بانتظار وميض يغير ملامح العتمة.
+            </div>
+            <div class="scroll-indicator">مرر للأسفل للتعمق</div>
+        </section>
+
+        <!-- المحطة الثانية: خريطة الأثر -->
+        <section class="station" id="station-2">
+            <div class="observatory-title">المحطة الثانية : ترتيب النجوم</div>
+            <div class="constellation-box">
+                <div class="star-point sp-1"></div>
+                <div class="star-point sp-2"></div>
+                <div class="star-point sp-3"></div>
+                <div class="star-point sp-4"></div>
+            </div>
+            <div class="station-desc">
+                شيئاً فشيئاً، تبدأ إحداثيات الكون المبعثرة بالترتب. كل نقطة عتمة تجد مكانها، وكل زاوية تائهة تستعد لتستقبل النور الحقيقي الذي أعاد ترتيب الروح من أعمق نقطة.
+            </div>
+        </section>
+
+        <!-- المحطة الثالثة: المونولوج الطويل -->
+        <section class="station" id="station-3">
+            <div class="observatory-title">المحطة الثالثة : اعتراف الذاكرة</div>
+            <div class="monologue-text">
+                "حين غاب الصوت وتفرقت التفاصيل، ظننتُ أن الفوضى ستدوم للأبد. لكن حضوركِ يا <span>مياسم</span> لم يكن مجرد صدفة؛ كان الترتيب الإلهي الوحيد الذي جاء ليعيد لكل شتاتٍ وطنه، ولكل خوفٍ طمأنينته المطلقة."
+            </div>
+        </section>
+
+        <!-- المحطة الرابعة: الإشراق والالتئام (الخاتمة الكبرى) -->
+        <section class="station" id="station-4">
+            <div class="observatory-title">المحطة الأبديّة : الإشراق والتوافق</div>
+            <div class="sanctuary-card">
+                هنا تنتهي رحلة العتمة وتبدأ حكاية النور الأبدي. بوجودك الهادئ والمطلق، <strong>أنتِ أصلحتِ قلبي</strong> وأعدتِ له التناغم والنبض والصفاء الذي لم يسبق له مثيل. كل زاوية في هذا المكان أصبحت تنبض باسمكِ وحدكِ.
+                <div class="signature-area">إلى مياسم (سوسو)</div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // تأثير التمرير التفاعلي (Observer) لتغيير المحطات بسلاسة وهدوء
+        const stations = document.querySelectorAll('.station');
+        const ambientLayer = document.getElementById('ambientLayer');
+
+        const observerOptions = {
+            root: null,
+            threshold: 0.45
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // تغيير إضاءة الخلفية تدريجياً كلما تقدم المستخدم في المحطات
+                    if (entry.target.id === 'station-2') {
+                        ambientLayer.style.background = 'radial-gradient(circle at 50% 40%, rgba(201, 59, 93, 0.08) 0%, transparent 65%)';
+                    } else if (entry.target.id === 'station-3') {
+                        ambientLayer.style.background = 'radial-gradient(circle at 50% 60%, rgba(229, 184, 83, 0.06) 0%, transparent 70%)';
+                    } else if (entry.target.id === 'station-4') {
+                        ambientLayer.style.background = 'radial-gradient(circle at 50% 80%, rgba(229, 184, 83, 0.12) 0%, transparent 75%)';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        stations.forEach(station => {
+            observer.observe(station);
+        });
+
+        // عداد زمني صامت يعطي شعوراً بالواقعية والتأمل
+        let seconds = 22;
+        let minutes = 18;
+        let hours = 4;
+        setInterval(() => {
+            seconds++;
+            if (seconds >= 60) { seconds = 0; minutes++; }
+            if (minutes >= 60) { minutes = 0; hours++; }
+            
+            const formattedTime = `${String(hours).padStart(2, '0')} : ${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
+            const counterEl = document.getElementById('timerCount');
+            if(counterEl) counterEl.innerText = formattedTime;
+        }, 1000);
+    </script>
+</body>
+</html>
